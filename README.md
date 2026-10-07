@@ -21,6 +21,10 @@
     <em>Crafted with precision, thoughtful typography, and smooth micro-interactions.</em>
   </p>
 
+  <p align="center">
+    <strong>🔗 Live Demo: <a href="<!-- TODO: paste your Render URL here, e.g. https://your-site.onrender.com -->"><!-- TODO: paste your Render URL here --></a></strong>
+  </p>
+
 </div>
 
 ---
@@ -184,11 +188,13 @@ Copy the example environment file:
 cp .env.example .env
 ```
 
-*(Optional)* Add your Web3Forms access key if you wish to override the default key:
+Open `.env` and set your Web3Forms access key (required for the contact form to work):
 
 ```env
 VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_access_key_here
 ```
+
+Get a free key at [web3forms.com](https://web3forms.com/). When deploying to Render, add this variable under **Environment → Environment Variables** in the Render dashboard.
 
 ### Development Server
 
@@ -218,11 +224,11 @@ npm run preview
 
 ## 📬 Contact Form Setup (Web3Forms)
 
-The contact form is pre-configured to use [Web3Forms](https://web3forms.com/) for serverless email forwarding:
+The contact form uses [Web3Forms](https://web3forms.com/) for serverless email forwarding:
 
 1. Visit [Web3Forms](https://web3forms.com/) and enter your email address to generate a free Access Key.
-2. The key can be plugged directly into `src/Contact.jsx` (at `formDataObj.append('access_key', 'YOUR_KEY')`) or loaded via `.env` (`VITE_WEB3FORMS_ACCESS_KEY`).
-3. **Security Recommendation**: Log in to your Web3Forms dashboard and add your production domain to the **Domain Whitelist** to prevent spam submissions from third-party websites.
+2. Set the key as `VITE_WEB3FORMS_ACCESS_KEY` in your `.env` file locally, and in Render's **Environment → Environment Variables** for production.
+3. **Security Recommendation**: In your Web3Forms dashboard, restrict the key to your live domain to prevent spam submissions from third-party sites.
 
 ---
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Hero } from '../Hero';
 import { QuoteSection } from '../sections/QuoteSection';
 import { TechStackSection } from '../sections/TechStackSection';
@@ -12,18 +12,9 @@ import { Thoughts } from '../Thoughts';
 import { Contact } from '../Contact';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { ROUTE_TITLES } from '../config/site';
-import { useRestoreHomeScroll } from '../hooks/useRestoreHomeScroll';
-import { homeScroll } from '../utils/homeScroll';
 
 export const Home: React.FC = () => {
   useDocumentTitle(ROUTE_TITLES.home);
-  useRestoreHomeScroll();
-
-  useEffect(() => {
-    return () => {
-      homeScroll.save();
-    };
-  }, []);
 
   return (
     <main className="w-full overflow-clip">

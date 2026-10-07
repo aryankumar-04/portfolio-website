@@ -5,12 +5,9 @@ import { BackButton } from '../components/BackButton';
 import { blogPosts } from '../data/blog';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { ROUTE_TITLES } from '../config/site';
-import { useRestoreBlogScroll } from '../hooks/useRestoreBlogScroll';
-import { blogScroll } from '../utils/blogScroll';
 
 export const BlogArchive: React.FC = () => {
   useDocumentTitle(ROUTE_TITLES.thoughts);
-  useRestoreBlogScroll();
 
   useEffect(() => {
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -20,10 +17,6 @@ export const BlogArchive: React.FC = () => {
         'Discover ideas, perspectives, and creative thinking shaped by our work in brand identity and art direction. Each article explores how thoughtful design helps brands with clarity and intention.'
       );
     }
-
-    return () => {
-      blogScroll.save();
-    };
   }, []);
 
   return (

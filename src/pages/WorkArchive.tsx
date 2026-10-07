@@ -33,12 +33,6 @@ export const WorkArchive: React.FC = () => {
     const grid = gridRef.current;
     if (!grid) return;
 
-    // Reset scroll to 0 on mount so client-side navigation starts cleanly
-    window.scrollTo(0, 0);
-    if ((window as any).__lenis) {
-      (window as any).__lenis.scrollTo(0, { immediate: true });
-    }
-
     const cards = Array.from(grid.querySelectorAll<HTMLElement>('.work-project-card'));
     if (cards.length === 0) return;
 

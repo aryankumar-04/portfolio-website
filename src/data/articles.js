@@ -1,17 +1,17 @@
 import cover1 from '../assets/blog/blog-inside/1.svg';
-import card1 from '../assets/blog/images/1.svg';
+import card1 from '../assets/blog/images/1-card.webp';
 import cover2 from '../assets/blog/blog-inside/2.svg';
-import card2 from '../assets/blog/images/2.svg';
+import card2 from '../assets/blog/images/2-card.webp';
 import cover3 from '../assets/blog/blog-inside/3.svg';
-import card3 from '../assets/blog/images/3.svg';
+import card3 from '../assets/blog/images/3-card.webp';
 import cover4 from '../assets/blog/blog-inside/4.svg';
-import card4 from '../assets/blog/images/4.svg';
+import card4 from '../assets/blog/images/4-card.webp';
 import cover5 from '../assets/blog/blog-inside/5.svg';
-import card5 from '../assets/blog/images/5.svg';
+import card5 from '../assets/blog/images/5-card.webp';
 import cover6 from '../assets/blog/blog-inside/6.svg';
-import card6 from '../assets/blog/images/6.svg';
+import card6 from '../assets/blog/images/6-card.webp';
 import cover7 from '../assets/blog/blog-inside/7.svg';
-import card7 from '../assets/blog/images/7.svg';
+import card7 from '../assets/blog/images/7-card.webp';
 
 export const articles = [
   {

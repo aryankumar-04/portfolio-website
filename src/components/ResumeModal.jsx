@@ -4,10 +4,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export function ResumeModal({ isOpen, onClose }) {
   const closeButtonRef = useRef(null);
+  const scrollYRef = useRef(0);
 
-  // Lock page scrolling (including Lenis) without layout jump
+  // Lock page scrolling (including Lenis) without layout jump and restore exact position
   useEffect(() => {
     if (!isOpen) return;
+
+    const scrollY = typeof window !== 'undefined'
+      ? (window.__lenis?.scroll ?? window.scrollY)
+      : 0;
+    scrollYRef.current = scrollY;
 
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     const originalOverflow = document.body.style.overflow;
@@ -25,17 +31,21 @@ export function ResumeModal({ isOpen, onClose }) {
     return () => {
       document.body.style.overflow = originalOverflow;
       document.body.style.paddingRight = originalPaddingRight;
-      if (typeof window !== 'undefined' && window.__lenis) {
-        window.__lenis.start();
+      if (typeof window !== 'undefined') {
+        if (window.__lenis) {
+          window.__lenis.start();
+          window.__lenis.scrollTo(scrollY, { immediate: true, force: true });
+        }
+        window.scrollTo(0, scrollY);
       }
     };
   }, [isOpen]);
 
-  // Focus close button on mount
+  // Focus close button on mount without triggering scroll
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => {
-        closeButtonRef.current?.focus();
+        closeButtonRef.current?.focus({ preventScroll: true });
       }, 50);
       return () => clearTimeout(timer);
     }
@@ -60,7 +70,16 @@ export function ResumeModal({ isOpen, onClose }) {
   if (typeof document === 'undefined') return null;
 
   return createPortal(
-    <AnimatePresence>
+    <AnimatePresence
+      onExitComplete={() => {
+        if (typeof window !== 'undefined') {
+          if (window.__lenis) {
+            window.__lenis.scrollTo(scrollYRef.current, { immediate: true, force: true });
+          }
+          window.scrollTo(0, scrollYRef.current);
+        }
+      }}
+    >
       {isOpen && (
         <div
           className="fixed inset-0 z-[9999] flex items-center justify-center p-3 tablet:p-6"

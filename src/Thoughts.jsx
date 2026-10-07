@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { homeScroll } from './utils/homeScroll';
 import { playedOnce } from './utils/playedOnce';
 import { AnimatedArrowBox } from './components/AnimatedArrowBox';
 
-import blog1Img from './assets/blog/images/1.svg';
-import blog2Img from './assets/blog/images/2.svg';
-import blog3Img from './assets/blog/images/3.svg';
+import blog1Img from './assets/blog/images/1-card.webp';
+import blog2Img from './assets/blog/images/2-card.webp';
+import blog3Img from './assets/blog/images/3-card.webp';
 
 
 const POSTS = [
@@ -90,7 +89,6 @@ export function Thoughts() {
                 <Link
                   to={post.href}
                   state={{ fromInternal: true }}
-                  onClick={() => homeScroll.save('thoughts')}
                   className="group relative w-full h-[460px] rounded-[20px] overflow-hidden flex flex-col justify-end p-[20px] select-none block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] cursor-pointer"
                 >
 
@@ -162,11 +160,10 @@ export function Thoughts() {
                 <Link
                   to="/blog"
                   state={{ fromInternal: true }}
-                  onClick={() => homeScroll.save('thoughts')}
                   className="group inline-flex flex-row items-center gap-[10px] text-[#FAF7F3] select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FAF7F3]"
                 >
                   <span className="font-sans font-normal font-[400] text-[18px] leading-[1.4em] tracking-[-0.04em] whitespace-pre text-[#FAF7F3]">
-                    View All Work
+                    View All Blogs
                   </span>
                   <AnimatedArrowBox variant="dark" size="md" direction="up-right" />
                 </Link>

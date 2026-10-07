@@ -223,22 +223,27 @@ export const WorkDetail: React.FC = () => {
     [slug]
   );
 
-  // Get "More Projects" — next 2 projects excluding current (only from featured: arch, daily-email-digest, airmouse, cenivo, hill-climbing-race, games-gadgets-haven)
+  // Stable random seed per slug mount — changes when navigating to a different project
+  const pickSeedRef = useRef<number>(Math.random());
+  useEffect(() => {
+    pickSeedRef.current = Math.random();
+  }, [slug]);
+
+  // Get "More Projects" — random 2 from all workItems excluding the current one
   const moreProjects = useMemo(() => {
     if (!item) return [];
-    const featured = workItems.filter(
-      (w) =>
-        [
-          'arch',
-          'daily-email-digest',
-          'airmouse',
-          'cenivo',
-          'hill-climbing-race',
-          'games-gadgets-haven',
-        ].includes(w.slug) && w.slug !== item.slug
-    );
-    return featured.slice(0, 2);
-  }, [item]);
+    // Force dependency on slug so memo recomputes when the project changes
+    void slug;
+    const pool = workItems.filter((w) => w.slug !== item.slug);
+    // Fisher-Yates shuffle (in-place on a copy)
+    const arr = [...pool];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.slice(0, 2);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item, slug]);
 
   useDocumentTitle(ROUTE_TITLES.projects);
 

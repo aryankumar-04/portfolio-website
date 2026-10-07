@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { homeScroll } from '../utils/homeScroll';
 import { playedOnce } from '../utils/playedOnce';
 import { AnimatedArrowBox } from '../components/AnimatedArrowBox';
 
@@ -85,7 +84,7 @@ export const ProjectsSection: React.FC = () => {
                   fontWeight: 'var(--featured-view-all-font-weight)',
                 }}
               >
-                View All Work
+                View All Projects
               </span>
               <AnimatedArrowBox variant="light" size="sm" direction="up-right" />
             </Link>
@@ -113,7 +112,6 @@ export const ProjectsSection: React.FC = () => {
               >
                 <Link
                   to={project.href}
-                  onClick={() => homeScroll.save('projects')}
                   className="group block w-full select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] rounded-[20px]"
                 >
                   {/* Image Container with ~1.45:1 Aspect Ratio & 20px Radius */}

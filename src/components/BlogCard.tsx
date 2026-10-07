@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BlogPost } from '../types/cms';
-import { blogScroll } from '../utils/blogScroll';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -33,7 +32,6 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
       <Link
         to={`/blog/${post.slug}`}
         state={{ fromInternal: true }}
-        onClick={() => blogScroll.save()}
         className="group relative w-full h-full rounded-[var(--blog-list-card-radius,20px)] overflow-hidden flex flex-col justify-end p-[var(--blog-list-card-padding,20px)] select-none block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] cursor-pointer"
       >
         {/* Background Image with Framer Spring-like Hover Zoom (104%) */}

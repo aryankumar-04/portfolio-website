@@ -60,7 +60,7 @@ coverage/
 scratch/
 
 # Non-production inspection data & scratch dumps
-Navbar.jsx
+/Navbar.jsx
 FRAMER_INVENTORY.md
 desktop-view*.json
 mobile-view*.json

@@ -436,7 +436,10 @@ function DesktopHero({ onOpenResume }) {
 
                 <motion.button
                   type="button"
-                  onClick={(e) => onOpenResume(e.currentTarget)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onOpenResume(e.currentTarget);
+                  }}
                   aria-label="View Resume"
                   aria-haspopup="dialog"
                   className="group inline-flex items-center gap-3 text-[#111111] hover:text-[#111111]/70 transition-colors py-1 cursor-pointer select-none bg-transparent border-0 p-0 text-left"
@@ -697,7 +700,10 @@ function TabletHero({ onOpenResume }) {
 
               <motion.button
                 type="button"
-                onClick={(e) => onOpenResume(e.currentTarget)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenResume(e.currentTarget);
+                }}
                 aria-label="View Resume"
                 aria-haspopup="dialog"
                 className="group inline-flex items-center gap-3 text-[#111111] hover:text-[#111111]/70 transition-colors py-1 cursor-pointer select-none bg-transparent border-0 p-0 text-left"
@@ -970,7 +976,10 @@ function MobileHero({ onOpenResume }) {
 
             <motion.button
               type="button"
-              onClick={(e) => onOpenResume(e.currentTarget)}
+              onClick={(e) => {
+                e.preventDefault();
+                onOpenResume(e.currentTarget);
+              }}
               aria-label="View Resume"
               aria-haspopup="dialog"
               className="group inline-flex items-center gap-2.5 text-[#111111] hover:text-[#111111]/70 transition-colors py-1 select-none w-fit cursor-pointer bg-transparent border-0 p-0 text-left"
@@ -995,17 +1004,39 @@ export function Hero() {
   const breakpoint = useBreakpoint();
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const resumeTriggerRef = useRef(null);
+  const savedScrollYRef = useRef(0);
 
   const handleOpenResume = (triggerEl) => {
+    savedScrollYRef.current = typeof window !== 'undefined'
+      ? (window.__lenis?.scroll ?? window.scrollY)
+      : 0;
     resumeTriggerRef.current = triggerEl;
     setIsResumeOpen(true);
   };
 
   const handleCloseResume = () => {
+    const savedY = savedScrollYRef.current;
     setIsResumeOpen(false);
-    if (resumeTriggerRef.current) {
-      resumeTriggerRef.current.focus();
+
+    if (resumeTriggerRef.current && typeof resumeTriggerRef.current.focus === 'function') {
+      try {
+        resumeTriggerRef.current.focus({ preventScroll: true });
+      } catch {
+        resumeTriggerRef.current.focus();
+      }
     }
+
+    const restoreScroll = () => {
+      if (typeof window !== 'undefined') {
+        if (window.__lenis) {
+          window.__lenis.scrollTo(savedY, { immediate: true, force: true });
+        }
+        window.scrollTo(0, savedY);
+      }
+    };
+
+    restoreScroll();
+    requestAnimationFrame(restoreScroll);
   };
 
   let content = null;

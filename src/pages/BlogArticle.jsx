@@ -433,6 +433,7 @@ export default function BlogArticle() {
   const { slug } = useParams();
   const [readAgoText, setReadAgoText] = useState(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [moreArticles, setMoreArticles] = useState([]);
   const imageTriggerRef = useRef(null);
 
   // Find article by slug or alias
@@ -442,13 +443,19 @@ export default function BlogArticle() {
     );
   }, [slug]);
 
-  // "More Articles": other 3 articles excluding the current one
-  const moreArticles = useMemo(() => {
-    if (!article) return [];
-    return articles
-      .filter((a) => a.slug !== article.slug && (!a.aliases || !a.aliases.includes(article.slug)))
-      .slice(0, 3);
-  }, [article]);
+  useEffect(() => {
+    if (!article) {
+      setMoreArticles([]);
+      return;
+    }
+
+    const shuffled = articles.filter((item) => item.slug !== article.slug);
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+    }
+    setMoreArticles(shuffled.slice(0, 3));
+  }, [article?.slug]);
 
   useDocumentTitle(ROUTE_TITLES.thoughts);
 
@@ -480,7 +487,7 @@ export default function BlogArticle() {
     if (window.history.state && typeof window.history.state.idx === 'number' && window.history.state.idx > 0) {
       navigate(-1);
     } else {
-      navigate('/blog', { replace: true, state: { restoreBlog: true } });
+      navigate('/blog', { replace: true });
     }
   };
 
@@ -650,7 +657,7 @@ export default function BlogArticle() {
         </div>
 
         {/* ──────────────────── More Articles Section ──────────────────── */}
-        {moreArticles.length > 0 && (
+        {article && (
           <section className="w-full pt-[var(--gap-thoughts-contact)] border-t border-[#111111]/10">
             <motion.h2
               {...fadeUpInView(0)}
@@ -667,7 +674,7 @@ export default function BlogArticle() {
 
             <ul
               role="list"
-              className="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-[16px] w-full items-stretch"
+              className={`grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-[16px] w-full items-stretch${moreArticles.length ? '' : ' min-h-[460px]'}`}
             >
               {moreArticles.map((item, index) => (
                 <motion.li

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { homeScroll } from '../utils/homeScroll';
 import { AnimatedArrowBox } from './AnimatedArrowBox';
 
 export interface BackButtonProps {
@@ -20,8 +19,6 @@ export const BackButton: React.FC<BackButtonProps> = ({
   const handleBack = () => {
     if (window.history.state && typeof window.history.state.idx === 'number' && window.history.state.idx > 0) {
       navigate(-1);
-    } else if (homeScroll.hasPosition()) {
-      navigate(fallbackTo, { replace: true, state: { restoreHome: true } });
     } else {
       navigate(fallbackTo, { replace: true });
     }

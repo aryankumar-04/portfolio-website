@@ -389,7 +389,7 @@ export function Contact() {
     try {
       const formTarget = e.target;
       const formDataObj = new FormData(formTarget);
-      formDataObj.append('access_key', 'e80bdf2b-bd35-49b1-9712-ce597e73a383');
+      formDataObj.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
