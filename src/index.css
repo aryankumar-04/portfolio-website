@@ -1,0 +1,1175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base HTML & Body with Noise Overlay */
+body {
+  background-color: #FAF7F3;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image: var(--noise-texture);
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}
+
+/* Clash Grotesk Font for Slash Separator */
+@font-face {
+  font-family: "Clash Grotesk";
+  src: url("https://framerusercontent.com/third-party-assets/fontshare/wf/O462VY6O6FTQCS72XVMTQHXAM4NN5CY3/TWF57ITZORMJ3MEWLQQIVO6BMXIB6FUR/MJQFMMOTEGNXDVM7HBBDTQHTVB2M7Y6G.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Clash Grotesk Placeholder";
+  src: local("Arial");
+  ascent-override: 92.12%;
+  descent-override: 25.88%;
+  line-gap-override: 9.32%;
+  size-adjust: 96.61%;
+}
+
+/* Global Page Background & Grain Texture */
+:root {
+  --color-page-bg: #FAF7F3;
+  --noise-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)'/%3E%3C/svg%3E");
+
+  /* Section Spacing Variables — Mobile default (<810px) */
+  --gap-hero-quote: 0px;
+  --gap-quote-services: 0px;
+  --gap-services-projects: 80px;
+  --gap-projects-testimonials: 80px;
+  --gap-testimonials-thoughts: 80px;
+  --gap-thoughts-contact: 80px;
+  --gap-contact-footer: 80px;
+
+  --featured-view-all-font-family: Archivo, "Archivo Placeholder", sans-serif;
+  --featured-view-all-font-style: normal;
+  --featured-view-all-font-weight: 400;
+  --featured-view-all-font-size: 18px;
+
+  /* Work Page Typography Tokens — Mobile default (<810px) */
+  --work-font-family: Archivo, "Archivo Placeholder", sans-serif;
+  --work-font-style: normal;
+  --work-h1-font-size: 52px;
+  --work-h1-font-weight: 700;
+  --work-sub-font-size: 18px;
+  --work-sub-font-weight: 400;
+  --work-card-title-font-size: 28px;
+  --work-card-title-font-weight: 500;
+  --work-card-sub-font-size: 16px;
+  --work-card-sub-font-weight: 400;
+  --work-back-font-size: 16px;
+  --work-back-font-weight: 500;
+
+  /* Blog Article Typography Tokens — Mobile default (<810px) */
+  --article-title-font-size: 52px;
+  --article-title-font-weight: 700;
+  --article-intro-font-size: 18px;
+  --article-intro-font-weight: 400;
+  --article-meta-font-size: 16px;
+  --article-meta-font-weight: 400;
+  --article-h2-font-size: 32px;
+  --article-h2-font-weight: 600;
+  --article-subheading-font-family: Archivo, "Archivo Placeholder", sans-serif;
+  --article-subheading-font-style: normal;
+  --article-subheading-font-size: 28px;
+  --article-subheading-font-weight: 500;
+  --article-body-font-size: 18px;
+  --article-body-font-weight: 400;
+  --article-newsletter-title-font-size: 20px;
+  --article-newsletter-title-font-weight: 600;
+  --article-newsletter-sub-font-size: 16px;
+  --article-newsletter-sub-font-weight: 400;
+  --article-newsletter-btn-font-size: 16px;
+  --article-newsletter-btn-font-weight: 500;
+  --article-more-heading-font-size: 32px;
+  --article-more-heading-font-weight: 600;
+  --article-card-title-font-size: 28px;
+  --article-card-title-font-weight: 500;
+  --article-card-meta-font-size: 16px;
+  --article-card-meta-font-weight: 400;
+
+  /* Work Page Layout Tokens — Mobile default (<810px) */
+  --work-pt: 140px;
+  --work-pb: 80px;
+  --work-container-max-w: 100%;
+  --work-container-px: 20px;
+  --work-container-gap: 40px;
+  --work-h1-size: 52px;
+  --work-h1-max-w: 420px;
+  --work-sub-max-w: 420px;
+  --work-card-title-size: 28px;
+  --work-grid-gap: 20px;
+  --work-card-gap: 10px;
+  --work-card-radius: 20px;
+  --work-sub-size: 18px;
+  --work-card-sub-size: 16px;
+  --work-back-size: 16px;
+
+  /* Blog Listing Page Tokens — Mobile default (<810px) */
+  --blog-list-pt: 140px;
+  --blog-list-pb: 80px;
+  --blog-list-container-max-w: 100%;
+  --blog-list-container-px: 20px;
+  --blog-list-container-gap: 40px;
+  --blog-list-h1-font-size: 52px;
+  --blog-list-h1-font-weight: 700;
+  --blog-list-h1-max-w: 420px;
+  --blog-list-intro-font-size: 18px;
+  --blog-list-intro-font-weight: 400;
+  --blog-list-intro-max-w: 420px;
+  --blog-list-grid-columns: 1;
+  --blog-list-grid-gap: 16px;
+  --blog-list-card-height: 460px;
+  --blog-list-card-radius: 20px;
+  --blog-list-card-padding: 20px;
+  --blog-list-card-date-font-size: 16px;
+  --blog-list-card-date-font-weight: 400;
+  --blog-list-card-title-font-size: 28px;
+  --blog-list-card-title-font-weight: 500;
+  --blog-list-card-desc-font-size: 16px;
+  --blog-list-card-desc-font-weight: 400;
+
+  /* Project Detail Page Typography Tokens — Mobile default (<810px) */
+  --project-font-family: Archivo, "Archivo Placeholder", sans-serif;
+  --project-separator-font-family: "Clash Grotesk", "Clash Grotesk Placeholder", sans-serif;
+  --project-title-font-size: 52px;
+  --project-title-font-weight: 700;
+  --project-meta-label-font-size: 16px;
+  --project-meta-label-font-weight: 400;
+  --project-meta-val-font-size: 18px;
+  --project-meta-val-font-weight: 400;
+  --project-separator-font-size: 20px;
+  --project-separator-font-weight: 400;
+  --project-intro-font-size: 18px;
+  --project-intro-font-weight: 400;
+  --project-h2-font-size: 32px;
+  --project-h2-font-weight: 600;
+  --project-body-font-size: 18px;
+  --project-body-font-weight: 400;
+  --project-more-h2-font-size: 48px;
+  --project-more-h2-font-weight: 600;
+  --project-card-title-font-size: 28px;
+  --project-card-title-font-weight: 500;
+  --project-card-cat-font-size: 16px;
+  --project-card-cat-font-weight: 400;
+  --project-subheading-font-size: 28px;
+  --project-subheading-font-weight: 500;
+
+  /* Services Section Typography Tokens — Mobile default (<810px) */
+  --services-font-family: Archivo, "Archivo Placeholder", sans-serif;
+  --services-h2-font-size: 46px;
+  --services-h2-font-weight: 600;
+  --services-item-title-font-size: 28px;
+  --services-item-title-font-weight: 500;
+  --services-tag-font-size: 18px;
+  --services-tag-font-weight: 400;
+
+  /* Testimonials Card Hover & Tap Animation Tokens */
+  --testimonial-card-lift-y: -10px;
+  --testimonial-card-hover-duration: 350ms;
+  --testimonial-card-hover-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --testimonial-card-hover-ease-in: cubic-bezier(0.4, 0, 0.2, 1);
+  --testimonial-card-hover-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.35);
+  --testimonial-card-tap-duration: 500ms;
+  --testimonial-card-tap-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 810px) {
+  :root {
+    /* Tablet (810px - 1279px) */
+    --gap-hero-quote: 0px;
+    --gap-quote-services: 0px;
+    --gap-services-projects: 100px;
+    --gap-projects-testimonials: 100px;
+    --gap-testimonials-thoughts: 100px;
+    --gap-thoughts-contact: 100px;
+    --gap-contact-footer: 100px;
+
+    /* Featured Projects "View All Work" Button Tokens — Tablet */
+    --featured-view-all-font-family: Archivo, "Archivo Placeholder", sans-serif;
+    --featured-view-all-font-style: normal;
+    --featured-view-all-font-weight: 400;
+    --featured-view-all-font-size: 18px;
+
+    /* Work Page Typography Tokens — Tablet */
+    --work-font-family: Archivo, "Archivo Placeholder", sans-serif;
+    --work-font-style: normal;
+    --work-h1-font-size: 62px;
+    --work-h1-font-weight: 700;
+    --work-sub-font-size: 18px;
+    --work-sub-font-weight: 400;
+    --work-card-title-font-size: 30px;
+    --work-card-title-font-weight: 500;
+    --work-card-sub-font-size: 16px;
+    --work-card-sub-font-weight: 400;
+    --work-back-font-size: 17px;
+    --work-back-font-weight: 500;
+
+    /* Blog Article Typography Tokens — Tablet */
+    --article-title-font-size: 62px;
+    --article-title-font-weight: 700;
+    --article-intro-font-size: 18px;
+    --article-intro-font-weight: 400;
+    --article-meta-font-size: 16px;
+    --article-meta-font-weight: 400;
+    --article-h2-font-size: 42px;
+    --article-h2-font-weight: 600;
+    --article-subheading-font-size: 30px;
+    --article-subheading-font-weight: 500;
+    --article-body-font-size: 18px;
+    --article-body-font-weight: 400;
+    --article-newsletter-title-font-size: 22px;
+    --article-newsletter-title-font-weight: 600;
+    --article-newsletter-sub-font-size: 16px;
+    --article-newsletter-sub-font-weight: 400;
+    --article-newsletter-btn-font-size: 16px;
+    --article-newsletter-btn-font-weight: 500;
+    --article-more-heading-font-size: 42px;
+    --article-more-heading-font-weight: 600;
+    --article-card-title-font-size: 30px;
+    --article-card-title-font-weight: 500;
+    --article-card-meta-font-size: 16px;
+    --article-card-meta-font-weight: 400;
+
+    /* Work Page Layout Tokens — Tablet */
+    --work-pt: 160px;
+    --work-pb: 100px;
+    --work-container-max-w: 900px;
+    --work-container-px: 30px;
+    --work-container-gap: 60px;
+    --work-h1-size: 62px;
+    --work-h1-max-w: 420px;
+    --work-sub-max-w: 420px;
+    --work-card-title-size: 30px;
+    --work-sub-size: 18px;
+    --work-card-sub-size: 16px;
+    --work-back-size: 17px;
+
+    /* Blog Listing Page Tokens — Tablet */
+    --blog-list-pt: 160px;
+    --blog-list-pb: 100px;
+    --blog-list-container-max-w: 900px;
+    --blog-list-container-px: 30px;
+    --blog-list-container-gap: 60px;
+    --blog-list-h1-font-size: 62px;
+    --blog-list-h1-font-weight: 700;
+    --blog-list-h1-max-w: 420px;
+    --blog-list-intro-font-size: 18px;
+    --blog-list-intro-font-weight: 400;
+    --blog-list-intro-max-w: 420px;
+    --blog-list-grid-columns: 2;
+    --blog-list-grid-gap: 16px;
+    --blog-list-card-height: 460px;
+    --blog-list-card-radius: 20px;
+    --blog-list-card-padding: 20px;
+    --blog-list-card-date-font-size: 16px;
+    --blog-list-card-date-font-weight: 400;
+    --blog-list-card-title-font-size: 30px;
+    --blog-list-card-title-font-weight: 500;
+    --blog-list-card-desc-font-size: 16px;
+    --blog-list-card-desc-font-weight: 400;
+
+    /* Project Detail Page Typography Tokens — Tablet (810px - 1279px) */
+    --project-title-font-size: 62px;
+    --project-title-font-weight: 700;
+    --project-meta-label-font-size: 16px;
+    --project-meta-label-font-weight: 400;
+    --project-meta-val-font-size: 18px;
+    --project-meta-val-font-weight: 400;
+    --project-separator-font-size: 20px;
+    --project-separator-font-weight: 400;
+    --project-intro-font-size: 18px;
+    --project-intro-font-weight: 400;
+    --project-h2-font-size: 42px;
+    --project-h2-font-weight: 600;
+    --project-body-font-size: 18px;
+    --project-body-font-weight: 400;
+    --project-more-h2-font-size: 58px;
+    --project-more-h2-font-weight: 600;
+    --project-card-title-font-size: 30px;
+    --project-card-title-font-weight: 500;
+    --project-card-cat-font-size: 16px;
+    --project-card-cat-font-weight: 400;
+    --project-subheading-font-size: 30px;
+    --project-subheading-font-weight: 500;
+
+    /* Services Section Typography Tokens — Tablet (810px - 1279px) */
+    --services-h2-font-size: 62px;
+    --services-h2-font-weight: 600;
+    --services-item-title-font-size: 30px;
+    --services-item-title-font-weight: 500;
+    --services-tag-font-size: 18px;
+    --services-tag-font-weight: 400;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    /* Desktop (>= 1280px) — Exact Framer values */
+    --gap-hero-quote: 0px;
+    --gap-quote-services: 0px;
+    --gap-services-projects: 120px;
+    --gap-projects-testimonials: 120px;
+    --gap-testimonials-thoughts: 120px;
+    --gap-thoughts-contact: 120px;
+    --gap-contact-footer: 120px;
+
+    /* Featured Projects "View All Work" Button Tokens — Desktop */
+    --featured-view-all-font-family: Archivo, "Archivo Placeholder", sans-serif;
+    --featured-view-all-font-style: normal;
+    --featured-view-all-font-weight: 400;
+    --featured-view-all-font-size: 18px;
+
+    /* Work Page Typography Tokens — Desktop */
+    --work-font-family: Archivo, "Archivo Placeholder", sans-serif;
+    --work-font-style: normal;
+    --work-h1-font-size: 72px;
+    --work-h1-font-weight: 700;
+    --work-sub-font-size: 18px;
+    --work-sub-font-weight: 400;
+    --work-card-title-font-size: 32px;
+    --work-card-title-font-weight: 500;
+    --work-card-sub-font-size: 16px;
+    --work-card-sub-font-weight: 400;
+    --work-back-font-size: 18px;
+    --work-back-font-weight: 500;
+
+    /* Blog Article Typography Tokens — Desktop */
+    --article-title-font-size: 72px;
+    --article-title-font-weight: 700;
+    --article-intro-font-size: 18px;
+    --article-intro-font-weight: 400;
+    --article-meta-font-size: 16px;
+    --article-meta-font-weight: 400;
+    --article-h2-font-size: 52px;
+    --article-h2-font-weight: 600;
+    --article-subheading-font-size: 32px;
+    --article-subheading-font-weight: 500;
+    --article-body-font-size: 18px;
+    --article-body-font-weight: 400;
+    --article-newsletter-title-font-size: 24px;
+    --article-newsletter-title-font-weight: 600;
+    --article-newsletter-sub-font-size: 16px;
+    --article-newsletter-sub-font-weight: 400;
+    --article-newsletter-btn-font-size: 16px;
+    --article-newsletter-btn-font-weight: 500;
+    --article-more-heading-font-size: 52px;
+    --article-more-heading-font-weight: 600;
+    --article-card-title-font-size: 32px;
+    --article-card-title-font-weight: 500;
+    --article-card-meta-font-size: 16px;
+    --article-card-meta-font-weight: 400;
+
+    /* Work Page Layout Tokens — Desktop */
+    --work-pt: 180px;
+    --work-pb: 120px;
+    --work-container-max-w: 1180px;
+    --work-container-px: 0px;
+    --work-container-gap: 60px;
+    --work-h1-size: 72px;
+    --work-h1-max-w: 620px;
+    --work-sub-max-w: 460px;
+    --work-card-title-size: 32px;
+    --work-sub-size: 18px;
+    --work-card-sub-size: 16px;
+    --work-back-size: 18px;
+
+    /* Blog Listing Page Tokens — Desktop */
+    --blog-list-pt: 180px;
+    --blog-list-pb: 120px;
+    --blog-list-container-max-w: 1180px;
+    --blog-list-container-px: 0px;
+    --blog-list-container-gap: 60px;
+    --blog-list-h1-font-size: 72px;
+    --blog-list-h1-font-weight: 700;
+    --blog-list-h1-max-w: 460px;
+    --blog-list-intro-font-size: 18px;
+    --blog-list-intro-font-weight: 400;
+    --blog-list-intro-max-w: 460px;
+    --blog-list-grid-columns: 3;
+    --blog-list-grid-gap: 16px;
+    --blog-list-card-height: 460px;
+    --blog-list-card-radius: 20px;
+    --blog-list-card-padding: 20px;
+    --blog-list-card-date-font-size: 16px;
+    --blog-list-card-date-font-weight: 400;
+    --blog-list-card-title-font-size: 32px;
+    --blog-list-card-title-font-weight: 500;
+    --blog-list-card-desc-font-size: 16px;
+    --blog-list-card-desc-font-weight: 400;
+
+    /* Project Detail Page Typography Tokens — Desktop (>= 1280px) */
+    --project-title-font-size: 72px;
+    --project-title-font-weight: 700;
+    --project-meta-label-font-size: 16px;
+    --project-meta-label-font-weight: 400;
+    --project-meta-val-font-size: 18px;
+    --project-meta-val-font-weight: 400;
+    --project-separator-font-size: 20px;
+    --project-separator-font-weight: 400;
+    --project-intro-font-size: 18px;
+    --project-intro-font-weight: 400;
+    --project-h2-font-size: 52px;
+    --project-h2-font-weight: 600;
+    --project-body-font-size: 18px;
+    --project-body-font-weight: 400;
+    --project-more-h2-font-size: 68px;
+    --project-more-h2-font-weight: 600;
+    --project-card-title-font-size: 32px;
+    --project-card-title-font-weight: 500;
+    --project-card-cat-font-size: 16px;
+    --project-card-cat-font-weight: 400;
+    --project-subheading-font-size: 32px;
+    --project-subheading-font-weight: 500;
+
+    /* Services Section Typography Tokens — Desktop (>= 1280px) */
+    --services-h2-font-size: 76px;
+    --services-h2-font-weight: 600;
+    --services-item-title-font-size: 32px;
+    --services-item-title-font-weight: 500;
+    --services-tag-font-size: 18px;
+    --services-tag-font-weight: 400;
+  }
+}
+
+/* Featured Projects "View All Work" Button Styles */
+.featured-view-all-btn {
+  font-family: var(--featured-view-all-font-family);
+  font-style: var(--featured-view-all-font-style);
+}
+
+/* Work Page Back Button Styles */
+.work-back-btn {
+  font-family: var(--work-font-family);
+  font-style: var(--work-font-style);
+}
+
+/* Blog Article Sub-heading Styles */
+.article-subheading {
+  font-family: var(--article-subheading-font-family, Archivo, "Archivo Placeholder", sans-serif);
+  font-style: var(--article-subheading-font-style, normal);
+  font-size: var(--article-subheading-font-size);
+  font-weight: var(--article-subheading-font-weight);
+}
+
+/* Work Page Project Cards Scroll Pop-Up Animation */
+/* Fallback: visible by default if JS does not initialize */
+.work-project-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* When JS initializes and adds .has-scroll-anim to the grid */
+.has-scroll-anim .work-project-card {
+  opacity: 0;
+  transform: translateY(32px) scale(0.96);
+  transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--card-stagger-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+.has-scroll-anim .work-project-card.is-in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.has-scroll-anim .work-project-card.is-settled {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .has-scroll-anim .work-project-card,
+  .work-project-card {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}
+
+/* Testimonial Card Hover & Tap Lift Styles */
+.testimonial-card {
+  position: relative;
+  z-index: 1;
+  transform: translateY(0);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  will-change: transform, box-shadow;
+  transition: transform var(--testimonial-card-hover-duration, 350ms) var(--testimonial-card-hover-ease-in, cubic-bezier(0.4, 0, 0.2, 1)),
+              box-shadow var(--testimonial-card-hover-duration, 350ms) var(--testimonial-card-hover-ease-in, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+/* Mouse / Trackpad Desktop & Fine Pointer Hover */
+@media (hover: hover) and (pointer: fine) {
+  .testimonial-card:hover {
+    z-index: 10;
+    transform: translateY(var(--testimonial-card-lift-y, -10px));
+    box-shadow: var(--testimonial-card-hover-shadow, 0 16px 32px -8px rgba(0, 0, 0, 0.35));
+    transition: transform var(--testimonial-card-hover-duration, 350ms) var(--testimonial-card-hover-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+                box-shadow var(--testimonial-card-hover-duration, 350ms) var(--testimonial-card-hover-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+}
+
+/* Keyboard Accessible Focus-Visible */
+.testimonial-card:focus-visible {
+  outline: none;
+  z-index: 10;
+  transform: translateY(var(--testimonial-card-lift-y, -10px));
+  box-shadow: var(--testimonial-card-hover-shadow, 0 16px 32px -8px rgba(0, 0, 0, 0.35)),
+              0 0 0 2px rgba(250, 247, 243, 0.6);
+  transition: transform var(--testimonial-card-hover-duration, 350ms) var(--testimonial-card-hover-ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow var(--testimonial-card-hover-duration, 350ms) var(--testimonial-card-hover-ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* Touch Device Tap Animation */
+@keyframes testimonial-card-tap-lift {
+  0% {
+    z-index: 10;
+    transform: translateY(0);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  42% {
+    z-index: 10;
+    transform: translateY(var(--testimonial-card-lift-y, -10px));
+    box-shadow: var(--testimonial-card-hover-shadow, 0 16px 32px -8px rgba(0, 0, 0, 0.35));
+  }
+  100% {
+    z-index: 1;
+    transform: translateY(0);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+.testimonial-card.is-tapped {
+  animation: testimonial-card-tap-lift var(--testimonial-card-tap-duration, 500ms) var(--testimonial-card-tap-ease, cubic-bezier(0.22, 1, 0.36, 1)) forwards;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-card {
+    transition: none !important;
+    transform: none !important;
+  }
+  .testimonial-card:hover,
+  .testimonial-card:focus-visible,
+  .testimonial-card.is-tapped {
+    transform: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@layer base {
+  html {
+    font-family: 'Archivo', "Archivo Placeholder", sans-serif;
+    background-color: var(--color-page-bg);
+    color: #111111;
+  }
+
+  body {
+    background-color: var(--color-page-bg);
+    color: #111111;
+    min-height: 100vh;
+  }
+}
+
+/* Fixed global grain overlay beneath all content (// DEFAULT - not from MCP) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url('./assets/grain.png');
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  opacity: 0.18;
+  mix-blend-mode: multiply;
+}
+
+#root {
+  background-color: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+/* Framer typography classes */
+.framer-h1 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: clamp(52px, 12vw, 174px);
+  line-height: 0.9em;
+  letter-spacing: -0.02em;
+}
+
+.framer-h1b {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1em;
+  letter-spacing: -0.02em;
+}
+
+.framer-h2 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 76px);
+  line-height: 1em;
+  letter-spacing: -0.02em;
+}
+
+.framer-h2b {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: clamp(36px, 5vw, 68px);
+  line-height: 1em;
+  letter-spacing: -0.02em;
+}
+
+.framer-h2c {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.2em;
+  letter-spacing: -0.02em;
+}
+
+.framer-h3 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 500;
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.2em;
+  letter-spacing: -0.02em;
+}
+
+.framer-h4 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.2em;
+  letter-spacing: 0px;
+}
+
+.framer-h5 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2em;
+  letter-spacing: -0.04em;
+}
+
+.framer-h6 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.2em;
+  letter-spacing: -0.04em;
+}
+
+.framer-title-22 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4em;
+  letter-spacing: -0.04em;
+}
+
+.framer-body-44 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: clamp(24px, 3.5vw, 44px);
+  line-height: 1.2em;
+  letter-spacing: -0.02em;
+}
+
+.framer-body-18 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.4em;
+  letter-spacing: -0.04em;
+}
+
+.framer-body-16 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4em;
+  letter-spacing: -0.04em;
+}
+
+.framer-body-16-light {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.4em;
+  letter-spacing: -0.04em;
+}
+
+/* Project Detail Page Typography Classes */
+.project-title {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-title-font-size);
+  font-weight: var(--project-title-font-weight);
+}
+
+.project-meta-label {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-meta-label-font-size);
+  font-weight: var(--project-meta-label-font-weight);
+}
+
+.project-meta-val {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-meta-val-font-size);
+  font-weight: var(--project-meta-val-font-weight);
+}
+
+.project-separator {
+  font-family: var(--project-separator-font-family);
+  font-style: normal;
+  font-size: var(--project-separator-font-size);
+  font-weight: var(--project-separator-font-weight);
+}
+
+.project-intro {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-intro-font-size);
+  font-weight: var(--project-intro-font-weight);
+}
+
+.project-heading {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-h2-font-size);
+  font-weight: var(--project-h2-font-weight);
+}
+
+.project-body {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-body-font-size);
+  font-weight: var(--project-body-font-weight);
+}
+
+.project-more-heading {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-more-h2-font-size);
+  font-weight: var(--project-more-h2-font-weight);
+}
+
+.project-card-title {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-card-title-font-size);
+  font-weight: var(--project-card-title-font-weight);
+}
+
+.project-card-cat {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-card-cat-font-size);
+  font-weight: var(--project-card-cat-font-weight);
+}
+
+.project-subheading {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-subheading-font-size);
+  font-weight: var(--project-subheading-font-weight);
+}
+
+.project-content ul,
+.project-content ol,
+.project-content li,
+.project-content blockquote {
+  font-family: var(--project-font-family);
+  font-style: normal;
+  font-size: var(--project-body-font-size);
+  font-weight: var(--project-body-font-weight);
+}
+
+/* Project Detail Image Preview Trigger */
+.project-previewable-image {
+  cursor: default;
+}
+
+@media (min-width: 1281px) {
+  .project-previewable-image {
+    cursor: zoom-in;
+  }
+}
+
+/* Services Section Typography Classes */
+.services-heading {
+  font-family: var(--services-font-family);
+  font-style: normal;
+  font-size: var(--services-h2-font-size);
+  font-weight: var(--services-h2-font-weight);
+}
+
+.services-item-title {
+  font-family: var(--services-font-family);
+  font-style: normal;
+  font-size: var(--services-item-title-font-size);
+  font-weight: var(--services-item-title-font-weight);
+}
+
+.services-tag {
+  font-family: var(--services-font-family);
+  font-style: normal;
+  font-size: var(--services-tag-font-size);
+  font-weight: var(--services-tag-font-weight);
+}
+
+/* ==========================================================================
+   Education & Certifications Design Tokens
+   Breakpoints: Desktop >=1281px, Tablet 811px–1280px, Mobile <=810px
+   ========================================================================== */
+
+/* Mobile Default (<=810px) */
+:root {
+  --edu-cert-font-family: Archivo, "Archivo Placeholder", sans-serif;
+  --edu-cert-h2-size: 46px;
+  --edu-cert-title-size: 28px;
+  --edu-sub-size: 16px;
+  --edu-date-size: 16px;
+  --cert-meta-size: 15px;
+  --cert-issued-size: 16px;
+  --cert-btn-size: 15px;
+  --modal-title-size: 20px;
+  --modal-btn-size: 14px;
+  --edu-cert-logo-size: 44px;
+  --edu-cert-section-gap: 80px;
+  --edu-cert-heading-gap: 40px;
+  --edu-cert-row-gap: 48px;
+}
+
+/* Tablet (811px - 1280px) */
+@media (min-width: 811px) and (max-width: 1280px) {
+  :root {
+    --edu-cert-h2-size: 62px;
+    --edu-cert-title-size: 30px;
+    --edu-sub-size: 18px;
+    --edu-date-size: 18px;
+    --cert-meta-size: 16px;
+    --cert-issued-size: 18px;
+    --cert-btn-size: 16px;
+    --modal-title-size: 22px;
+    --modal-btn-size: 16px;
+    --edu-cert-logo-size: 52px;
+    --edu-cert-section-gap: 100px;
+    --edu-cert-heading-gap: 60px;
+    --edu-cert-row-gap: 56px;
+  }
+}
+
+/* Desktop (>= 1281px) */
+@media (min-width: 1281px) {
+  :root {
+    --edu-cert-h2-size: 76px;
+    --edu-cert-title-size: 32px;
+    --edu-sub-size: 18px;
+    --edu-date-size: 18px;
+    --cert-meta-size: 16px;
+    --cert-issued-size: 18px;
+    --cert-btn-size: 16px;
+    --modal-title-size: 24px;
+    --modal-btn-size: 16px;
+    --edu-cert-logo-size: 56px;
+    --edu-cert-section-gap: 120px;
+    --edu-cert-heading-gap: 60px;
+    --edu-cert-row-gap: 64px;
+  }
+}
+
+.edu-cert-heading {
+  font-family: var(--edu-cert-font-family);
+  font-style: normal;
+  font-size: var(--edu-cert-h2-size);
+  font-weight: 600;
+}
+
+.edu-cert-item-title {
+  font-family: var(--edu-cert-font-family);
+  font-style: normal;
+  font-size: var(--edu-cert-title-size);
+  font-weight: 500;
+}
+
+.edu-sub-line {
+  font-family: var(--edu-cert-font-family);
+  font-style: normal;
+  font-size: var(--edu-sub-size);
+  font-weight: 400;
+}
+
+.edu-date-text {
+  font-family: var(--edu-cert-font-family);
+  font-style: normal;
+  font-size: var(--edu-date-size);
+  font-weight: 400;
+}
+
+.cert-meta-line {
+  font-family: var(--edu-cert-font-family);
+  font-style: normal;
+  font-size: var(--cert-meta-size);
+  font-weight: 400;
+}
+
+.cert-issued-date {
+  font-family: var(--edu-cert-font-family);
+  font-style: normal;
+  font-size: var(--cert-issued-size);
+  font-weight: 400;
+}
+
+.cert-action-btn {
+  font-family: var(--edu-cert-font-family);
+  font-style: normal;
+  font-size: var(--cert-btn-size);
+  font-weight: 500;
+}
+
+.modal-cert-title {
+  font-family: var(--edu-cert-font-family);
+  font-style: normal;
+  font-size: var(--modal-title-size);
+  font-weight: 500;
+}
+
+.modal-download-btn {
+  font-family: var(--edu-cert-font-family);
+  font-style: normal;
+  font-size: var(--modal-btn-size);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Certifications Action Buttons (Verify & Preview)
+   Breakpoints: Desktop >=1281px, Tablet 811px–1280px, Mobile <=810px
+   ========================================================================== */
+
+.cert-btn-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-top: 16px;
+  gap: 12px;
+}
+
+@media (max-width: 810px) {
+  .cert-btn-group {
+    margin-top: 14px;
+    gap: 10px;
+  }
+}
+
+.cert-btn-base {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #111111;
+  border-radius: 9999px;
+  font-family: var(--edu-cert-font-family);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: visible;
+  width: auto;
+  max-width: fit-content;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent;
+  color: #111111;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+  outline: none;
+}
+
+.cert-btn-base:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+/* Mobile (<=810px) */
+@media (max-width: 810px) {
+  .cert-btn-base {
+    height: 40px;
+    font-size: 15px;
+  }
+  .cert-btn-verify {
+    gap: 10px;
+    padding: 0 14px 0 18px;
+  }
+  .cert-btn-preview {
+    padding: 0 20px;
+    justify-content: center;
+  }
+  .cert-arrow-box {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Narrow mobile screens: slightly reduce padding to prevent overflow */
+@media (max-width: 380px) {
+  .cert-btn-verify {
+    gap: 8px;
+    padding: 0 10px 0 14px;
+  }
+  .cert-btn-preview {
+    padding: 0 14px;
+  }
+}
+
+/* Tablet (811px - 1280px) & Desktop (>=1281px) */
+@media (min-width: 811px) {
+  .cert-btn-base {
+    height: 44px;
+    font-size: 16px;
+  }
+  .cert-btn-verify {
+    gap: 10px;
+    padding: 0 16px 0 20px;
+  }
+  .cert-btn-preview {
+    padding: 0 22px;
+    justify-content: center;
+  }
+  .cert-arrow-box {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Arrow box inside Verify */
+.cert-arrow-box {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid #111111;
+  border-radius: 6px;
+  background-color: transparent;
+  margin: 0;
+}
+
+.cert-arrow-box-fill {
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
+  width: 1px;
+  height: 1px;
+  border-radius: 9999px;
+  background-color: #111111;
+  pointer-events: none;
+  z-index: 0;
+  transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1), height 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-btn-verify:hover .cert-arrow-box-fill,
+.cert-btn-verify:focus-visible .cert-arrow-box-fill {
+  width: 38px;
+  height: 38px;
+}
+
+.cert-arrow-icon-primary {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  z-index: 1;
+  pointer-events: none;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-btn-verify:hover .cert-arrow-icon-primary,
+.cert-btn-verify:focus-visible .cert-arrow-icon-primary {
+  transform: translate(100%, -100%);
+}
+
+.cert-arrow-icon-hover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FAF7F3;
+  z-index: 1;
+  pointer-events: none;
+  transform: translate(-100%, 100%);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-btn-verify:hover .cert-arrow-icon-hover,
+.cert-btn-verify:focus-visible .cert-arrow-icon-hover {
+  transform: translate(0, 0);
+}
+
+/* Preview button hover */
+.cert-btn-preview:hover {
+  background-color: #111111;
+  color: #FAF7F3;
+}
+
+/* Contact Section Textarea Custom Scrollbar */
+#contact-project {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(250, 247, 243, 0.25) transparent;
+}
+
+#contact-project::-webkit-scrollbar {
+  width: 6px;
+}
+
+#contact-project::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#contact-project::-webkit-scrollbar-thumb {
+  background-color: rgba(250, 247, 243, 0.25);
+  border-radius: 9999px;
+}
+
+#contact-project::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(250, 247, 243, 0.45);
+}
+
+#contact-project::-webkit-scrollbar-button {
+  display: none;
+}
+
+
+
