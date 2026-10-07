@@ -65,6 +65,7 @@ export const TechStackSection: React.FC = () => {
                       width={32}
                       height={32}
                       loading="lazy"
+                      decoding="async"
                       className="w-[26px] h-[26px] tablet:w-[28px] tablet:h-[28px] desktop:w-[32px] desktop:h-[32px] shrink-0 object-contain select-none"
                     />
                     <span className="font-sans font-normal text-[#111111] text-[16px] tablet:text-[17px] desktop:text-[18px] leading-none whitespace-nowrap select-none">

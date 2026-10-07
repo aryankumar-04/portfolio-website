@@ -97,6 +97,7 @@ export function Thoughts() {
                     src={post.image}
                     alt={`${post.title} cover`}
                     loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover object-center will-change-transform transition-transform duration-[800ms] ease-out group-hover:scale-[1.04]"
                   />
 

@@ -123,6 +123,7 @@ export const ProjectsSection: React.FC = () => {
                       src={project.image}
                       alt={`${project.title} – ${project.subtitle}`}
                       loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover object-center will-change-transform transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                     />
                   </div>

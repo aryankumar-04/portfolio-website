@@ -269,6 +269,9 @@ function DesktopHero({ onOpenResume }) {
                   <img
                     src={avatarGrayscaleImg}
                     alt="Majd – grayscale"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                     className="absolute inset-0 w-full h-full object-cover rounded-[20px]"
                   />
                 </div>
@@ -285,6 +288,8 @@ function DesktopHero({ onOpenResume }) {
                   <img
                     src={avatarColorImg}
                     alt="Majd – colour"
+                    loading="eager"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover rounded-[20px]"
                   />
                 </div>
@@ -617,6 +622,9 @@ function TabletHero({ onOpenResume }) {
                   <img
                     src={avatarGrayscaleImg}
                     alt="Majd – grayscale"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -633,6 +641,8 @@ function TabletHero({ onOpenResume }) {
                   <img
                     src={avatarColorImg}
                     alt="Majd – colour"
+                    loading="eager"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -885,6 +895,9 @@ function MobileHero({ onOpenResume }) {
                   <img
                     src={avatarGrayscaleImg}
                     alt="Majd – grayscale"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -901,6 +914,8 @@ function MobileHero({ onOpenResume }) {
                   <img
                     src={avatarColorImg}
                     alt="Majd – colour"
+                    loading="eager"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>

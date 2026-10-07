@@ -53,6 +53,7 @@ export const EducationSection: React.FC = () => {
                   src={item.logo}
                   alt={`${item.school} logo`}
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-contain object-center select-none"
                   onError={(e) => {
                     // Fallback to initial letter only if image fails to load

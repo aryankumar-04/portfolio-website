@@ -169,6 +169,7 @@ function TestimonialCardContent({ item }) {
           src={item.avatar}
           alt={item.name}
           loading="lazy"
+          decoding="async"
           className="w-[50px] h-[50px] rounded-full object-cover shrink-0"
         />
         <div className="flex flex-col gap-0 justify-center">
