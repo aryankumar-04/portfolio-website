@@ -20,6 +20,17 @@ export const HERO_REMAINING_TRANSITION = {
   ease: [0.22, 1, 0.36, 1],
 };
 
+export const HERO_LOAD_IN = {
+  ease: [0.22, 1, 0.36, 1],
+  headlineFirst: { delay: 0.12, duration: 0.9 },
+  headlineSecond: { delay: 0.24, duration: 0.9 },
+  card: { delay: 0.48, duration: 0.96 },
+  remaining: { delay: 0.84, duration: 0.96 },
+};
+
+// Desktop-only runway after the hero card reaches its completed state.
+const HOLD_SCROLL_DISTANCE = 460;
+
 /* ==========================================================================
    Animated "Hey!" 3D Stick-On-Wall Component (Plays Once on Scroll)
    ========================================================================== */
@@ -170,13 +181,13 @@ function useBreakpoint() {
 }
 
 /* ==========================================================================
-   1. DESKTOP HERO (Scroll-scrubbed, pinned sticky viewport, 3D travel flip)
+   1. DESKTOP HERO (Scroll-scrubbed sticky viewport, 3D travel flip)
    ========================================================================== */
 function DesktopHero({ onOpenResume }) {
-  const wrapperRef = useRef(null);
+  const animationTrackRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
-    target: wrapperRef,
+    target: animationTrackRef,
     offset: ['start start', 'end end'],
   });
 
@@ -187,7 +198,6 @@ function DesktopHero({ onOpenResume }) {
     restDelta: 0.0005,
   });
 
-  const startY = 285;
   const prefersReducedMotion = useReducedMotion();
   const [heyTriggered, setHeyTriggered] = useState(false);
 
@@ -207,13 +217,12 @@ function DesktopHero({ onOpenResume }) {
   const heroY = useTransform(smooth, [0, 0.35], [0, -260]);
   const creditsOp = useTransform(smooth, [0, 0.10, 0.22], [1, 1, 0]);
 
-  // AVATAR 3-D card
-  const avY = useTransform(smooth, [0, 0.44, 0.82], [startY, startY * 0.25, 0]);
-  const avScale = useTransform(smooth, [0, 0.44, 0.88, 0.98], [0.625, 0.78, 0.97, 1]);
+  // AVATAR 3-D card — no independent vertical translation.
+  const avScale = useTransform(smooth, [0, 0.44, 0.82, 1], [0.5, 0.65, 0.9, 1]);
   const avRotateY = useTransform(
     smooth,
-    [0, 0.22, 0.50, 0.73, 0.95],
-    [0, -35, -90, -140, -180],
+    [0, 0.22, 0.50, 0.73, 1],
+    [0, 35, 90, 140, 180],
   );
 
   // STAGE 2 — Bio content
@@ -225,10 +234,16 @@ function DesktopHero({ onOpenResume }) {
 
   return (
     <div
-      ref={wrapperRef}
       className="relative w-full bg-transparent"
-      style={{ height: '250vh' }}
+      style={{ height: `calc(250vh + ${HOLD_SCROLL_DISTANCE}px)` }}
     >
+      {/* The scroll target ends before the parent, leaving a sticky hold after
+          the card animation has completed. */}
+      <div
+        ref={animationTrackRef}
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-[250vh] pointer-events-none"
+      />
       <div
         className="sticky top-0 w-full h-screen"
         style={{
@@ -242,16 +257,22 @@ function DesktopHero({ onOpenResume }) {
           <div style={{ perspective: 1200 }}>
             {/* Intro Load Sequence Wrapper: 3. Portrait Photo Card */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 40, scale: 0.94 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{
+                opacity: 1,
+                filter: 'blur(0px)',
+                transitionEnd: { filter: 'none' },
+              }}
+              transition={{ ...HERO_LOAD_IN.card, ease: HERO_LOAD_IN.ease }}
             >
               <motion.div
                 style={{
                   rotateY: avRotateY,
                   scale: avScale,
-                  y: avY,
                   transformStyle: 'preserve-3d',
+                  // Scaling from a vertical point below the card keeps the compact
+                  // start position while the growing card settles onto the bio baseline.
+                  transformOrigin: 'center 742px',
                   willChange: 'transform',
                 }}
                 className="relative w-[400px]"
@@ -310,9 +331,9 @@ function DesktopHero({ onOpenResume }) {
           <div className="relative w-full max-w-[1180px] mx-auto px-0 text-center">
             {/* 4b. Sparkle Icon */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={HERO_REMAINING_TRANSITION}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
               className="absolute -top-[60px] -left-4 pointer-events-none drop-shadow-xl select-none"
             >
               <motion.img
@@ -327,9 +348,9 @@ function DesktopHero({ onOpenResume }) {
 
             {/* 4c. Lightning Icon */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={HERO_REMAINING_TRANSITION}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
               className="absolute -bottom-[80px] -right-4 pointer-events-none drop-shadow-xl select-none"
             >
               <motion.img
@@ -348,18 +369,18 @@ function DesktopHero({ onOpenResume }) {
             >
               {/* 1. "SOFTWARE" appears first */}
               <motion.span
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 35 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.0, ease: [0.22, 1, 0.36, 1] }}
+                initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+                transition={{ ...HERO_LOAD_IN.headlineFirst, ease: HERO_LOAD_IN.ease }}
                 className="block"
               >
                 SOFTWARE
               </motion.span>
               {/* 2. "ENGINEER" appears directly after */}
               <motion.span
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 35 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+                transition={{ ...HERO_LOAD_IN.headlineSecond, ease: HERO_LOAD_IN.ease }}
                 className="block"
               >
                 ENGINEER
@@ -375,18 +396,18 @@ function DesktopHero({ onOpenResume }) {
         >
           {/* 4d. "©2026" */}
           <motion.span
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={HERO_REMAINING_TRANSITION}
+            initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+            transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
             className="font-semibold text-[#111111] text-[68px] leading-none tracking-[-0.02em] inline-block"
           >
             ©2026
           </motion.span>
           {/* 4e. "/CREATING SINCE 2023" */}
           <motion.span
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={HERO_REMAINING_TRANSITION}
+            initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+            transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
             className="font-normal text-[#111111] text-[18px] leading-[1.4em] tracking-[-0.04em] inline-block"
           >
             /CREATING SINCE 2023
@@ -537,9 +558,9 @@ function TabletHero({ onOpenResume }) {
           <div className="relative w-full max-w-[640px] text-center select-none">
             {/* 4b. Sparkle: 124x124, top: -69px, left: -44px */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={HERO_REMAINING_TRANSITION}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
               className="absolute -top-[69px] -left-[44px] pointer-events-none drop-shadow-md select-none"
             >
               <motion.img
@@ -554,9 +575,9 @@ function TabletHero({ onOpenResume }) {
 
             {/* 4c. Bolt: 140x140, rotation: 16deg, bottom: -81px, right: -51px */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={HERO_REMAINING_TRANSITION}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
               className="absolute -bottom-[81px] -right-[51px] pointer-events-none drop-shadow-md select-none"
             >
               <motion.img
@@ -572,18 +593,18 @@ function TabletHero({ onOpenResume }) {
             <h1 className="font-extrabold uppercase text-[#111111] tracking-[-0.02em] leading-[0.9em] text-[88px] min-[900px]:text-[96px] select-none font-sans">
               {/* 1. "SOFTWARE" appears first */}
               <motion.span
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 35 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.0, ease: [0.22, 1, 0.36, 1] }}
+                initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+                transition={{ ...HERO_LOAD_IN.headlineFirst, ease: HERO_LOAD_IN.ease }}
                 className="block"
               >
                 SOFTWARE
               </motion.span>
               {/* 2. "ENGINEER" appears directly after */}
               <motion.span
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 35 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+                transition={{ ...HERO_LOAD_IN.headlineSecond, ease: HERO_LOAD_IN.ease }}
                 className="block"
               >
                 ENGINEER
@@ -599,9 +620,9 @@ function TabletHero({ onOpenResume }) {
           >
             {/* 3. Portrait Photo Card */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 40, scale: 0.94 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ ...HERO_LOAD_IN.card, ease: HERO_LOAD_IN.ease }}
             >
               <motion.div
                 style={{
@@ -655,18 +676,18 @@ function TabletHero({ onOpenResume }) {
         <div className="w-full flex items-baseline justify-between py-4 select-none">
           {/* 4d. "©2026" */}
           <motion.span
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={HERO_REMAINING_TRANSITION}
+            initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+            transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
             className="font-semibold text-[#111111] text-[48px] min-[900px]:text-[56px] leading-none tracking-[-0.02em] inline-block"
           >
             ©2026
           </motion.span>
           {/* 4e. "/CREATING SINCE 2023" */}
           <motion.span
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={HERO_REMAINING_TRANSITION}
+            initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+            transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
             className="font-normal text-[#111111] text-[16px] min-[900px]:text-[18px] leading-[1.4em] tracking-[-0.04em] inline-block"
           >
             /CREATING SINCE 2023
@@ -809,9 +830,9 @@ function MobileHero({ onOpenResume }) {
           <div className="relative w-full max-w-[330px] mx-auto text-center select-none">
             {/* 4b. Star: 60x60, top: -44px, left: -22px */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 20, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={HERO_REMAINING_TRANSITION}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
               className="absolute -top-[44px] -left-[22px] pointer-events-none drop-shadow-md select-none"
             >
               <motion.img
@@ -826,9 +847,9 @@ function MobileHero({ onOpenResume }) {
 
             {/* 4c. Bolt: 80x80, rotation: 16deg, bottom: -48px, right: -21px */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 20, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={HERO_REMAINING_TRANSITION}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
               className="absolute -bottom-[48px] -right-[21px] pointer-events-none drop-shadow-md select-none"
             >
               <motion.img
@@ -845,18 +866,18 @@ function MobileHero({ onOpenResume }) {
             <h1 className="font-extrabold uppercase text-[#111111] tracking-[-0.02em] leading-[0.9em] text-[44px] min-[380px]:text-[48px] select-none font-sans">
               {/* 1. "SOFTWARE" appears first */}
               <motion.span
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.0, ease: [0.22, 1, 0.36, 1] }}
+                initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+                transition={{ ...HERO_LOAD_IN.headlineFirst, ease: HERO_LOAD_IN.ease }}
                 className="block"
               >
                 SOFTWARE
               </motion.span>
               {/* 2. "ENGINEER" appears directly after */}
               <motion.span
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+                transition={{ ...HERO_LOAD_IN.headlineSecond, ease: HERO_LOAD_IN.ease }}
                 className="block"
               >
                 ENGINEER
@@ -872,9 +893,9 @@ function MobileHero({ onOpenResume }) {
           >
             {/* 3. Portrait Photo Card */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 35, scale: 0.94 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ ...HERO_LOAD_IN.card, ease: HERO_LOAD_IN.ease }}
             >
               <motion.div
                 style={{
@@ -924,9 +945,9 @@ function MobileHero({ onOpenResume }) {
 
             {/* 4e. /CREATING SINCE 2023 directly under portrait, centered horizontally */}
             <motion.div
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 20, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={HERO_REMAINING_TRANSITION}
+              initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
               className="w-full mt-3.5 text-center select-none flex justify-center"
             >
               <span

@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { HERO_REMAINING_TRANSITION } from '../Hero';
+import {
+  HERO_LOAD_IN,
+  HERO_REMAINING_TRANSITION,
+} from '../Hero';
 
 /**
  * Navbar component for Majd's portfolio / Framer template replica.
@@ -109,6 +112,7 @@ export default function Navbar() {
   const location = useLocation();
   const prefersReducedMotion = useReducedMotion();
   const isHome = location.pathname === '/';
+  const usesHeroIntro = isHome && !prefersReducedMotion;
 
   // Close on Escape key & Outside Click
   useEffect(() => {
@@ -187,12 +191,26 @@ export default function Navbar() {
       className="pointer-events-auto select-none w-full flex justify-center px-5 tablet:px-0 tablet:w-auto"
     >
       <motion.div
-        initial={prefersReducedMotion ? false : { opacity: 0, y: 20, scale: 0.92 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{
-          ...HERO_REMAINING_TRANSITION,
-          delay: isHome ? HERO_REMAINING_TRANSITION.delay : 0,
-        }}
+        initial={
+          usesHeroIntro
+            ? { opacity: 0, filter: 'blur(4px)' }
+            : prefersReducedMotion
+              ? false
+              : { opacity: 0, y: 20, scale: 0.92 }
+        }
+        animate={
+          usesHeroIntro
+            ? { opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }
+            : { opacity: 1, y: 0, scale: 1 }
+        }
+        transition={
+          usesHeroIntro
+            ? { ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }
+            : {
+                ...HERO_REMAINING_TRANSITION,
+                delay: isHome ? HERO_REMAINING_TRANSITION.delay : 0,
+              }
+        }
         className="w-full max-w-[390px] tablet:w-[320px] desktop:w-[320px] flex justify-center"
       >
         <motion.nav
