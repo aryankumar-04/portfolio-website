@@ -173,49 +173,69 @@ Under the hood, this application demonstrates clean frontend architecture and pe
 ```text
 portfolio-website/
 ├── public/                       # Static public assets served at root
+│   ├── website-img/              # README preview screenshot assets (2x4 grid)
+│   ├── projects/                 # Case study high-res screenshot galleries
+│   ├── logos/                    # Tech stack brand vector SVGs
+│   ├── education/                # Academic crests and institution brand marks
+│   ├── pdf/                      # Certificate PDF documents & credentials
 │   ├── black.svg                 # Brand monogram logo & light-mode favicon
 │   ├── white.svg                 # Brand monogram logo & dark-mode favicon
-│   ├── avatar.png                # Circular profile portrait
-│   ├── resume.pdf                # Downloadable curriculum vitae
-│   ├── logos/                    # Tech stack brand vector SVGs
-│   ├── education/                # Institution logos
-│   ├── pdf/                      # Certificate PDF files
+│   ├── avatar.png                # Circular profile portrait asset
+│   ├── resume.pdf                # Downloadable curriculum vitae PDF
 │   └── _redirects                # Static host rewrite rules (SPA routing)
 ├── src/
 │   ├── assets/                   # Bundled graphics, textures, and illustrations
-│   │   ├── blog/                 # Blog post hero and internal SVG figures
-│   │   └── grain.png             # Film-grain noise texture
+│   │   ├── blog/                 # Blog post hero graphics and SVG figures
+│   │   ├── contribute/           # Coffee illustrations, steam SVGs & QR graphics
+│   │   └── grain.png             # Film-grain noise overlay texture
 │   ├── components/               # Reusable atomic UI components
-│   │   ├── Navbar.jsx            # Floating header with mobile navigation drawer
-│   │   ├── Footer.jsx            # Page footer with oversized typographic wordmark
-│   │   ├── ImageLightboxModal.tsx # Fullscreen accessible image lightbox modal
-│   │   ├── ResumeModal.jsx       # Embedded resume viewer modal
-│   │   └── AnimatedArrowBox.jsx  # Micro-interactive directional action arrows
-│   ├── config/                   # Site configuration and route metadata
-│   ├── data/                     # Content datasets (Projects, Articles, Services)
-│   │   ├── articles.js           # 7 in-depth technical blog posts
-│   │   ├── work.ts               # Case studies & featured project data
-│   │   └── techStackData.ts      # Categorized skills and toolsets
-│   ├── hooks/                    # Custom React hooks (Favicon, Scroll, Page Title)
+│   │   ├── Navbar.tsx            # Floating navigation bar with mobile drawer
+│   │   ├── Footer.tsx            # Typographic footer with social & repo links
+│   │   ├── CoffeeSupportButton.jsx # Floating tip button with animated coffee & steam
+│   │   ├── PaymentModal.tsx      # Modal dialog with UPI QR code donation options
+│   │   ├── BackButton.tsx        # Micro-interactive return navigation button
+│   │   ├── ScrollManager.tsx     # Window scroll position restoration on route change
+│   │   ├── ImageLightboxModal.tsx # Accessible full-screen image lightbox modal
+│   │   ├── ResumeModal.jsx       # Embedded PDF resume viewer modal
+│   │   └── AnimatedArrowBox.tsx  # Directional action arrow with hover physics
+│   ├── config/                   # Site configuration, spacing tokens & typography
+│   ├── data/                     # Structured content datasets
+│   │   ├── work.ts               # Case studies, project metadata & deliverables
+│   │   ├── articles.js           # Technical blog posts, reading metrics & markdown
+│   │   ├── techStackData.ts      # Categorized skills, tools, and proficiencies
+│   │   ├── educationData.ts      # Academic credentials and certified coursework
+│   │   ├── testimonials.ts       # Peer & client recommendations and feedback
+│   │   └── services.ts           # Architectural services and engineering offerings
+│   ├── hooks/                    # Custom React hooks (Favicon, Document Title)
 │   ├── pages/                    # Route page components
-│   │   ├── BlogArchive.jsx       # Articles catalog
-│   │   ├── BlogArticle.jsx       # Dynamic reading page with lightbox & history
-│   │   ├── WorkArchive.tsx       # Complete projects gallery
-│   │   ├── WorkDetail.tsx        # In-depth case study breakdown
-│   │   └── NotFound.tsx          # 404 error page
-│   ├── sections/                 # Modular home page sections
-│   │   ├── Hero.jsx              # 200vh pinned scroll track & bio
-│   │   ├── CertificationsSection.tsx # Verified credentials showcase
-│   │   ├── ContactSection.tsx    # Interactive message submission form
-│   │   └── ...                   # Services, Projects, Testimonials
-│   ├── App.tsx                   # App root, routing hierarchy & Lenis listener
+│   │   ├── Home.tsx              # Landing page orchestrating hero, work & sections
+│   │   ├── WorkArchive.tsx       # Comprehensive project gallery & case study catalog
+│   │   ├── WorkDetail.tsx        # In-depth case study breakdown with media galleries
+│   │   ├── BlogArchive.tsx       # Articles catalog with category filtering
+│   │   ├── BlogArticle.jsx       # Dynamic reading layout with lightbox & history
+│   │   ├── Contribute.tsx        # Support & tip page with interactive UPI QR donation
+│   │   └── NotFound.tsx          # Custom 404 error page
+│   ├── sections/                 # Modular landing page sections
+│   │   ├── HeroBioSection.tsx    # Narrative bio, portrait & live status indicators
+│   │   ├── ProjectsSection.tsx   # Curated featured projects showcase
+│   │   ├── CertificationsSection.tsx # Verified credentials showcase with PDF modals
+│   │   ├── TechStackSection.tsx  # Interactive technical skills & toolsets
+│   │   ├── ServicesSection.tsx   # Software engineering & design service offerings
+│   │   ├── TestimonialsSection.tsx # Peer recommendations & client endorsements
+│   │   ├── BlogSection.tsx       # Recent articles and technical thoughts preview
+│   │   └── ContactSection.tsx    # Live contact form with Web3Forms integration
+│   ├── types/                    # Shared TypeScript interfaces (CMS, Project, Post)
+│   ├── utils/                    # Utility helpers (read history, animation flags)
+│   ├── App.tsx                   # App root, routing hierarchy & Lenis smooth scroll
+│   ├── Hero.jsx                  # Pinned 200vh hero track with kinetic text scrubbing
 │   ├── index.css                 # Global styles, font definitions & CSS variables
-│   └── main.tsx                  # Application entry point
+│   └── main.tsx                  # Application bootstrap entry point
 ├── .env.example                  # Environment variable reference template
 ├── .gitignore                    # Git exclusion rules for clean repository state
+├── index.html                    # Single-page application HTML entrypoint
 ├── LICENSE                       # MIT License
-├── package.json                  # Dependencies and execution scripts
-├── tailwind.config.js            # Design tokens, custom breakpoints & colors
+├── package.json                  # Dependencies, build scripts, and metadata
+├── tailwind.config.js            # Design tokens, custom breakpoints & theme colors
 ├── tsconfig.json                 # TypeScript compiler options
 └── vite.config.ts                # Vite dev server and build configuration
 ```
