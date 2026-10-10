@@ -31,6 +31,7 @@
 
 ## 📖 Table of Contents
 
+- [📸 Preview](#-preview)
 - [✨ About The Project](#-about-the-project)
   - [🎯 For Visitors & Recruiters](#-for-visitors--recruiters)
   - [💻 For Developers](#-for-developers)
@@ -48,6 +49,66 @@
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [📫 Contact & Connect](#-contact--connect)
+
+---
+
+## 📸 Preview
+
+<p align="center">
+  <em>A quick look at the website on desktop, tablet and mobile.</em>
+</p>
+
+<!-- Images folder: ./public/website-img -->
+<table align="center" width="100%">
+  <tr>
+    <td align="center" width="50%">
+      <img src="./public/website-img/hero.png" alt="Hero Section" width="100%" />
+      <br />
+      <sub>Hero Section</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="./public/website-img/stack.jpg" alt="Tech Stack" width="100%" />
+      <br />
+      <sub>Tech Stack</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="./public/website-img/certifications.png" alt="Certifications" width="100%" />
+      <br />
+      <sub>Certifications</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="./public/website-img/projects.png" alt="Featured Projects" width="100%" />
+      <br />
+      <sub>Featured Projects</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="./public/website-img/testimonials.jpg" alt="Testimonials" width="100%" />
+      <br />
+      <sub>Testimonials</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="./public/website-img/thoughts.png" alt="Thoughts & Articles" width="100%" />
+      <br />
+      <sub>Thoughts & Articles</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="./public/website-img/contact.jpg" alt="Contact Section" width="100%" />
+      <br />
+      <sub>Contact Section</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="./public/website-img/footer.jpg" alt="Footer" width="100%" />
+      <br />
+      <sub>Footer</sub>
+    </td>
+  </tr>
+</table>
 
 ---
 
