@@ -111,7 +111,7 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             aria-hidden="true"
-            className="absolute inset-0 bg-[#111111]/80 backdrop-blur-[4px] pointer-events-none"
+            className="absolute inset-0 bg-[#111111]/80 dark:bg-[rgba(0,0,0,0.82)] backdrop-blur-[4px] pointer-events-none"
           />
 
           {/* Close (X) Button at TOP RIGHT corner of the screen */}
@@ -127,7 +127,7 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
               top: 'max(16px, env(safe-area-inset-top, 16px))',
               right: 'max(16px, env(safe-area-inset-right, 16px))',
             }}
-            className="fixed z-[110] w-10 h-10 tablet:w-11 tablet:h-11 rounded-full bg-[#FAF7F3] hover:bg-[#111111] text-[#111111] hover:text-[#FAF7F3] border border-[#111111]/25 hover:border-[#111111] shadow-lg flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111]"
+            className="fixed z-[110] w-10 h-10 tablet:w-11 tablet:h-11 rounded-full bg-[#FAF7F3] dark:bg-[#222221] dark:hover:bg-[#2D2D2B] text-[#111111] dark:text-[#FAF7F3] hover:bg-[#111111] hover:text-[#FAF7F3] border border-[#111111]/25 dark:border-[rgba(250,247,243,0.22)] hover:border-[#111111] shadow-lg flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3]"
           >
             <svg
               width="14"

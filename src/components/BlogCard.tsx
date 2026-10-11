@@ -32,7 +32,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
       <Link
         to={`/blog/${post.slug}`}
         state={{ fromInternal: true }}
-        className="group relative w-full h-full rounded-[var(--blog-list-card-radius,20px)] overflow-hidden flex flex-col justify-end p-[var(--blog-list-card-padding,20px)] select-none block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] cursor-pointer"
+        className="group relative w-full h-full rounded-[var(--blog-list-card-radius,20px)] overflow-hidden flex flex-col justify-end p-[var(--blog-list-card-padding,20px)] select-none block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] cursor-pointer"
       >
         {/* Background Image with Framer Spring-like Hover Zoom (104%) */}
         <img

@@ -59,7 +59,7 @@ export const ProjectsSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="font-sans font-semibold font-[600] text-[#111111] text-[46px] tablet:text-[62px] desktop:text-[76px] leading-[1em] tracking-[-0.02em] select-none max-w-[460px] m-0"
+            className="font-sans font-semibold font-[600] text-[#111111] dark:text-[#FAF7F3] text-[46px] tablet:text-[62px] desktop:text-[76px] leading-[1em] tracking-[-0.02em] select-none max-w-[460px] m-0"
           >
             Featured<br />Projects
           </motion.h2>
@@ -73,7 +73,7 @@ export const ProjectsSection: React.FC = () => {
           >
             <Link
               to="/work"
-              className="featured-view-all-btn group inline-flex items-center gap-2 tablet:gap-2.5 text-[#111111] hover:text-[#111111]/75 transition-colors select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 rounded"
+              className="featured-view-all-btn group inline-flex items-center gap-2 tablet:gap-2.5 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/75 dark:hover:text-[#FAF7F3]/75 transition-colors select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 rounded"
             >
               <span
                 className="tracking-[-0.02em] whitespace-nowrap font-normal font-[400]"
@@ -112,11 +112,11 @@ export const ProjectsSection: React.FC = () => {
               >
                 <Link
                   to={project.href}
-                  className="group block w-full select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] rounded-[20px]"
+                  className="group block w-full select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] rounded-[20px]"
                 >
                   {/* Image Container with ~1.45:1 Aspect Ratio & 20px Radius */}
                   <div
-                    className="w-full relative overflow-hidden rounded-[20px] bg-[#E8E4DF]"
+                    className="w-full relative overflow-hidden rounded-[20px] bg-[#E8E4DF] dark:bg-[#171716] dark:border dark:border-[rgba(250,247,243,0.06)]"
                     style={{ aspectRatio: '1.45 / 1' }}
                   >
                     <img
@@ -130,10 +130,10 @@ export const ProjectsSection: React.FC = () => {
 
                   {/* Title & Subtitle: Framer compact rhythm */}
                   <div className="mt-[14px] tablet:mt-[16px]">
-                    <h3 className="font-sans font-medium font-[500] text-[#111111] text-[28px] tablet:text-[30px] desktop:text-[32px] leading-[1.2em] tracking-[-0.04em] transition-colors duration-300 group-hover:text-[#111111]/80 m-0">
+                    <h3 className="font-sans font-medium font-[500] text-[#111111] dark:text-[#FAF7F3] text-[28px] tablet:text-[30px] desktop:text-[32px] leading-[1.2em] tracking-[-0.04em] transition-colors duration-300 group-hover:text-[#111111]/80 dark:group-hover:text-[#FAF7F3]/80 m-0">
                       {project.title}
                     </h3>
-                    <p className="mt-[4px] font-sans font-normal font-[400] text-[#111111]/50 text-[16px] leading-[1.4em] tracking-[-0.04em] m-0">
+                    <p className="mt-[4px] font-sans font-normal font-[400] text-[#111111]/50 dark:text-[#8F8B84] text-[16px] leading-[1.4em] tracking-[-0.04em] m-0">
                       {project.subtitle}
                     </p>
                   </div>

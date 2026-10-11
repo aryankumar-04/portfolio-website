@@ -2,12 +2,35 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useSpring, useTransform, useMotionValue, animate, useInView, useReducedMotion } from 'framer-motion';
 
 import starImg from './assets/star.png';
+import starLightImg from './assets/star-light.png';
 import boltImg from './assets/bolt.png';
+import boltLightImg from './assets/bolt-light.png';
 import avatarGrayscaleImg from './assets/avatar-grayscale.png';
 import avatarColorImg from './assets/avatar-color.png';
 import grainImg from './assets/grain.png';
 import { AnimatedArrowBox } from './components/AnimatedArrowBox';
 import { ResumeModal } from './components/ResumeModal';
+import { useTheme } from './context/ThemeContext';
+
+// Preload both dark and light variants to prevent blank frame on theme switch
+if (typeof window !== 'undefined') {
+  [starImg, starLightImg, boltImg, boltLightImg].forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
+function useHeroThemeImages() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  return {
+    isDark,
+    starSrc: isDark ? starLightImg : starImg,
+    boltSrc: isDark ? boltLightImg : boltImg,
+    starScale: isDark ? 0.85 : 1,
+    boltScale: isDark ? 0.85 : 1,
+  };
+}
 
 /* ==========================================================================
    Shared transition for Hero remaining items:
@@ -184,6 +207,7 @@ function useBreakpoint() {
    1. DESKTOP HERO (Scroll-scrubbed sticky viewport, 3D travel flip)
    ========================================================================== */
 function DesktopHero({ onOpenResume }) {
+  const { starSrc, boltSrc, starScale, boltScale } = useHeroThemeImages();
   const animationTrackRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -281,7 +305,7 @@ function DesktopHero({ onOpenResume }) {
 
                 {/* FRONT face — grayscale */}
                 <div
-                  className="absolute inset-0 rounded-[20px]"
+                  className="absolute inset-0 rounded-[20px] shadow-sm dark:shadow-[0_12px_32px_rgba(0,0,0,0.65)]"
                   style={{
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
@@ -289,7 +313,7 @@ function DesktopHero({ onOpenResume }) {
                 >
                   <img
                     src={avatarGrayscaleImg}
-                    alt="Majd – grayscale"
+                    alt="Aryan Gupta – grayscale"
                     loading="eager"
                     decoding="async"
                     fetchPriority="high"
@@ -299,7 +323,7 @@ function DesktopHero({ onOpenResume }) {
 
                 {/* BACK face — red */}
                 <div
-                  className="absolute inset-0 rounded-[20px]"
+                  className="absolute inset-0 rounded-[20px] shadow-sm dark:shadow-[0_12px_32px_rgba(0,0,0,0.65)]"
                   style={{
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
@@ -308,7 +332,7 @@ function DesktopHero({ onOpenResume }) {
                 >
                   <img
                     src={avatarColorImg}
-                    alt="Majd – colour"
+                    alt="Aryan Gupta – colour"
                     loading="eager"
                     decoding="async"
                     className="absolute inset-0 w-full h-full object-cover rounded-[20px]"
@@ -337,11 +361,11 @@ function DesktopHero({ onOpenResume }) {
               className="absolute -top-[60px] -left-4 pointer-events-none drop-shadow-xl select-none"
             >
               <motion.img
-                src={starImg}
+                src={starSrc}
                 alt=""
                 animate={{ y: [-6, 6, -6], rotate: [-4, 4, -4] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ willChange: 'transform' }}
+                style={{ willChange: 'transform', transformOrigin: 'center', scale: starScale }}
                 className="w-[140px]"
               />
             </motion.div>
@@ -354,18 +378,18 @@ function DesktopHero({ onOpenResume }) {
               className="absolute -bottom-[80px] -right-4 pointer-events-none drop-shadow-xl select-none"
             >
               <motion.img
-                src={boltImg}
+                src={boltSrc}
                 alt=""
                 animate={{ y: [6, -6, 6], rotate: [12, 20, 12] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ willChange: 'transform' }}
+                style={{ willChange: 'transform', transformOrigin: 'center', scale: boltScale }}
                 className="w-[160px]"
               />
             </motion.div>
 
             <h1
               style={{ willChange: 'transform' }}
-              className="font-extrabold uppercase text-[#111111] tracking-[-0.02em] leading-[0.9em] text-[174px] select-none font-sans"
+              className="font-extrabold uppercase text-[#111111] dark:text-[#FAF7F3] tracking-[-0.02em] leading-[0.9em] text-[174px] select-none font-sans"
             >
               {/* 1. "SOFTWARE" appears first */}
               <motion.span
@@ -399,7 +423,7 @@ function DesktopHero({ onOpenResume }) {
             initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
             animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
             transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
-            className="font-semibold text-[#111111] text-[68px] leading-none tracking-[-0.02em] inline-block"
+            className="font-semibold text-[#111111] dark:text-[#8F8B84] text-[68px] leading-none tracking-[-0.02em] inline-block"
           >
             ©2026
           </motion.span>
@@ -408,7 +432,7 @@ function DesktopHero({ onOpenResume }) {
             initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
             animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
             transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
-            className="font-normal text-[#111111] text-[18px] leading-[1.4em] tracking-[-0.04em] inline-block"
+            className="font-normal text-[#111111] dark:text-[#8F8B84] text-[18px] leading-[1.4em] tracking-[-0.04em] inline-block"
           >
             /CREATING SINCE 2023
           </motion.span>
@@ -423,11 +447,11 @@ function DesktopHero({ onOpenResume }) {
             >
               {/* ANIMATION 2: "Hey!" 3D Stick-On-Wall */}
               <AnimatedHeyHeading
-                className="font-sans not-italic font-[600] font-semibold text-[#111111] text-[76px] leading-none tracking-[-0.02em]"
+                className="font-sans not-italic font-[600] font-semibold text-[#111111] dark:text-[#FAF7F3] text-[76px] leading-none tracking-[-0.02em]"
                 isTriggeredDesktop={heyTriggered}
               />
 
-              <p className="font-sans not-italic font-[600] font-semibold text-[#111111] text-[22px] leading-[1.4em] tracking-[-0.04em]">
+              <p className="font-sans not-italic font-[600] font-semibold text-[#111111] dark:text-[#FAF7F3] text-[22px] leading-[1.4em] tracking-[-0.04em]">
                 I&rsquo;m Aryan, a developer and AI enthusiast from India, building practical products using AI and modern web tools.
               </p>
             </motion.div>
@@ -438,10 +462,10 @@ function DesktopHero({ onOpenResume }) {
               style={{ opacity: bioROp, y: bioRY, willChange: 'transform, opacity' }}
               className="w-[360px] max-w-[360px] flex flex-col gap-5 justify-end pointer-events-auto"
             >
-              <p className="font-sans not-italic font-[400] font-normal text-[#111111]/80 text-[18px] leading-[1.4em] tracking-[-0.04em]">
+              <p className="font-sans not-italic font-[400] font-normal text-[#111111]/80 dark:text-[#B8B4AD] text-[18px] leading-[1.4em] tracking-[-0.04em]">
                 I love turning ideas into thoughtful digital products: clean interfaces, smooth interactions, and the details that feel effortless.
               </p>
-              <p className="font-sans not-italic font-[400] font-normal text-[#111111]/80 text-[18px] leading-[1.4em] tracking-[-0.04em]">
+              <p className="font-sans not-italic font-[400] font-normal text-[#111111]/80 dark:text-[#B8B4AD] text-[18px] leading-[1.4em] tracking-[-0.04em]">
                 My goal is to keep learning, build meaningful things, and turn every single project into a real chance to grow as a much better developer.
               </p>
 
@@ -451,7 +475,7 @@ function DesktopHero({ onOpenResume }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub profile"
-                  className="group inline-flex items-center gap-3 text-[#111111] hover:text-[#111111]/70 transition-colors py-1 cursor-pointer select-none"
+                  className="group inline-flex items-center gap-3 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 cursor-pointer select-none"
                   whileTap={{ scale: 0.98 }}
                 >
                   <span className="font-sans not-italic font-[400] font-normal text-[18px] tracking-tight whitespace-nowrap">
@@ -468,7 +492,7 @@ function DesktopHero({ onOpenResume }) {
                   }}
                   aria-label="View Resume"
                   aria-haspopup="dialog"
-                  className="group inline-flex items-center gap-3 text-[#111111] hover:text-[#111111]/70 transition-colors py-1 cursor-pointer select-none bg-transparent border-0 p-0 text-left"
+                  className="group inline-flex items-center gap-3 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 cursor-pointer select-none bg-transparent border-0 p-0 text-left"
                   whileTap={{ scale: 0.98 }}
                 >
                   <span className="font-sans not-italic font-[400] font-normal text-[18px] tracking-tight whitespace-nowrap">
@@ -491,6 +515,7 @@ function DesktopHero({ onOpenResume }) {
 let tabletFlipPlayed = false;
 
 function TabletHero({ onOpenResume }) {
+  const { starSrc, boltSrc, starScale, boltScale } = useHeroThemeImages();
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -564,11 +589,11 @@ function TabletHero({ onOpenResume }) {
               className="absolute -top-[69px] -left-[44px] pointer-events-none drop-shadow-md select-none"
             >
               <motion.img
-                src={starImg}
+                src={starSrc}
                 alt=""
                 animate={{ y: [-5, 5, -5], rotate: [-4, 4, -4] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ willChange: 'transform' }}
+                style={{ willChange: 'transform', transformOrigin: 'center', scale: starScale }}
                 className="w-[124px] h-[124px]"
               />
             </motion.div>
@@ -581,16 +606,16 @@ function TabletHero({ onOpenResume }) {
               className="absolute -bottom-[81px] -right-[51px] pointer-events-none drop-shadow-md select-none"
             >
               <motion.img
-                src={boltImg}
+                src={boltSrc}
                 alt=""
                 animate={{ y: [5, -5, 5], rotate: [12, 20, 12] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ willChange: 'transform' }}
+                style={{ willChange: 'transform', transformOrigin: 'center', scale: boltScale }}
                 className="w-[140px] h-[140px]"
               />
             </motion.div>
 
-            <h1 className="font-extrabold uppercase text-[#111111] tracking-[-0.02em] leading-[0.9em] text-[88px] min-[900px]:text-[96px] select-none font-sans">
+            <h1 className="font-extrabold uppercase text-[#111111] dark:text-[#FAF7F3] tracking-[-0.02em] leading-[0.9em] text-[88px] min-[900px]:text-[96px] select-none font-sans">
               {/* 1. "SOFTWARE" appears first */}
               <motion.span
                 initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
@@ -634,7 +659,7 @@ function TabletHero({ onOpenResume }) {
               >
                 {/* FRONT face — grayscale */}
                 <div
-                  className="absolute inset-0 rounded-[24px] overflow-hidden shadow-sm"
+                  className="absolute inset-0 rounded-[24px] overflow-hidden shadow-sm dark:shadow-[0_12px_32px_rgba(0,0,0,0.65)]"
                   style={{
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
@@ -642,7 +667,7 @@ function TabletHero({ onOpenResume }) {
                 >
                   <img
                     src={avatarGrayscaleImg}
-                    alt="Majd – grayscale"
+                    alt="Aryan Gupta – grayscale"
                     loading="eager"
                     decoding="async"
                     fetchPriority="high"
@@ -652,7 +677,7 @@ function TabletHero({ onOpenResume }) {
 
                 {/* BACK face — red */}
                 <div
-                  className="absolute inset-0 rounded-[24px] overflow-hidden shadow-sm"
+                  className="absolute inset-0 rounded-[24px] overflow-hidden shadow-sm dark:shadow-[0_12px_32px_rgba(0,0,0,0.65)]"
                   style={{
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
@@ -661,7 +686,7 @@ function TabletHero({ onOpenResume }) {
                 >
                   <img
                     src={avatarColorImg}
-                    alt="Majd – colour"
+                    alt="Aryan Gupta – colour"
                     loading="eager"
                     decoding="async"
                     className="w-full h-full object-cover"
@@ -679,7 +704,7 @@ function TabletHero({ onOpenResume }) {
             initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
             animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
             transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
-            className="font-semibold text-[#111111] text-[48px] min-[900px]:text-[56px] leading-none tracking-[-0.02em] inline-block"
+            className="font-semibold text-[#111111] dark:text-[#8F8B84] text-[48px] min-[900px]:text-[56px] leading-none tracking-[-0.02em] inline-block"
           >
             ©2026
           </motion.span>
@@ -688,7 +713,7 @@ function TabletHero({ onOpenResume }) {
             initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
             animate={{ opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
             transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
-            className="font-normal text-[#111111] text-[16px] min-[900px]:text-[18px] leading-[1.4em] tracking-[-0.04em] inline-block"
+            className="font-normal text-[#111111] dark:text-[#8F8B84] text-[16px] min-[900px]:text-[18px] leading-[1.4em] tracking-[-0.04em] inline-block"
           >
             /CREATING SINCE 2023
           </motion.span>
@@ -700,17 +725,17 @@ function TabletHero({ onOpenResume }) {
         <div className="w-full flex flex-row justify-between items-end gap-5">
           <div className="w-[300px] max-w-[300px] flex flex-col justify-between self-stretch">
             {/* ANIMATION 2: "Hey!" 3D Stick-On-Wall */}
-            <AnimatedHeyHeading className="font-sans not-italic font-[600] font-semibold text-[#111111] text-[62px] leading-none tracking-[-0.02em]" />
-            <p className="font-sans not-italic font-[600] font-semibold text-[#111111] text-[22px] leading-[1.4em] tracking-[-0.04em]">
+            <AnimatedHeyHeading className="font-sans not-italic font-[600] font-semibold text-[#111111] dark:text-[#FAF7F3] text-[62px] leading-none tracking-[-0.02em]" />
+            <p className="font-sans not-italic font-[600] font-semibold text-[#111111] dark:text-[#FAF7F3] text-[22px] leading-[1.4em] tracking-[-0.04em]">
               I&rsquo;m Aryan, a developer and AI enthusiast from India, building practical products using AI and modern web tools.
             </p>
           </div>
 
           <div className="w-[360px] max-w-[360px] flex flex-col gap-5 justify-end">
-            <p className="font-sans not-italic font-[400] font-normal text-[#111111]/80 text-[18px] leading-[1.4em] tracking-[-0.04em]">
+            <p className="font-sans not-italic font-[400] font-normal text-[#111111]/80 dark:text-[#B8B4AD] text-[18px] leading-[1.4em] tracking-[-0.04em]">
               I love turning ideas into thoughtful digital products: clean interfaces, smooth interactions, and the details that feel effortless.
             </p>
-            <p className="font-sans not-italic font-[400] font-normal text-[#111111]/80 text-[18px] leading-[1.4em] tracking-[-0.04em]">
+            <p className="font-sans not-italic font-[400] font-normal text-[#111111]/80 dark:text-[#B8B4AD] text-[18px] leading-[1.4em] tracking-[-0.04em]">
               My goal is to keep learning, build meaningful things, and turn every single project into a real chance to grow as a much better developer.
             </p>
 
@@ -720,7 +745,7 @@ function TabletHero({ onOpenResume }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub profile"
-                className="group inline-flex items-center gap-3 text-[#111111] hover:text-[#111111]/70 transition-colors py-1 cursor-pointer select-none"
+                className="group inline-flex items-center gap-3 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 cursor-pointer select-none"
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="font-sans not-italic font-[400] font-normal text-[18px] tracking-tight whitespace-nowrap">
@@ -737,7 +762,7 @@ function TabletHero({ onOpenResume }) {
                 }}
                 aria-label="View Resume"
                 aria-haspopup="dialog"
-                className="group inline-flex items-center gap-3 text-[#111111] hover:text-[#111111]/70 transition-colors py-1 cursor-pointer select-none bg-transparent border-0 p-0 text-left"
+                className="group inline-flex items-center gap-3 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 cursor-pointer select-none bg-transparent border-0 p-0 text-left"
                 whileTap={{ scale: 0.98 }}
               >
                 <span className="font-sans not-italic font-[400] font-normal text-[18px] tracking-tight whitespace-nowrap">
@@ -759,6 +784,7 @@ function TabletHero({ onOpenResume }) {
 let mobileFlipPlayed = false;
 
 function MobileHero({ onOpenResume }) {
+  const { starSrc, boltSrc, starScale, boltScale } = useHeroThemeImages();
   const prefersReducedMotion =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -836,11 +862,11 @@ function MobileHero({ onOpenResume }) {
               className="absolute -top-[44px] -left-[22px] pointer-events-none drop-shadow-md select-none"
             >
               <motion.img
-                src={starImg}
+                src={starSrc}
                 alt=""
                 animate={{ y: [-3, 3, -3], rotate: [-4, 4, -4] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ willChange: 'transform' }}
+                style={{ willChange: 'transform', transformOrigin: 'center', scale: starScale }}
                 className="w-[60px] h-[60px]"
               />
             </motion.div>
@@ -853,17 +879,17 @@ function MobileHero({ onOpenResume }) {
               className="absolute -bottom-[48px] -right-[21px] pointer-events-none drop-shadow-md select-none"
             >
               <motion.img
-                src={boltImg}
+                src={boltSrc}
                 alt=""
                 animate={{ y: [3, -3, 3], rotate: [12, 20, 12] }}
                 transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ willChange: 'transform' }}
+                style={{ willChange: 'transform', transformOrigin: 'center', scale: boltScale }}
                 className="w-[80px] h-[80px]"
               />
             </motion.div>
 
             {/* Main Headline */}
-            <h1 className="font-extrabold uppercase text-[#111111] tracking-[-0.02em] leading-[0.9em] text-[44px] min-[380px]:text-[48px] select-none font-sans">
+            <h1 className="font-extrabold uppercase text-[#111111] dark:text-[#FAF7F3] tracking-[-0.02em] leading-[0.9em] text-[44px] min-[380px]:text-[48px] select-none font-sans">
               {/* 1. "SOFTWARE" appears first */}
               <motion.span
                 initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
@@ -907,7 +933,7 @@ function MobileHero({ onOpenResume }) {
               >
                 {/* FRONT face — grayscale */}
                 <div
-                  className="absolute inset-0 rounded-[32px] overflow-hidden shadow-sm"
+                  className="absolute inset-0 rounded-[32px] overflow-hidden shadow-sm dark:shadow-[0_12px_32px_rgba(0,0,0,0.65)]"
                   style={{
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
@@ -915,7 +941,7 @@ function MobileHero({ onOpenResume }) {
                 >
                   <img
                     src={avatarGrayscaleImg}
-                    alt="Majd – grayscale"
+                    alt="Aryan Gupta – grayscale"
                     loading="eager"
                     decoding="async"
                     fetchPriority="high"
@@ -925,7 +951,7 @@ function MobileHero({ onOpenResume }) {
 
                 {/* BACK face — red */}
                 <div
-                  className="absolute inset-0 rounded-[32px] overflow-hidden shadow-sm"
+                  className="absolute inset-0 rounded-[32px] overflow-hidden shadow-sm dark:shadow-[0_12px_32px_rgba(0,0,0,0.65)]"
                   style={{
                     backfaceVisibility: 'hidden',
                     WebkitBackfaceVisibility: 'hidden',
@@ -934,7 +960,7 @@ function MobileHero({ onOpenResume }) {
                 >
                   <img
                     src={avatarColorImg}
-                    alt="Majd – colour"
+                    alt="Aryan Gupta – colour"
                     loading="eager"
                     decoding="async"
                     className="w-full h-full object-cover"
@@ -951,7 +977,7 @@ function MobileHero({ onOpenResume }) {
               className="w-full mt-3.5 text-center select-none flex justify-center"
             >
               <span
-                className="font-sans font-normal font-[400] text-[#111111] text-[18px] tracking-[-0.04em] uppercase block text-center"
+                className="font-sans font-normal font-[400] text-[#111111] dark:text-[#8F8B84] text-[18px] tracking-[-0.04em] uppercase block text-center"
                 style={{
                   fontFamily: 'Archivo, "Archivo Placeholder", sans-serif',
                   fontWeight: 400,
@@ -972,12 +998,12 @@ function MobileHero({ onOpenResume }) {
           ================================================================ */}
       {/* Screen 2: Bio Area — Stacked single column matching Framer Mobile */}
       <div className="relative z-[2] w-full max-w-[390px] mx-auto px-5 pt-[100px] pb-5 text-left flex flex-col gap-10">
-        {/* Title & Description Block (Framer gap: 100px between Hey! and Majd paragraph, max-w-[300px]) */}
+        {/* Title & Description Block (Framer gap: 100px between Hey! and Aryan paragraph, max-w-[300px]) */}
         <div className="w-full max-w-[300px] flex flex-col gap-[100px]">
           {/* ANIMATION 2: "Hey!" 3D Stick-On-Wall */}
-          <AnimatedHeyHeading className="font-sans not-italic font-[600] font-semibold text-[#111111] text-[46px] leading-[0.95em] tracking-[-0.03em] select-none" />
+          <AnimatedHeyHeading className="font-sans not-italic font-[600] font-semibold text-[#111111] dark:text-[#FAF7F3] text-[46px] leading-[0.95em] tracking-[-0.03em] select-none" />
 
-          <p className="font-sans not-italic font-[600] font-semibold text-[#111111] text-[22px] leading-[1.35em] tracking-[-0.03em]">
+          <p className="font-sans not-italic font-[600] font-semibold text-[#111111] dark:text-[#FAF7F3] text-[22px] leading-[1.35em] tracking-[-0.03em]">
             I&rsquo;m Aryan, a developer and AI enthusiast from India, building practical products using AI and modern web tools.
           </p>
         </div>
@@ -985,7 +1011,7 @@ function MobileHero({ onOpenResume }) {
         {/* Paragraphs Block (Framer gap: 20px between text and button, max-w-[360px]) */}
         <div className="w-full max-w-[360px] flex flex-col gap-5">
           {/* Two lighter regular paragraphs (Framer paragraph-spacing: 20px) */}
-          <div className="flex flex-col gap-5 text-[#111111]/80 leading-[1.45em] tracking-[-0.02em]">
+          <div className="flex flex-col gap-5 text-[#111111]/80 dark:text-[#B8B4AD] leading-[1.45em] tracking-[-0.02em]">
             <p className="font-sans not-italic font-[400] font-normal text-[18px]">
               I love turning ideas into thoughtful digital products: clean interfaces, smooth interactions, and the details that feel effortless.
             </p>
@@ -1001,7 +1027,7 @@ function MobileHero({ onOpenResume }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub profile"
-              className="group inline-flex items-center gap-2.5 text-[#111111] hover:text-[#111111]/70 transition-colors py-1 select-none w-fit cursor-pointer"
+              className="group inline-flex items-center gap-2.5 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 select-none w-fit cursor-pointer"
               whileTap={{ scale: 0.98 }}
             >
               <span className="font-sans not-italic font-[400] font-normal text-[18px] tracking-tight whitespace-nowrap">
@@ -1018,7 +1044,7 @@ function MobileHero({ onOpenResume }) {
               }}
               aria-label="View Resume"
               aria-haspopup="dialog"
-              className="group inline-flex items-center gap-2.5 text-[#111111] hover:text-[#111111]/70 transition-colors py-1 select-none w-fit cursor-pointer bg-transparent border-0 p-0 text-left"
+              className="group inline-flex items-center gap-2.5 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 select-none w-fit cursor-pointer bg-transparent border-0 p-0 text-left"
               whileTap={{ scale: 0.98 }}
             >
               <span className="font-sans not-italic font-[400] font-normal text-[18px] tracking-tight whitespace-nowrap">

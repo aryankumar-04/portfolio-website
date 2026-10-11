@@ -318,7 +318,7 @@ function SocialIconsList() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.name}
-              className="w-[40px] h-[40px] rounded-[8px] bg-[rgba(0,0,0,0.1)] hover:bg-[rgba(0,0,0,0.18)] active:bg-[rgba(0,0,0,0.22)] text-[#111111] flex items-center justify-center transition-colors duration-200 select-none shrink-0"
+              className="w-[40px] h-[40px] rounded-[8px] bg-[rgba(0,0,0,0.1)] hover:bg-[rgba(0,0,0,0.18)] active:bg-[rgba(0,0,0,0.22)] text-[#111111] dark:bg-[rgba(250,247,243,0.10)] dark:hover:bg-[rgba(250,247,243,0.16)] dark:active:bg-[rgba(250,247,243,0.22)] dark:text-[#FAF7F3] flex items-center justify-center transition-colors duration-200 select-none shrink-0"
             >
               {social.icon}
             </a>
@@ -441,10 +441,10 @@ export function Contact() {
           >
             {/* Title & Description: Framer gap is 10px */}
             <div className="flex flex-col gap-[10px] w-full">
-              <h2 className="font-sans font-semibold font-[600] text-[#111111] text-[46px] tablet:text-[62px] desktop:text-[76px] leading-[1.2em] tablet:leading-[1em] desktop:leading-[1em] tracking-[-0.02em] select-none m-0">
+              <h2 className="font-sans font-semibold font-[600] text-[#111111] dark:text-[#FAF7F3] text-[46px] tablet:text-[62px] desktop:text-[76px] leading-[1.2em] tablet:leading-[1em] desktop:leading-[1em] tracking-[-0.02em] select-none m-0">
                 Let&rsquo;s talk.
               </h2>
-              <p className="text-[#111111] font-sans font-normal font-[400] text-[18px] leading-[1.4em] tracking-[-0.04em] m-0 max-w-[540px]">
+              <p className="text-[#111111] dark:text-[#B8B4AD] font-sans font-normal font-[400] text-[18px] leading-[1.4em] tracking-[-0.04em] m-0 max-w-[540px]">
                 Have a project or need help? Fill out the form, and we&rsquo;ll get
                 back to you soon.
               </p>
@@ -464,7 +464,7 @@ export function Contact() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="w-full tablet:w-[440px] desktop:w-[500px] shrink-0"
           >
-            <div className="relative w-full rounded-[16px] bg-[#111111] p-[16px] text-[#FAF7F3] overflow-hidden select-none">
+            <div className="relative w-full rounded-[16px] bg-[#111111] dark:bg-[#171716] dark:border dark:border-[rgba(250,247,243,0.12)] p-[16px] text-[#FAF7F3] overflow-hidden select-none">
               {/* Grain Texture */}
               <div
                 className="absolute inset-0 pointer-events-none rounded-[16px]"
@@ -483,11 +483,11 @@ export function Contact() {
                       <h3 className="font-sans font-medium text-[20px] tablet:text-[22px] text-[#FAF7F3] leading-[1.3em] tracking-[-0.02em] m-0">
                         Message sent successfully!
                       </h3>
-                      <p className="font-sans font-normal text-[15px] tablet:text-[16px] text-[#FAF7F3]/70 leading-[1.5em] tracking-[-0.02em] m-0 max-w-[340px]">
+                      <p className="font-sans font-normal text-[15px] tablet:text-[16px] text-[#FAF7F3]/70 dark:text-[#B8B4AD] leading-[1.5em] tracking-[-0.02em] m-0 max-w-[340px]">
                         Thanks for reaching out. I&rsquo;ll get back to you soon.
                       </p>
                       {submissionCount >= MAX_MESSAGES && (
-                        <p className="font-sans font-normal text-[15px] tablet:text-[16px] text-[#FAF7F3]/70 leading-[1.5em] tracking-[-0.02em] m-0 max-w-[340px] pt-1">
+                        <p className="font-sans font-normal text-[15px] tablet:text-[16px] text-[#FAF7F3]/70 dark:text-[#B8B4AD] leading-[1.5em] tracking-[-0.02em] m-0 max-w-[340px] pt-1">
                           You&rsquo;ve reached the message limit. For anything else, email me at{' '}
                           <a
                             href="mailto:contact.aryankgupta@gmail.com"
@@ -503,7 +503,7 @@ export function Contact() {
                         <button
                           type="button"
                           onClick={handleResetForm}
-                          className="w-full h-[44px] rounded-[8px] bg-[#FAF7F3] hover:bg-white active:scale-[0.99] text-[#111111] font-sans font-medium text-[16px] tracking-[-0.02em] flex items-center justify-center transition-colors duration-200 cursor-pointer select-none"
+                          className="w-full h-[44px] rounded-[8px] bg-[#FAF7F3] hover:bg-white active:scale-[0.99] text-[#111111] dark:bg-[#FAF7F3] dark:hover:bg-[#FFFFFF] dark:text-[#0D0D0C] font-sans font-medium text-[16px] tracking-[-0.02em] flex items-center justify-center transition-colors duration-200 cursor-pointer select-none"
                         >
                           Send another message
                         </button>
@@ -516,7 +516,7 @@ export function Contact() {
                       <h3 className="font-sans font-medium text-[20px] tablet:text-[22px] text-[#FAF7F3] leading-[1.3em] tracking-[-0.02em] m-0">
                         Message limit reached
                       </h3>
-                      <p className="font-sans font-normal text-[15px] tablet:text-[16px] text-[#FAF7F3]/70 leading-[1.5em] tracking-[-0.02em] m-0 max-w-[340px]">
+                      <p className="font-sans font-normal text-[15px] tablet:text-[16px] text-[#FAF7F3]/70 dark:text-[#B8B4AD] leading-[1.5em] tracking-[-0.02em] m-0 max-w-[340px]">
                         You&rsquo;ve reached the message limit. For anything else, email me at{' '}
                         <a
                           href="mailto:contact.aryankgupta@gmail.com"
@@ -550,8 +550,8 @@ export function Contact() {
                         }}
                         placeholder="Enter your name"
                         className={`w-full h-[44px] px-[14px] rounded-[8px] bg-transparent border ${
-                          errors.name ? 'border-red-400' : 'border-[#262626] focus:border-[#555555]'
-                        } text-[#FAF7F3] placeholder-[rgba(250,247,243,0.35)] text-[16px] font-sans leading-[1.4em] tracking-[-0.04em] focus:outline-none focus:ring-0 transition-colors`}
+                          errors.name ? 'border-red-400' : 'border-[#262626] dark:border-[rgba(250,247,243,0.14)] focus:border-[#555555] dark:focus:border-[#8F8B84]'
+                        } text-[#FAF7F3] placeholder-[rgba(250,247,243,0.35)] dark:placeholder-[#77736C] text-[16px] font-sans leading-[1.4em] tracking-[-0.04em] focus:outline-none focus:ring-0 transition-colors`}
                       />
                       {errors.name && (
                         <span className="text-red-400 text-[12px] font-sans">
@@ -581,8 +581,8 @@ export function Contact() {
                         }}
                         placeholder="Enter your email"
                         className={`w-full h-[44px] px-[14px] rounded-[8px] bg-transparent border ${
-                          errors.email ? 'border-red-400' : 'border-[#262626] focus:border-[#555555]'
-                        } text-[#FAF7F3] placeholder-[rgba(250,247,243,0.35)] text-[16px] font-sans leading-[1.4em] tracking-[-0.04em] focus:outline-none focus:ring-0 transition-colors`}
+                          errors.email ? 'border-red-400' : 'border-[#262626] dark:border-[rgba(250,247,243,0.14)] focus:border-[#555555] dark:focus:border-[#8F8B84]'
+                        } text-[#FAF7F3] placeholder-[rgba(250,247,243,0.35)] dark:placeholder-[#77736C] text-[16px] font-sans leading-[1.4em] tracking-[-0.04em] focus:outline-none focus:ring-0 transition-colors`}
                       />
                       {errors.email && (
                         <span className="text-red-400 text-[12px] font-sans">
@@ -611,8 +611,8 @@ export function Contact() {
                         }}
                         placeholder="Tell us about your project"
                         className={`w-full h-[112px] p-[14px] rounded-[8px] bg-transparent border resize-none ${
-                          errors.project ? 'border-red-400' : 'border-[#262626] focus:border-[#555555]'
-                        } text-[#FAF7F3] placeholder-[rgba(250,247,243,0.35)] text-[16px] font-sans leading-[1.4em] tracking-[-0.04em] focus:outline-none focus:ring-0 transition-colors`}
+                          errors.project ? 'border-red-400' : 'border-[#262626] dark:border-[rgba(250,247,243,0.14)] focus:border-[#555555] dark:focus:border-[#8F8B84]'
+                        } text-[#FAF7F3] placeholder-[rgba(250,247,243,0.35)] dark:placeholder-[#77736C] text-[16px] font-sans leading-[1.4em] tracking-[-0.04em] focus:outline-none focus:ring-0 transition-colors`}
                       />
                       {errors.project && (
                         <span className="text-red-400 text-[12px] font-sans">
@@ -631,11 +631,11 @@ export function Contact() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full h-[44px] rounded-[8px] bg-[#FAF7F3] hover:bg-white active:scale-[0.99] text-[#111111] font-sans font-medium text-[16px] tracking-[-0.02em] flex items-center justify-center transition-colors duration-200 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed select-none"
+                      className="w-full h-[44px] rounded-[8px] bg-[#FAF7F3] hover:bg-white active:scale-[0.99] text-[#111111] dark:bg-[#FAF7F3] dark:hover:bg-[#FFFFFF] dark:text-[#0D0D0C] font-sans font-medium text-[16px] tracking-[-0.02em] flex items-center justify-center transition-colors duration-200 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed select-none"
                     >
                       {isSubmitting ? (
                         <div className="flex items-center gap-2">
-                          <span className="w-4 h-4 border-2 border-[#111111] border-t-transparent rounded-full animate-spin" />
+                          <span className="w-4 h-4 border-2 border-[#111111] dark:border-[#0D0D0C] border-t-transparent rounded-full animate-spin" />
                           <span>Submitting...</span>
                         </div>
                       ) : (

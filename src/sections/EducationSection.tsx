@@ -20,7 +20,7 @@ export const EducationSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="edu-cert-heading text-[#111111] leading-[0.95em] tracking-[-0.03em] select-none m-0"
+          className="edu-cert-heading text-[#111111] dark:text-[#FAF7F3] leading-[0.95em] tracking-[-0.03em] select-none m-0"
         >
           Education
         </motion.h2>
@@ -61,7 +61,7 @@ export const EducationSection: React.FC = () => {
                     target.style.display = 'none';
                     if (target.parentElement && !target.parentElement.querySelector('span')) {
                       const fallback = document.createElement('span');
-                      fallback.className = 'font-sans font-medium text-[20px] tablet:text-[22px] desktop:text-[24px] text-[#111111]/40 select-none';
+                      fallback.className = 'font-sans font-medium text-[20px] tablet:text-[22px] desktop:text-[24px] text-[#111111]/40 dark:text-[rgba(250,247,243,0.4)] select-none';
                       fallback.textContent = item.school.charAt(0);
                       target.parentElement.appendChild(fallback);
                     }
@@ -73,21 +73,21 @@ export const EducationSection: React.FC = () => {
               <div className="flex-1 flex flex-col justify-center min-w-0">
                 {/* School Name & Date (Desktop / Tablet layout: Date at right edge, vertically centered with school name) */}
                 <div className="flex items-center justify-between gap-4 w-full">
-                  <h3 className="edu-cert-item-title text-[#111111] leading-[1.2em] tracking-[-0.02em] select-none m-0">
+                  <h3 className="edu-cert-item-title text-[#111111] dark:text-[#FAF7F3] leading-[1.2em] tracking-[-0.02em] select-none m-0">
                     {item.school}
                   </h3>
-                  <span className="edu-date-text text-[#111111]/50 leading-[1.4em] tracking-[-0.02em] whitespace-nowrap text-right select-none hidden tablet:block shrink-0">
+                  <span className="edu-date-text text-[#111111]/50 dark:text-[#8F8B84] leading-[1.4em] tracking-[-0.02em] whitespace-nowrap text-right select-none hidden tablet:block shrink-0">
                     {item.date}
                   </span>
                 </div>
 
                 {/* Sub-line */}
-                <p className="edu-sub-line text-[#111111]/50 leading-[1.4em] tracking-[-0.02em] select-none mt-1.5 tablet:mt-2 m-0">
+                <p className="edu-sub-line text-[#111111]/50 dark:text-[#B8B4AD] leading-[1.4em] tracking-[-0.02em] select-none mt-1.5 tablet:mt-2 m-0">
                   {item.degree}
                 </p>
 
                 {/* Mobile Date (moves below sub-line, left aligned) */}
-                <span className="edu-date-text text-[#111111]/50 leading-[1.4em] tracking-[-0.02em] select-none block tablet:hidden mt-1.5 text-left">
+                <span className="edu-date-text text-[#111111]/50 dark:text-[#8F8B84] leading-[1.4em] tracking-[-0.02em] select-none block tablet:hidden mt-1.5 text-left">
                   {item.date}
                 </span>
               </div>

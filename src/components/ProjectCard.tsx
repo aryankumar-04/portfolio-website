@@ -15,10 +15,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ item, index = 0 }) => 
     >
       <Link
         to={`/work/${item.slug}`}
-        className="group flex flex-col gap-[var(--work-card-gap)] w-full cursor-pointer select-none text-decoration-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 rounded-[var(--work-card-radius)]"
+        className="group flex flex-col gap-[var(--work-card-gap)] w-full cursor-pointer select-none text-decoration-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 rounded-[var(--work-card-radius)]"
       >
         {/* Image wrap: aspect-ratio 1.45, rounded 20px, overflow-hidden */}
-        <div className="relative w-full overflow-hidden rounded-[var(--work-card-radius)] bg-[#E8E4DF] aspect-[1.45/1]">
+        <div className="relative w-full overflow-hidden rounded-[var(--work-card-radius)] bg-[#E8E4DF] dark:bg-[#171716] dark:border dark:border-[rgba(250,247,243,0.06)] aspect-[1.45/1]">
           <img
             src={item.images.hero}
             alt={
@@ -46,7 +46,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ item, index = 0 }) => 
         {/* Text Block: Title (H3) & Category (P) */}
         <div className="flex flex-col gap-0 items-start text-left w-full">
           <h3
-            className="text-[#111111] text-[var(--work-card-title-font-size)] font-[var(--work-card-title-font-weight)] leading-[1.2em] tracking-[-0.02em] m-0"
+            className="text-[#111111] dark:text-[#FAF7F3] text-[var(--work-card-title-font-size)] font-[var(--work-card-title-font-weight)] leading-[1.2em] tracking-[-0.02em] m-0"
             style={{
               fontFamily: 'var(--work-font-family)',
               fontStyle: 'var(--work-font-style)',
@@ -57,7 +57,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ item, index = 0 }) => 
             {item.title}
           </h3>
           <p
-            className="text-[#111111] text-[var(--work-card-sub-font-size)] font-[var(--work-card-sub-font-weight)] leading-[1.4em] tracking-[-0.04em] m-0"
+            className="text-[#111111] dark:text-[#8F8B84] text-[var(--work-card-sub-font-size)] font-[var(--work-card-sub-font-weight)] leading-[1.4em] tracking-[-0.04em] m-0"
             style={{
               fontFamily: 'var(--work-font-family)',
               fontStyle: 'var(--work-font-style)',

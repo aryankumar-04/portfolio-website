@@ -70,7 +70,7 @@ export const CertificationsSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="edu-cert-heading text-[#111111] leading-[0.95em] tracking-[-0.03em] select-none m-0"
+          className="edu-cert-heading text-[#111111] dark:text-[#FAF7F3] leading-[0.95em] tracking-[-0.03em] select-none m-0"
         >
           Certifications
         </motion.h2>
@@ -111,7 +111,7 @@ export const CertificationsSection: React.FC = () => {
                     target.style.display = 'none';
                     if (target.parentElement && !target.parentElement.querySelector('span')) {
                       const fallback = document.createElement('span');
-                      fallback.className = 'font-sans font-medium text-[20px] tablet:text-[22px] desktop:text-[24px] text-[#111111]/40 select-none';
+                      fallback.className = 'font-sans font-medium text-[20px] tablet:text-[22px] desktop:text-[24px] text-[#111111]/40 dark:text-[rgba(250,247,243,0.4)] select-none';
                       fallback.textContent = item.issuer.charAt(0);
                       target.parentElement.appendChild(fallback);
                     }
@@ -122,17 +122,17 @@ export const CertificationsSection: React.FC = () => {
               {/* Text Column & Actions */}
               <div className="flex-1 flex flex-col min-w-0">
                 {/* Certificate Name */}
-                <h3 className="edu-cert-item-title text-[#111111] leading-[1.2em] tracking-[-0.02em] select-none m-0">
+                <h3 className="edu-cert-item-title text-[#111111] dark:text-[#FAF7F3] leading-[1.2em] tracking-[-0.02em] select-none m-0">
                   {item.name}
                 </h3>
 
                 {/* Meta Line */}
-                <p className="cert-meta-line text-[#111111]/50 leading-[1.4em] tracking-[-0.02em] select-none mt-1 tablet:mt-1.5 m-0">
+                <p className="cert-meta-line text-[#111111]/50 dark:text-[#8F8B84] leading-[1.4em] tracking-[-0.02em] select-none mt-1 tablet:mt-1.5 m-0">
                   {item.issuer} • ID: {item.certId}
                 </p>
 
                 {/* Issued Date */}
-                <p className="cert-issued-date text-[#111111]/50 leading-[1.4em] tracking-[-0.02em] select-none mt-1 m-0">
+                <p className="cert-issued-date text-[#111111]/50 dark:text-[#8F8B84] leading-[1.4em] tracking-[-0.02em] select-none mt-1 m-0">
                   {item.issuedDate}
                 </p>
 
@@ -189,7 +189,7 @@ export const CertificationsSection: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => openModal(item)}
-                    className="cert-btn-base cert-btn-preview"
+                    className="cert-btn-base cert-btn-preview dark:hover:bg-[#FAF7F3] dark:hover:border-[#FAF7F3] dark:hover:text-[#111111] dark:focus-visible:bg-[#FAF7F3] dark:focus-visible:border-[#FAF7F3] dark:focus-visible:text-[#111111] dark:active:bg-[#E6E1D8] dark:active:border-[#E6E1D8] dark:active:text-[#111111]"
                     aria-label={`Preview ${item.name} certificate`}
                   >
                     <span>Preview</span>
@@ -217,7 +217,7 @@ export const CertificationsSection: React.FC = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.24, ease: 'easeOut' }}
               onClick={closeModal}
-              className="absolute inset-0 bg-[#111111]/75 backdrop-blur-[4px] cursor-pointer"
+              className="absolute inset-0 bg-[#111111]/75 dark:bg-[rgba(0,0,0,0.82)] backdrop-blur-[4px] cursor-pointer"
             />
 
             {/* Modal Dialog Card */}
@@ -226,15 +226,15 @@ export const CertificationsSection: React.FC = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 12 }}
               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10 w-[94vw] tablet:w-[92vw] desktop:w-full desktop:max-w-[960px] h-[85vh] max-h-[85vh] bg-[#FAF7F3] border border-[#111111]/15 rounded-[20px] tablet:rounded-[24px] shadow-2xl flex flex-col overflow-hidden"
+              className="relative z-10 w-[94vw] tablet:w-[92vw] desktop:w-full desktop:max-w-[960px] h-[85vh] max-h-[85vh] bg-[#FAF7F3] dark:bg-[#171716] border border-[#111111]/15 dark:border-[rgba(250,247,243,0.12)] rounded-[20px] tablet:rounded-[24px] shadow-2xl flex flex-col overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Top Bar */}
-              <div className="shrink-0 px-5 tablet:px-7 py-3.5 tablet:py-4.5 border-b border-[#111111]/10 flex items-center justify-between gap-4 bg-[#FAF7F3]">
+              <div className="shrink-0 px-5 tablet:px-7 py-3.5 tablet:py-4.5 border-b border-[#111111]/10 dark:border-[rgba(250,247,243,0.12)] flex items-center justify-between gap-4 bg-[#FAF7F3] dark:bg-[#171716]">
                 {/* Title (Certificate Name) */}
                 <h4
                   id="modal-certificate-title"
-                  className="modal-cert-title text-[#111111] leading-tight tracking-[-0.02em] truncate m-0"
+                  className="modal-cert-title text-[#111111] dark:text-[#FAF7F3] leading-tight tracking-[-0.02em] truncate m-0"
                 >
                   {selectedCert.name}
                 </h4>
@@ -245,7 +245,7 @@ export const CertificationsSection: React.FC = () => {
                   <a
                     href={selectedCert.pdfPath}
                     download={getDownloadFileName(selectedCert.name)}
-                    className="modal-download-btn inline-flex items-center justify-center px-4 py-1.5 tablet:px-5 tablet:py-2 rounded-full border border-[#111111]/30 hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111]"
+                    className="modal-download-btn inline-flex items-center justify-center px-4 py-1.5 tablet:px-5 tablet:py-2 rounded-full border border-[#111111]/30 dark:border-[rgba(250,247,243,0.22)] dark:bg-[#222221] dark:hover:bg-[#2D2D2B] dark:text-[#FAF7F3] hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3]"
                   >
                     Download
                   </a>
@@ -255,7 +255,7 @@ export const CertificationsSection: React.FC = () => {
                     type="button"
                     onClick={closeModal}
                     aria-label="Close certificate preview"
-                    className="w-8 h-8 tablet:w-9 tablet:h-9 rounded-full border border-[#111111]/30 hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111]"
+                    className="w-8 h-8 tablet:w-9 tablet:h-9 rounded-full border border-[#111111]/30 dark:border-[rgba(250,247,243,0.22)] dark:bg-[#222221] dark:hover:bg-[#2D2D2B] dark:text-[#FAF7F3] hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3]"
                   >
                     <svg
                       width="14"
@@ -275,7 +275,7 @@ export const CertificationsSection: React.FC = () => {
               </div>
 
               {/* Modal Body: PDF Embed / Iframe */}
-              <div className="flex-1 w-full h-full bg-[#E8E4DF] overflow-hidden relative flex items-center justify-center">
+              <div className="flex-1 w-full h-full bg-[#E8E4DF] dark:bg-[#0D0D0C] overflow-hidden relative flex items-center justify-center">
                 {selectedCert.pdfPath ? (
                   <object
                     data={selectedCert.pdfPath}
@@ -288,14 +288,14 @@ export const CertificationsSection: React.FC = () => {
                       className="w-full h-full border-0"
                     >
                       <div className="flex flex-col items-center justify-center h-full p-6 text-center select-none">
-                        <p className="font-sans text-[16px] text-[#111111]/70 mb-3">
+                        <p className="font-sans text-[16px] text-[#111111]/70 dark:text-[#B8B4AD] mb-3">
                           Inline preview is not supported on this browser.
                         </p>
                         <a
                           href={selectedCert.pdfPath}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-sans font-medium text-[16px] text-[#111111] underline hover:opacity-75"
+                          className="font-sans font-medium text-[16px] text-[#111111] dark:text-[#FAF7F3] underline hover:opacity-75"
                         >
                           Open PDF
                         </a>
@@ -304,17 +304,17 @@ export const CertificationsSection: React.FC = () => {
                   </object>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full p-8 text-center select-none">
-                    <p className="font-sans font-medium text-[20px] text-[#111111] mb-1">
+                    <p className="font-sans font-medium text-[20px] text-[#111111] dark:text-[#FAF7F3] mb-1">
                       {selectedCert.name}
                     </p>
-                    <p className="font-sans text-[15px] text-[#111111]/50 max-w-[340px]">
+                    <p className="font-sans text-[15px] text-[#111111]/50 dark:text-[#8F8B84] max-w-[340px]">
                       PDF document preview placeholder.
                     </p>
                     <a
                       href={selectedCert.verifyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 font-sans font-medium text-[14px] text-[#111111] underline hover:opacity-75"
+                      className="mt-4 font-sans font-medium text-[14px] text-[#111111] dark:text-[#FAF7F3] underline hover:opacity-75"
                     >
                       Open PDF
                     </a>

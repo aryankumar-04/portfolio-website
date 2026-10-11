@@ -61,7 +61,7 @@ export function Thoughts() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="font-sans font-semibold font-[600] text-[#111111] text-[46px] tablet:text-[62px] desktop:text-[76px] leading-[1em] tracking-[-0.02em] mb-[40px] tablet:mb-[60px] desktop:mb-[60px] select-none text-left"
+          className="font-sans font-semibold font-[600] text-[#111111] dark:text-[#FAF7F3] text-[46px] tablet:text-[62px] desktop:text-[76px] leading-[1em] tracking-[-0.02em] mb-[40px] tablet:mb-[60px] desktop:mb-[60px] select-none text-left"
         >
           Thoughts
         </motion.h2>
@@ -89,7 +89,7 @@ export function Thoughts() {
                 <Link
                   to={post.href}
                   state={{ fromInternal: true }}
-                  className="group relative w-full h-[460px] rounded-[20px] overflow-hidden flex flex-col justify-end p-[20px] select-none block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] cursor-pointer"
+                  className="group relative w-full h-[460px] rounded-[20px] overflow-hidden flex flex-col justify-end p-[20px] select-none block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] cursor-pointer"
                 >
 
                   {/* Background Image with Framer Spring-like Hover Zoom (104%) */}
@@ -148,7 +148,7 @@ export function Thoughts() {
             }}
             className="h-[460px] w-full flex"
           >
-            <div className="relative w-full h-[460px] min-h-[460px] rounded-[16px] bg-[#111111] p-[24px] flex flex-col justify-between items-start overflow-hidden select-none">
+            <div className="relative w-full h-[460px] min-h-[460px] rounded-[16px] bg-[#111111] dark:bg-[#171716] dark:border dark:border-[rgba(250,247,243,0.12)] p-[24px] flex flex-col justify-between items-start overflow-hidden select-none">
               {/* Statement heading: exact Framer 44px Body preset */}
               <div className="w-full text-left">
                 <p className="font-sans font-normal text-[#FAF7F3] text-[40px] tablet:text-[42px] desktop:text-[44px] leading-[1.2em] tracking-[-0.02em]">

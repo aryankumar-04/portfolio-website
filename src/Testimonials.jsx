@@ -141,24 +141,22 @@ function TestimonialCardContent({ item }) {
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerCancel}
       onAnimationEnd={() => setIsTapped(false)}
-      className={`testimonial-card relative w-full rounded-[20px] bg-[#111111] p-[20px] flex flex-col justify-between overflow-hidden select-none h-auto tablet:min-h-[340px] desktop:h-[340px] cursor-default ${
+      className={`testimonial-card relative w-full rounded-[20px] bg-[#111111] dark:bg-[#F1EDE6] dark:border dark:border-[rgba(17,17,17,0.08)] p-[20px] flex flex-col justify-between overflow-hidden select-none h-auto tablet:min-h-[340px] desktop:h-[340px] cursor-default ${
         isTapped ? 'is-tapped' : ''
       }`}
     >
       {/* Subtle Grain Overlay on Card */}
       <div
-        className="absolute inset-0 pointer-events-none rounded-[20px]"
+        className="absolute inset-0 pointer-events-none rounded-[20px] mix-blend-overlay dark:mix-blend-multiply opacity-[0.12] dark:opacity-[0.04]"
         style={{
           backgroundImage: `url(${grainImg})`,
           backgroundRepeat: 'repeat',
-          opacity: 0.12,
-          mixBlendMode: 'overlay',
         }}
       />
 
       {/* Quote Text */}
       <blockquote className="relative z-[2]">
-        <p className="font-sans font-normal text-[#FAF7F3] text-[18px] leading-[1.4] tracking-[-0.04em]">
+        <p className="font-sans font-normal text-[#FAF7F3] dark:text-[#111111] text-[18px] leading-[1.4] tracking-[-0.04em]">
           {item.quote}
         </p>
       </blockquote>
@@ -173,10 +171,10 @@ function TestimonialCardContent({ item }) {
           className="w-[50px] h-[50px] rounded-full object-cover shrink-0"
         />
         <div className="flex flex-col gap-0 justify-center">
-          <span className="font-sans font-medium text-[#FAF7F3] text-[16px] leading-[1.4] tracking-[-0.04em]">
+          <span className="font-sans font-medium text-[#FAF7F3] dark:text-[#111111] text-[16px] leading-[1.4] tracking-[-0.04em]">
             {item.name}
           </span>
-          <span className="font-sans font-light text-[#FAF7F3] text-[16px] leading-[1.4] tracking-[-0.04em]">
+          <span className="font-sans font-light text-[#FAF7F3] dark:text-[#6B675F] text-[16px] leading-[1.4] tracking-[-0.04em]">
             {item.role}
           </span>
         </div>
@@ -267,7 +265,7 @@ export function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="font-sans font-semibold font-[600] text-[#111111] text-[46px] tablet:text-[62px] desktop:text-[76px] leading-[1em] tracking-[-0.02em] select-none"
+          className="font-sans font-semibold font-[600] text-[#111111] dark:text-[#FAF7F3] text-[46px] tablet:text-[62px] desktop:text-[76px] leading-[1em] tracking-[-0.02em] select-none"
         >
           Testimonials
         </motion.h2>

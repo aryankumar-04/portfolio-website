@@ -44,16 +44,16 @@ export const ContactSection: React.FC = () => {
                 Have an idea? Let’s bring it to life.
               </h2>
               <p className="mt-6 text-dark/70 framer-body-18 max-w-md font-sans leading-relaxed">
-                Whether you’re looking to launch a standout Framer website, migrate an existing product, or engineer custom React interactions, I’d love to hear about it.
+                Whether you’re looking to build a modern web application, explore an AI-driven project, or collaborate on scalable software, I’d love to hear about it.
               </p>
 
               <div className="mt-8 flex items-center gap-3">
                 <a
-                  href="mailto:contact@templyo.io"
+                  href="mailto:contact.aryankgupta@gmail.com"
                   className="inline-flex items-center gap-2 text-dark font-semibold text-lg hover:underline underline-offset-4"
                 >
                   <Mail className="w-5 h-5 text-dark/60" />
-                  <span>contact@templyo.io</span>
+                  <span>contact.aryankgupta@gmail.com</span>
                 </a>
               </div>
             </div>

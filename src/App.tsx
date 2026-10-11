@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
+import { ViewTransitionsRouter } from './components/ViewTransitionsRouter';
+import { ThemeProvider } from './context/ThemeContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
@@ -13,7 +15,7 @@ import { NotFound } from './pages/NotFound';
 import { useThemeFavicon } from './hooks/useThemeFavicon';
 import { ScrollManager } from './components/ScrollManager';
 
-export const App: React.FC = () => {
+const AppContent: React.FC = () => {
   useThemeFavicon();
 
   useEffect(() => {
@@ -38,9 +40,9 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <ViewTransitionsRouter>
       <ScrollManager />
-      <div className="flex flex-col min-h-screen bg-transparent selection:bg-dark selection:text-cream">
+      <div className="flex flex-col min-h-screen bg-transparent selection:bg-dark selection:text-cream dark:selection:bg-cream dark:selection:text-[#0D0D0C]">
         <Navbar />
         <div className="flex-1">
           <Routes>
@@ -54,7 +56,15 @@ export const App: React.FC = () => {
         </div>
         <Footer />
       </div>
-    </BrowserRouter>
+    </ViewTransitionsRouter>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 };
 

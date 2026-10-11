@@ -7,20 +7,42 @@
         history.scrollRestoration = 'manual';
       }
       window.scrollTo(0, 0);
+      try {
+        var savedTheme = localStorage.getItem('theme');
+        var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+          document.documentElement.classList.add('dark');
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', '#0D0D0C');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#FAF7F3" />
     <title>Aryan Gupta | SWE</title>
-    <meta name="description" content="Portfolio of Majd, a software engineer and Framer creator building modern, scalable, and conversion-driven web experiences." />
+    <meta name="description" content="Portfolio of Aryan Kumar Gupta, a software engineer building modern, scalable web applications with React, Python, and Java." />
+    <meta name="author" content="Aryan Kumar Gupta" />
+    <meta name="keywords" content="Aryan Kumar Gupta, Aryan Gupta, software engineer, portfolio, React developer, Python, Java" />
+    <meta property="og:title" content="Aryan Gupta | SWE" />
+    <meta property="og:description" content="Portfolio of Aryan Kumar Gupta, a software engineer building modern, scalable web applications with React, Python, and Java." />
+    <meta property="og:site_name" content="Aryan Gupta" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Aryan Gupta | SWE" />
+    <meta name="twitter:description" content="Portfolio of Aryan Kumar Gupta, a software engineer building modern, scalable web applications with React, Python, and Java." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://framerusercontent.com" crossorigin />
     <link rel="preload" as="image" href="/src/assets/avatar-grayscale.png" />
+    <link rel="preload" as="image" href="/star-3d-light.png" />
+    <link rel="preload" as="image" href="/lightning-3-light.png" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="/black.svg" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="/white.svg" media="(prefers-color-scheme: dark)" />
   </head>
-  <body class="text-dark antialiased selection:bg-dark selection:text-cream min-h-screen">
+  <body class="text-heading antialiased selection:bg-dark selection:text-cream dark:selection:bg-cream dark:selection:text-[#0D0D0C] min-h-screen bg-page">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

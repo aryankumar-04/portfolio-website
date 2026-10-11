@@ -24,7 +24,7 @@ function FooterPill({ text, targetId, onClick }) {
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
-      className="relative inline-flex items-center justify-center h-[38px] tablet:h-[42px] desktop:h-[44px] px-4 tablet:px-[18px] desktop:px-[20px] rounded-[8px] tablet:rounded-[10px] bg-[#FAF7F3] hover:bg-white text-[#111111] font-sans font-medium text-[15px] tablet:text-[16px] desktop:text-[18px] tracking-[-0.02em] select-none transition-colors duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white shrink-0 active:scale-95 shadow-none"
+      className="relative inline-flex items-center justify-center h-[38px] tablet:h-[42px] desktop:h-[44px] px-4 tablet:px-[18px] desktop:px-[20px] rounded-[8px] tablet:rounded-[10px] bg-[#FAF7F3] hover:bg-white text-[#111111] dark:bg-[#111111] dark:hover:bg-[#2D2D2B] dark:text-[#FAF7F3] font-sans font-medium text-[15px] tablet:text-[16px] desktop:text-[18px] tracking-[-0.02em] select-none transition-colors duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white shrink-0 active:scale-95 shadow-none"
     >
       {/* 44px min touch target on mobile */}
       <span className="absolute -inset-1 block tablet:hidden pointer-events-auto" aria-hidden="true" />
@@ -32,7 +32,7 @@ function FooterPill({ text, targetId, onClick }) {
         <motion.span
           animate={{ y: shouldRoll ? '-100%' : '0%' }}
           transition={{ type: 'spring', duration: 0.45, bounce: 0.15 }}
-          className="block text-[#111111] leading-[1.3em]"
+          className="block text-[#111111] dark:text-[#FAF7F3] leading-[1.3em]"
         >
           {text}
         </motion.span>
@@ -40,7 +40,7 @@ function FooterPill({ text, targetId, onClick }) {
           animate={{ y: shouldRoll ? '-100%' : '0%' }}
           transition={{ type: 'spring', duration: 0.45, bounce: 0.15 }}
           aria-hidden="true"
-          className="block text-[#111111] leading-[1.3em]"
+          className="block text-[#111111] dark:text-[#FAF7F3] leading-[1.3em]"
         >
           {text}
         </motion.span>
@@ -90,16 +90,14 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative w-full bg-[#111111] overflow-clip select-none pt-[80px] tablet:pt-[100px] desktop:pt-[120px] pb-[200px] tablet:pb-[300px] desktop:pb-[300px]">
+    <footer className="relative w-full bg-[#111111] dark:bg-[#F1EDE6] overflow-clip select-none pt-[80px] tablet:pt-[100px] desktop:pt-[120px] pb-[200px] tablet:pb-[300px] desktop:pb-[300px]">
       {/* Subtle Grain Overlay on Footer */}
       <div
-        className="absolute inset-0 pointer-events-none z-0"
+        className="absolute inset-0 pointer-events-none z-0 mix-blend-screen dark:mix-blend-multiply opacity-[0.04]"
         style={{
           backgroundImage: 'var(--noise-texture)',
           backgroundRepeat: 'repeat',
           backgroundSize: '160px 160px',
-          opacity: 0.04,
-          mixBlendMode: 'screen',
         }}
       />
 
@@ -118,12 +116,12 @@ export function Footer() {
           >
             {/* Desktop 3-line wrap: Scaling / Start-ups / for Growth. */}
             {/* Tablet & Mobile wrap: Scaling / Start-ups for / Growth. */}
-            <h2 className="hidden desktop:block font-sans font-semibold text-[#FAF7F3] text-[72px] leading-[1.05em] tracking-[-0.02em]">
+            <h2 className="hidden desktop:block font-sans font-semibold text-[#FAF7F3] dark:text-[#111111] text-[72px] leading-[1.05em] tracking-[-0.02em]">
               Scaling<br />
               Start-ups<br />
               for Growth.
             </h2>
-            <h2 className="block desktop:hidden font-sans font-semibold text-[#FAF7F3] text-[48px] tablet:text-[64px] leading-[1.05em] tracking-[-0.02em]">
+            <h2 className="block desktop:hidden font-sans font-semibold text-[#FAF7F3] dark:text-[#111111] text-[48px] tablet:text-[64px] leading-[1.05em] tracking-[-0.02em]">
               Scaling<br />
               Start-ups for<br />
               Growth.
@@ -140,7 +138,7 @@ export function Footer() {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               className="w-full tablet:max-w-[380px] desktop:max-w-[380px]"
             >
-              <h3 className="font-sans font-medium text-[#FAF7F3] text-[22px] tablet:text-[24px] desktop:text-[26px] leading-tight tracking-normal mb-5 tablet:mb-6">
+              <h3 className="font-sans font-medium text-[#FAF7F3] dark:text-[#6B675F] text-[22px] tablet:text-[24px] desktop:text-[26px] leading-tight tracking-normal mb-5 tablet:mb-6">
                 /Quick links
               </h3>
 
@@ -163,14 +161,14 @@ export function Footer() {
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
               className="w-full tablet:max-w-[280px] desktop:max-w-[280px]"
             >
-              <h3 className="font-sans font-medium text-[#FAF7F3] text-[22px] tablet:text-[24px] desktop:text-[26px] leading-tight tracking-normal mb-5 tablet:mb-6">
+              <h3 className="font-sans font-medium text-[#FAF7F3] dark:text-[#6B675F] text-[22px] tablet:text-[24px] desktop:text-[26px] leading-tight tracking-normal mb-5 tablet:mb-6">
                 /Contact
               </h3>
 
               <a
                 href="mailto:contact.aryankgupta@gmail.com"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-block font-sans font-normal text-[#FAF7F3] text-[18px] tablet:text-[18px] desktop:text-[18px] leading-normal tracking-[-0.03em] hover:underline underline-offset-4 hover:opacity-80 transition-opacity"
+                className="inline-block font-sans font-normal text-[#FAF7F3] dark:text-[#111111] text-[18px] tablet:text-[18px] desktop:text-[18px] leading-normal tracking-[-0.03em] hover:underline underline-offset-4 hover:opacity-80 dark:hover:text-[#4A4742] dark:hover:opacity-100 transition-colors transition-opacity"
               >
                 contact.aryankgupta@gmail.com
               </a>
@@ -189,10 +187,7 @@ export function Footer() {
         className="w-full absolute inset-x-0 -bottom-[10px] tablet:-bottom-[50px] desktop:-bottom-[100px] flex justify-center items-end select-none pointer-events-none z-[1]"
       >
         <span
-          className="font-sans font-bold uppercase tracking-[-0.02em] leading-[0.9em] whitespace-nowrap block text-center text-[clamp(90px,32.7vw,128px)] tablet:text-[clamp(180px,32.7vw,265px)] desktop:text-[clamp(280px,22vw,417px)]"
-          style={{
-            color: 'rgba(250, 247, 243, 0.1)',
-          }}
+          className="font-sans font-bold uppercase tracking-[-0.02em] leading-[0.9em] whitespace-nowrap block text-center text-[clamp(90px,32.7vw,128px)] tablet:text-[clamp(180px,32.7vw,265px)] desktop:text-[clamp(280px,22vw,417px)] text-[rgba(250,247,243,0.1)] dark:text-[rgba(17,17,17,0.07)]"
         >
           ARYAN
         </span>

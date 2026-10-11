@@ -18,14 +18,7 @@ const prefersReducedMotion =
 /* ============================================================
    framer-motion shared presets
    ============================================================ */
-const fadeUp = (delay = 0) =>
-  prefersReducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 30 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay },
-      };
+const fadeUp = (_delay = 0) => ({});
 
 const fadeUpInView = (delay = 0) =>
   prefersReducedMotion
@@ -45,13 +38,13 @@ const TextSection: React.FC<{ section: Extract<WorkSection, { type: 'text' }>; i
   section,
 }) => (
   <motion.div {...fadeUpInView(0)} className="flex flex-col gap-4">
-    <h2 className="project-heading text-[#111111] leading-[1.2em] tracking-[-0.02em]">
+    <h2 className="project-heading text-[#111111] dark:text-[#FAF7F3] leading-[1.2em] tracking-[-0.02em]">
       {section.heading}
     </h2>
     {section.paragraphs.map((p, i) => (
       <p
         key={i}
-        className="project-body text-[#111111]/70 leading-[1.6em] tracking-[-0.02em]"
+        className="project-body text-[#111111]/70 dark:text-[#B8B4AD] leading-[1.6em] tracking-[-0.02em]"
       >
         {p}
       </p>
@@ -85,7 +78,7 @@ const GallerySection: React.FC<{
               onImageClick(src, alt, e.currentTarget);
             }
           }}
-          className="w-full rounded-[16px] tablet:rounded-[20px] overflow-hidden bg-[#E8E4DF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 project-previewable-image select-none"
+          className="w-full rounded-[16px] tablet:rounded-[20px] overflow-hidden bg-[#E8E4DF] dark:bg-[#171716] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 project-previewable-image select-none"
           style={{ aspectRatio: '4 / 3' }}
           aria-label={`Preview ${alt}`}
         >
@@ -123,7 +116,7 @@ const CollageSection: React.FC<{
           onImageClick(section.image, alt, e.currentTarget);
         }
       }}
-      className="w-full rounded-[16px] tablet:rounded-[20px] desktop:rounded-[28px] overflow-hidden bg-[#E8E4DF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 project-previewable-image select-none"
+      className="w-full rounded-[16px] tablet:rounded-[20px] desktop:rounded-[28px] overflow-hidden bg-[#E8E4DF] dark:bg-[#171716] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 project-previewable-image select-none"
       style={{ aspectRatio: '16 / 9' }}
       aria-label={`Preview ${alt}`}
     >
@@ -151,11 +144,11 @@ const MoreProjectCard: React.FC<{
   <motion.div {...fadeUpInView(delay)} className="w-full">
     <Link
       to={`/work/${slug}`}
-      className="group block w-full select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] rounded-[28px]"
+      className="group block w-full select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] rounded-[28px]"
     >
       {/* Image container — same aspect ratio & radius as home cards */}
       <div
-        className="w-full relative overflow-hidden rounded-[20px] tablet:rounded-[28px] bg-[#E8E4DF]"
+        className="w-full relative overflow-hidden rounded-[20px] tablet:rounded-[28px] bg-[#E8E4DF] dark:bg-[#171716]"
         style={{ aspectRatio: '1.45 / 1' }}
       >
         <img
@@ -168,10 +161,10 @@ const MoreProjectCard: React.FC<{
       </div>
       {/* Title & subtitle */}
       <div className="mt-5 tablet:mt-6">
-        <h3 className="project-card-title text-[#111111] leading-tight tracking-[-0.03em] transition-colors duration-300 group-hover:text-[#111111]/80">
+        <h3 className="project-card-title text-[#111111] dark:text-[#FAF7F3] leading-tight tracking-[-0.03em] transition-colors duration-300 group-hover:text-[#111111]/80 dark:group-hover:text-[#FAF7F3]/80">
           {title}
         </h3>
-        <p className="mt-1 tablet:mt-1.5 project-card-cat text-[#111111]/60 leading-normal tracking-[-0.02em]">
+        <p className="mt-1 tablet:mt-1.5 project-card-cat text-[#111111]/60 dark:text-[#8F8B84] leading-normal tracking-[-0.02em]">
           {subtitle}
         </p>
       </div>
@@ -397,7 +390,7 @@ export const WorkDetail: React.FC = () => {
           <button
             type="button"
             onClick={handleBack}
-            className="group inline-flex items-center gap-2.5 text-[#111111] hover:text-[#111111]/75 transition-colors select-none min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 rounded cursor-pointer"
+            className="group inline-flex items-center gap-2.5 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/75 dark:hover:text-[#FAF7F3]/75 transition-colors select-none min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 rounded cursor-pointer"
             aria-label="Go back to previous page"
           >
             <AnimatedArrowBox variant="light" size="sm" direction="left" />
@@ -410,7 +403,7 @@ export const WorkDetail: React.FC = () => {
         {/* ──────────────────── 1. Title ──────────────────── */}
         <motion.h1
           {...fadeUp(0)}
-          className="project-title text-[#111111] leading-[0.95em] tracking-[-0.03em] select-none"
+          className="project-title text-[#111111] dark:text-[#FAF7F3] leading-[0.95em] tracking-[-0.03em] select-none"
         >
           {item.title}
         </motion.h1>
@@ -424,37 +417,37 @@ export const WorkDetail: React.FC = () => {
           <div className="flex items-center gap-4 tablet:gap-5 flex-wrap tablet:flex-nowrap shrink-0">
             {/* Category */}
             <div className="flex flex-col gap-1">
-              <span className="project-meta-label text-[#111111]/40 tracking-[-0.01em]">
+              <span className="project-meta-label text-[#111111]/40 dark:text-[#8F8B84] tracking-[-0.01em]">
                 Category
               </span>
-              <span className="project-meta-val text-[#111111] tracking-[-0.02em]">
+              <span className="project-meta-val text-[#111111] dark:text-[#FAF7F3] tracking-[-0.02em]">
                 {item.category}
               </span>
             </div>
 
             {/* Slash separator */}
-            <span className="project-separator text-[#111111]/20 select-none" aria-hidden="true">
+            <span className="project-separator text-[#111111]/20 dark:text-[rgba(250,247,243,0.22)] select-none" aria-hidden="true">
               /
             </span>
 
             {/* Year */}
             <div className="flex flex-col gap-1">
-              <span className="project-meta-label text-[#111111]/40 tracking-[-0.01em]">
+              <span className="project-meta-label text-[#111111]/40 dark:text-[#8F8B84] tracking-[-0.01em]">
                 Year
               </span>
-              <span className="project-meta-val text-[#111111] tracking-[-0.02em]">
+              <span className="project-meta-val text-[#111111] dark:text-[#FAF7F3] tracking-[-0.02em]">
                 {item.year}
               </span>
             </div>
 
             {/* Slash separator */}
-            <span className="project-separator text-[#111111]/20 select-none" aria-hidden="true">
+            <span className="project-separator text-[#111111]/20 dark:text-[rgba(250,247,243,0.22)] select-none" aria-hidden="true">
               /
             </span>
 
             {/* Live Link */}
             <div className="relative flex flex-col gap-1">
-              <span className="project-meta-val text-[#111111]/40 tracking-[-0.01em]">
+              <span className="project-meta-val text-[#111111]/40 dark:text-[#8F8B84] tracking-[-0.01em]">
                 Live Link
               </span>
               <div className="relative inline-flex">
@@ -467,7 +460,7 @@ export const WorkDetail: React.FC = () => {
                   aria-label="Open live site"
                   aria-haspopup={hasBothLinks ? 'true' : undefined}
                   aria-expanded={hasBothLinks ? isPopoverOpen : undefined}
-                  className="group inline-flex items-center justify-center w-[30px] h-[30px] rounded-[7px] shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2"
+                  className="group inline-flex items-center justify-center w-[30px] h-[30px] rounded-[7px] shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2"
                 >
                   <AnimatedArrowBox variant="live" size="live" direction="up-right" />
                 </a>
@@ -485,7 +478,7 @@ export const WorkDetail: React.FC = () => {
                       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                       className={`absolute top-[calc(100%+8px)] ${
                         popoverAlign === 'right' ? 'right-0' : 'left-0'
-                      } min-w-[152px] bg-[#FAF7F3] border border-[#111111]/15 rounded-[14px] shadow-[0_12px_32px_rgba(17,17,17,0.12),0_2px_6px_rgba(17,17,17,0.06)] p-1.5 z-50 flex flex-col gap-0.5 tablet:hidden`}
+                      } min-w-[152px] bg-[#FAF7F3] dark:bg-[#171716] border border-[#111111]/15 dark:border-[rgba(250,247,243,0.12)] rounded-[14px] shadow-[0_12px_32px_rgba(17,17,17,0.12),0_2px_6px_rgba(17,17,17,0.06)] dark:shadow-[0_12px_36px_rgba(0,0,0,0.65)] p-1.5 z-50 flex flex-col gap-0.5 tablet:hidden`}
                     >
                       {hasLive && (
                         <a
@@ -494,7 +487,7 @@ export const WorkDetail: React.FC = () => {
                           rel="noopener noreferrer"
                           role="menuitem"
                           onClick={() => setIsPopoverOpen(false)}
-                          className="flex items-center justify-between gap-3 px-3.5 py-2.5 min-h-[44px] rounded-[10px] text-[#111111] hover:bg-[#111111]/[0.06] active:bg-[#111111]/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] group"
+                          className="flex items-center justify-between gap-3 px-3.5 py-2.5 min-h-[44px] rounded-[10px] text-[#111111] dark:text-[#FAF7F3] hover:bg-[#111111]/[0.06] dark:hover:bg-[rgba(250,247,243,0.06)] active:bg-[#111111]/10 dark:active:bg-[rgba(250,247,243,0.1)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] group"
                         >
                           <span className="font-sans font-medium text-[15px] leading-none tracking-[-0.02em]">
                             Live Link
@@ -508,7 +501,7 @@ export const WorkDetail: React.FC = () => {
                             strokeWidth="2.4"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="text-[#111111]/40 group-hover:text-[#111111] transition-colors shrink-0"
+                            className="text-[#111111]/40 dark:text-[rgba(250,247,243,0.4)] group-hover:text-[#111111] dark:group-hover:text-[#FAF7F3] transition-colors shrink-0"
                             aria-hidden="true"
                           >
                             <line x1="7" y1="17" x2="17" y2="7" />
@@ -524,7 +517,7 @@ export const WorkDetail: React.FC = () => {
                           rel="noopener noreferrer"
                           role="menuitem"
                           onClick={() => setIsPopoverOpen(false)}
-                          className="flex items-center justify-between gap-3 px-3.5 py-2.5 min-h-[44px] rounded-[10px] text-[#111111] hover:bg-[#111111]/[0.06] active:bg-[#111111]/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] group"
+                          className="flex items-center justify-between gap-3 px-3.5 py-2.5 min-h-[44px] rounded-[10px] text-[#111111] dark:text-[#FAF7F3] hover:bg-[#111111]/[0.06] dark:hover:bg-[rgba(250,247,243,0.06)] active:bg-[#111111]/10 dark:active:bg-[rgba(250,247,243,0.1)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] group"
                         >
                           <span className="font-sans font-medium text-[15px] leading-none tracking-[-0.02em]">
                             GitHub
@@ -538,7 +531,7 @@ export const WorkDetail: React.FC = () => {
                             strokeWidth="2.4"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="text-[#111111]/40 group-hover:text-[#111111] transition-colors shrink-0"
+                            className="text-[#111111]/40 dark:text-[rgba(250,247,243,0.4)] group-hover:text-[#111111] dark:group-hover:text-[#FAF7F3] transition-colors shrink-0"
                             aria-hidden="true"
                           >
                             <line x1="7" y1="17" x2="17" y2="7" />
@@ -554,7 +547,7 @@ export const WorkDetail: React.FC = () => {
 
             {/* Slash separator between Live Link and GitHub (Desktop/Tablet only) */}
             {hasGithub && (
-              <span className="project-separator text-[#111111]/20 select-none hidden tablet:inline" aria-hidden="true">
+              <span className="project-separator text-[#111111]/20 dark:text-[rgba(250,247,243,0.22)] select-none hidden tablet:inline" aria-hidden="true">
                 /
               </span>
             )}
@@ -562,7 +555,7 @@ export const WorkDetail: React.FC = () => {
             {/* GitHub (Desktop/Tablet only) */}
             {hasGithub && (
               <div className="hidden tablet:flex flex-col gap-1">
-                <span className="project-meta-val text-[#111111]/40 tracking-[-0.01em]">
+                <span className="project-meta-val text-[#111111]/40 dark:text-[#8F8B84] tracking-[-0.01em]">
                   GitHub
                 </span>
                 <a
@@ -570,7 +563,7 @@ export const WorkDetail: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open GitHub repository"
-                  className="group inline-flex items-center justify-center w-[30px] h-[30px] rounded-[7px] shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2"
+                  className="group inline-flex items-center justify-center w-[30px] h-[30px] rounded-[7px] shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2"
                 >
                   <AnimatedArrowBox variant="live" size="live" direction="up-right" />
                 </a>
@@ -579,7 +572,7 @@ export const WorkDetail: React.FC = () => {
           </div>
 
           {/* Right: description */}
-          <p className="project-intro text-[#111111]/70 leading-[1.6em] tracking-[-0.02em] desktop:max-w-[480px]">
+          <p className="project-intro text-[#111111]/70 dark:text-[#B8B4AD] leading-[1.6em] tracking-[-0.02em] desktop:max-w-[480px]">
             {item.description}
           </p>
         </motion.div>
@@ -613,7 +606,7 @@ export const WorkDetail: React.FC = () => {
                   handleOpenLightbox(item.images.hero, heroAlt, e.currentTarget);
                 }
               }}
-              className="w-full rounded-[20px] tablet:rounded-[28px] desktop:rounded-[32px] overflow-hidden bg-[#E8E4DF] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 project-previewable-image select-none"
+              className="w-full rounded-[20px] tablet:rounded-[28px] desktop:rounded-[32px] overflow-hidden bg-[#E8E4DF] dark:bg-[#171716] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 project-previewable-image select-none"
               style={{ aspectRatio: '16 / 9' }}
               aria-label={`Preview ${item.title} cover image`}
             >
@@ -654,10 +647,10 @@ export const WorkDetail: React.FC = () => {
 
         {/* ──────────────────── 5. More Projects ──────────────────── */}
         {moreProjects.length > 0 && (
-          <section className="w-full pt-[var(--gap-thoughts-contact)] border-t border-[#111111]/10">
+          <section className="w-full pt-[var(--gap-thoughts-contact)] border-t border-[#111111]/10 dark:border-[rgba(250,247,243,0.12)]">
             <motion.h2
               {...fadeUpInView(0)}
-              className="project-more-heading text-[#111111] leading-[1em] tracking-[-0.03em] mb-10 tablet:mb-12 desktop:mb-16"
+              className="project-more-heading text-[#111111] dark:text-[#FAF7F3] leading-[1em] tracking-[-0.03em] mb-10 tablet:mb-12 desktop:mb-16"
             >
               More Projects
             </motion.h2>

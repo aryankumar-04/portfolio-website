@@ -16,14 +16,7 @@ const prefersReducedMotion =
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const fadeUp = (delay = 0) =>
-  prefersReducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 25 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay },
-      };
+const fadeUp = (_delay = 0) => ({});
 
 const fadeUpInView = (delay = 0) =>
   prefersReducedMotion
@@ -114,7 +107,7 @@ function NewsletterCard({ idPrefix = 'desktop' }) {
   };
 
   return (
-    <div className="relative w-full rounded-[24px] tablet:rounded-[28px] bg-[#111111] p-6 tablet:p-7 desktop:p-8 flex flex-col overflow-hidden shadow-md select-none">
+    <div className="relative w-full rounded-[24px] tablet:rounded-[28px] bg-[#111111] dark:bg-[#171716] dark:border dark:border-[rgba(250,247,243,0.12)] p-6 tablet:p-7 desktop:p-8 flex flex-col overflow-hidden shadow-md select-none">
       {/* Subtle Grain Overlay */}
       <div
         className="absolute inset-0 pointer-events-none rounded-[24px] tablet:rounded-[28px]"
@@ -139,7 +132,7 @@ function NewsletterCard({ idPrefix = 'desktop' }) {
           Join the newsletter
         </h5>
         <p
-          className="text-white/70 mt-1.5 leading-normal m-0"
+          className="text-white/70 dark:text-[#B8B4AD] mt-1.5 leading-normal m-0"
           style={{
             fontFamily: 'var(--work-font-family)',
             fontStyle: 'normal',
@@ -164,7 +157,7 @@ function NewsletterCard({ idPrefix = 'desktop' }) {
               Thanks for subscribing!
             </p>
             <p
-              className="text-white/70 text-[12px] mt-1 m-0"
+              className="text-white/70 dark:text-[#B8B4AD] text-[12px] mt-1 m-0"
               style={{
                 fontFamily: 'var(--work-font-family)',
                 fontStyle: 'normal',
@@ -205,7 +198,7 @@ function NewsletterCard({ idPrefix = 'desktop' }) {
                 if (status === 'error') setStatus('idle');
               }}
               placeholder="Enter your email"
-              className="w-full h-[46px] px-4 rounded-[12px] bg-transparent border border-white/20 text-white placeholder-white/40 text-[16px] focus:outline-none focus:border-white transition-colors"
+              className="w-full h-[46px] px-4 rounded-[12px] bg-transparent border border-white/20 dark:border-[rgba(250,247,243,0.14)] text-white placeholder-white/40 dark:placeholder-[#77736C] text-[16px] focus:outline-none focus:border-white dark:focus:border-[#8F8B84] transition-colors"
               style={{
                 fontFamily: 'var(--work-font-family)',
                 fontStyle: 'normal',
@@ -259,7 +252,7 @@ function BlockRenderer({ blocks }) {
             <motion.h2
               key={index}
               {...fadeUpInView(0)}
-              className="text-[#111111] leading-[1.12em] tracking-[-0.025em] mt-4 m-0"
+              className="text-[#111111] dark:text-[#FAF7F3] leading-[1.12em] tracking-[-0.025em] mt-4 m-0"
               style={{
                 fontFamily: 'var(--work-font-family)',
                 fontStyle: 'normal',
@@ -277,7 +270,7 @@ function BlockRenderer({ blocks }) {
             <motion.h3
               key={index}
               {...fadeUpInView(0)}
-              className="article-subheading text-[#111111] leading-[1.2em] tracking-[-0.02em] mt-2 m-0"
+              className="article-subheading text-[#111111] dark:text-[#FAF7F3] leading-[1.2em] tracking-[-0.02em] mt-2 m-0"
               style={{
                 fontFamily: 'var(--article-subheading-font-family, Archivo, "Archivo Placeholder", sans-serif)',
                 fontStyle: 'var(--article-subheading-font-style, normal)',
@@ -295,7 +288,7 @@ function BlockRenderer({ blocks }) {
             <motion.blockquote
               key={index}
               {...fadeUpInView(0)}
-              className="text-[#111111] my-2 pl-4 border-l-2 border-[#111111]/30 leading-[1.65em] m-0"
+              className="text-[#111111] dark:text-[#D4D4D0] my-2 pl-4 border-l-2 border-[#111111]/30 dark:border-[rgba(250,247,243,0.22)] leading-[1.65em] m-0"
               style={{
                 fontFamily: 'var(--work-font-family)',
                 fontStyle: 'normal',
@@ -327,7 +320,7 @@ function BlockRenderer({ blocks }) {
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="underline underline-offset-4 decoration-[#111111]/40 hover:decoration-[#111111] text-[#111111] transition-colors"
+                          className="underline underline-offset-4 decoration-[#111111]/40 hover:decoration-[#111111] text-[#111111] dark:text-[#FAF7F3] dark:decoration-[rgba(250,247,243,0.4)] dark:hover:decoration-[#FAF7F3] transition-colors"
                           style={{
                             fontFamily: 'var(--work-font-family)',
                             fontStyle: 'normal',
@@ -351,7 +344,7 @@ function BlockRenderer({ blocks }) {
               <motion.p
                 key={index}
                 {...fadeUpInView(0)}
-                className="text-[#111111]/80 leading-[1.65em] tracking-[-0.015em] m-0"
+                className="text-[#111111]/80 dark:text-[#B8B4AD] leading-[1.65em] tracking-[-0.015em] m-0"
                 style={{
                   fontFamily: 'var(--work-font-family)',
                   fontStyle: 'normal',
@@ -368,7 +361,7 @@ function BlockRenderer({ blocks }) {
             <motion.p
               key={index}
               {...fadeUpInView(0)}
-              className="text-[#111111]/80 leading-[1.65em] tracking-[-0.015em] m-0"
+              className="text-[#111111]/80 dark:text-[#B8B4AD] leading-[1.65em] tracking-[-0.015em] m-0"
               style={{
                 fontFamily: 'var(--work-font-family)',
                 fontStyle: 'normal',
@@ -387,7 +380,7 @@ function BlockRenderer({ blocks }) {
               key={index}
               {...fadeUpInView(0)}
               role="list"
-              className="space-y-3 pl-5 list-disc marker:text-[#111111]/70 text-[#111111]/80 leading-[1.6em]"
+              className="space-y-3 pl-5 list-disc marker:text-[#111111]/70 dark:marker:text-[#8F8B84] text-[#111111]/80 dark:text-[#B8B4AD] leading-[1.6em]"
               style={{
                 fontFamily: 'var(--work-font-family)',
                 fontStyle: 'normal',
@@ -407,7 +400,7 @@ function BlockRenderer({ blocks }) {
             <motion.figure
               key={index}
               {...fadeUpInView(0)}
-              className="w-full rounded-[20px] overflow-hidden my-4 bg-[#E8E4DF]"
+              className="w-full rounded-[20px] overflow-hidden my-4 bg-[#E8E4DF] dark:bg-[#171716]"
             >
               <img
                 src={block.src}
@@ -532,7 +525,7 @@ export default function BlogArticle() {
               <button
                 type="button"
                 onClick={handleBack}
-                className="work-back-btn group inline-flex items-center gap-2.5 text-[#111111] hover:text-[#111111]/75 transition-colors select-none min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 rounded cursor-pointer"
+                className="work-back-btn group inline-flex items-center gap-2.5 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/75 dark:hover:text-[#FAF7F3]/75 transition-colors select-none min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 rounded cursor-pointer"
                 aria-label="Go back to previous page"
               >
                 <AnimatedArrowBox variant="light" size="sm" direction="left" />
@@ -554,7 +547,7 @@ export default function BlogArticle() {
             <header className="flex flex-col">
               <motion.h1
                 {...fadeUp(0)}
-                className="text-[#111111] leading-[1.02em] tracking-[-0.03em] select-none m-0"
+                className="text-[#111111] dark:text-[#FAF7F3] leading-[1.02em] tracking-[-0.03em] select-none m-0"
                 style={{
                   fontFamily: 'var(--work-font-family)',
                   fontStyle: 'normal',
@@ -569,7 +562,7 @@ export default function BlogArticle() {
               {article.summary && (
                 <motion.p
                   {...fadeUp(0.1)}
-                  className="text-[#111111]/70 leading-[1.5em] tracking-[-0.01em] max-w-[480px] mt-4 tablet:mt-5 m-0"
+                  className="text-[#111111]/70 dark:text-[#B8B4AD] leading-[1.5em] tracking-[-0.01em] max-w-[480px] mt-4 tablet:mt-5 m-0"
                   style={{
                     fontFamily: 'var(--work-font-family)',
                     fontStyle: 'normal',
@@ -584,11 +577,11 @@ export default function BlogArticle() {
               {/* Meta Row: Date on left, Reading time on right */}
               <motion.div
                 {...fadeUp(0.15)}
-                className="flex items-center justify-between w-full pt-4 tablet:pt-5 border-t border-[#111111]/10 mt-6"
+                className="flex items-center justify-between w-full pt-4 tablet:pt-5 border-t border-[#111111]/10 dark:border-[rgba(250,247,243,0.12)] mt-6"
               >
                 <time
                   dateTime={article.date}
-                  className="text-[#111111]/60"
+                  className="text-[#111111]/60 dark:text-[#8F8B84]"
                   style={{
                     fontFamily: 'var(--work-font-family)',
                     fontStyle: 'normal',
@@ -599,7 +592,7 @@ export default function BlogArticle() {
                   {article.date}
                 </time>
                 <span
-                  className="text-[#111111]/60"
+                  className="text-[#111111]/60 dark:text-[#8F8B84]"
                   style={{
                     fontFamily: 'var(--work-font-family)',
                     fontStyle: 'normal',
@@ -627,7 +620,7 @@ export default function BlogArticle() {
               tabIndex={0}
               aria-haspopup="dialog"
               aria-label="Expand image"
-              className="w-full aspect-[16/10] rounded-[20px] tablet:rounded-[24px] desktop:rounded-[28px] overflow-hidden bg-[#E8E4DF] mt-6 tablet:mt-8 shadow-sm cursor-pointer desktop:cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 select-none"
+              className="w-full aspect-[16/10] rounded-[20px] tablet:rounded-[24px] desktop:rounded-[28px] overflow-hidden bg-[#E8E4DF] dark:bg-[#171716] mt-6 tablet:mt-8 shadow-sm cursor-pointer desktop:cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 select-none"
             >
               <img
                 src={article.cover}
@@ -658,10 +651,10 @@ export default function BlogArticle() {
 
         {/* ──────────────────── More Articles Section ──────────────────── */}
         {article && (
-          <section className="w-full pt-[var(--gap-thoughts-contact)] border-t border-[#111111]/10">
+          <section className="w-full pt-[var(--gap-thoughts-contact)] border-t border-[#111111]/10 dark:border-[rgba(250,247,243,0.12)]">
             <motion.h2
               {...fadeUpInView(0)}
-              className="text-[#111111] leading-[1.05em] tracking-[-0.03em] select-none m-0 mb-8 tablet:mb-10 desktop:mb-12"
+              className="text-[#111111] dark:text-[#FAF7F3] leading-[1.05em] tracking-[-0.03em] select-none m-0 mb-8 tablet:mb-10 desktop:mb-12"
               style={{
                 fontFamily: 'var(--work-font-family)',
                 fontStyle: 'normal',
@@ -693,7 +686,7 @@ export default function BlogArticle() {
                     <Link
                       to={`/blog/${item.slug}`}
                       state={{ fromInternal: true }}
-                      className="group relative w-full h-[460px] rounded-[20px] overflow-hidden flex flex-col justify-end p-[20px] select-none block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] cursor-pointer"
+                      className="group relative w-full h-[460px] rounded-[20px] overflow-hidden flex flex-col justify-end p-[20px] select-none block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] cursor-pointer"
                     >
                       {/* Background Image with Framer Spring-like Hover Zoom (104%) */}
                       <img

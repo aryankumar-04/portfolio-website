@@ -2,10 +2,10 @@
 
   <img src="./public/black.svg" alt="Aryan Gupta Monogram Logo" width="96" height="96" />
 
-  # Aryan Gupta | SWE
+  # Aryan Kumar Gupta | Portfolio
 
   <p align="center">
-    <strong>A high-performance, responsive software engineering portfolio and interactive design experience built with React, TypeScript, and modern web tools.</strong>
+    <strong>A software engineer's portfolio website featuring light and dark mode, built with React, TypeScript, and modern web tools.</strong>
   </p>
 
   <p align="center">
@@ -137,14 +137,15 @@ Under the hood, this application demonstrates clean frontend architecture and pe
 
 ## 🚀 Key Features
 
-- 📱 **Fully Responsive Layout**: Hand-tailored experiences across Mobile (`390px`), Tablet (`810px`), and Desktop (`1280px`).
-- 🎬 **200vh Pinned Hero Track**: Sticky narrative introduction with layered content animation.
-- 🖼️ **Click-to-Expand Image Lightbox**: Accessible, full-screen lightbox modal for article visuals with backdrop dismissal and scroll-locking.
-- ⏱️ **Read History Tracker**: LocalStorage-backed reading state that informs visitors when they previously read an article.
-- 📬 **Live Contact Form**: Client-side validation, rate-limiting (30s cooldown, max 2 messages per visitor), and bot-deterring honeypot fields powered by **Web3Forms**.
-- 📜 **Inline Certificate Previews**: Modal PDF previewer for credentials with direct verification links.
-- 🎨 **Editorial Aesthetics**: Subtle organic film-grain overlay, curated typography (`Archivo` & `Clash Grotesk`), and bespoke warm cream (`#FAF7F3`) theme palette.
-- 🌓 **Adaptive Favicons**: Dynamic SVG favicon switcher responding to user operating system dark/light preferences.
+- 🌓 **Light & Dark Theme**: Sleek dark and warm light modes with a smooth circular reveal toggle.
+- 📱 **Fully Responsive Design**: Hand-tailored experiences across Mobile (`390px`), Tablet (`810px`), and Desktop (`1280px`).
+- ⚡ **Smooth Circular Page Transitions**: Native View Transitions API for seamless, instant route navigation.
+- 📂 **Featured Projects**: Detailed case studies with interactive modals, tech stacks, and live demo links.
+- 🎓 **Education & Certifications**: Academic milestones and verified credentials with modal PDF previews.
+- 💬 **Testimonials**: Peer and client endorsements in responsive cards.
+- ✍️ **Thoughts (Blog)**: Engineering articles covering AI, development, and software architecture.
+- 📄 **Interactive Resume Modal**: Quick, embedded PDF viewer for resume inspection.
+- 📬 **Live Contact Form**: Client-side validation, rate-limiting, and Web3Forms integration.
 
 ---
 
@@ -186,34 +187,34 @@ portfolio-website/
 ├── src/
 │   ├── assets/                   # Bundled graphics, textures, and illustrations
 │   │   ├── blog/                 # Blog post hero graphics and SVG figures
-│   │   ├── contribute/           # Coffee illustrations, steam SVGs & QR graphics
 │   │   └── grain.png             # Film-grain noise overlay texture
-│   ├── components/               # Reusable atomic UI components
-│   │   ├── Navbar.tsx            # Floating navigation bar with mobile drawer
-│   │   ├── Footer.tsx            # Typographic footer with social & repo links
-│   │   ├── CoffeeSupportButton.jsx # Floating tip button with animated coffee & steam
-│   │   ├── PaymentModal.tsx      # Modal dialog with UPI QR code donation options
+│   ├── components/               # Reusable UI components
+│   │   ├── Navbar.jsx            # Floating navigation bar with animated theme toggle
+│   │   ├── ViewTransitionsRouter.tsx # Circular reveal page transitions handler
 │   │   ├── BackButton.tsx        # Micro-interactive return navigation button
 │   │   ├── ScrollManager.tsx     # Window scroll position restoration on route change
 │   │   ├── ImageLightboxModal.tsx # Accessible full-screen image lightbox modal
 │   │   ├── ResumeModal.jsx       # Embedded PDF resume viewer modal
+│   │   ├── ProjectCard.tsx       # Featured project display card
+│   │   ├── TestimonialCard.tsx   # Client & peer testimonial card
+│   │   ├── BlogCard.tsx          # Technical article preview card
 │   │   └── AnimatedArrowBox.tsx  # Directional action arrow with hover physics
 │   ├── config/                   # Site configuration, spacing tokens & typography
+│   ├── context/                  # Application context providers
 │   ├── data/                     # Structured content datasets
 │   │   ├── work.ts               # Case studies, project metadata & deliverables
 │   │   ├── articles.js           # Technical blog posts, reading metrics & markdown
 │   │   ├── techStackData.ts      # Categorized skills, tools, and proficiencies
-│   │   ├── educationData.ts      # Academic credentials and certified coursework
-│   │   ├── testimonials.ts       # Peer & client recommendations and feedback
+│   │   ├── educationData.ts      # Academic credentials and coursework
+│   │   ├── testimonials.ts       # Peer & client recommendations
 │   │   └── services.ts           # Architectural services and engineering offerings
 │   ├── hooks/                    # Custom React hooks (Favicon, Document Title)
 │   ├── pages/                    # Route page components
 │   │   ├── Home.tsx              # Landing page orchestrating hero, work & sections
-│   │   ├── WorkArchive.tsx       # Comprehensive project gallery & case study catalog
+│   │   ├── WorkArchive.tsx       # Comprehensive project gallery & catalog
 │   │   ├── WorkDetail.tsx        # In-depth case study breakdown with media galleries
 │   │   ├── BlogArchive.tsx       # Articles catalog with category filtering
 │   │   ├── BlogArticle.jsx       # Dynamic reading layout with lightbox & history
-│   │   ├── Contribute.tsx        # Support & tip page with interactive UPI QR donation
 │   │   └── NotFound.tsx          # Custom 404 error page
 │   ├── sections/                 # Modular landing page sections
 │   │   ├── HeroBioSection.tsx    # Narrative bio, portrait & live status indicators

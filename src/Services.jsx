@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { playedOnce } from './utils/playedOnce';
 
 /**
- * Services section for Majd's portfolio / Framer template replica.
+ * Services section for Aryan Gupta's portfolio.
  * Semantic HTML with #services anchor target for Navbar.
  */
 const SERVICES = [
@@ -54,7 +54,7 @@ export function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="services-heading text-[#111111] leading-[0.95em] tracking-[-0.03em] select-none"
+          className="services-heading text-[#111111] dark:text-[#FAF7F3] leading-[0.95em] tracking-[-0.03em] select-none"
         >
           Services
         </motion.h2>
@@ -76,10 +76,10 @@ export function Services() {
                 delay: prefersReducedMotion ? 0 : index * 0.08,
               }}
               onAnimationComplete={() => playedOnce.add('services')}
-              className="group border-b border-[#111111]/10 py-6 tablet:py-7 desktop:py-0 desktop:min-h-[120px] flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-3 tablet:gap-6 transition-colors duration-300"
+              className="group border-b border-[#111111]/10 dark:border-[rgba(250,247,243,0.12)] py-6 tablet:py-7 desktop:py-0 desktop:min-h-[120px] flex flex-col tablet:flex-row tablet:items-center tablet:justify-between gap-3 tablet:gap-6 transition-colors duration-300"
             >
               {/* Service Name */}
-              <h3 className="services-item-title text-[#111111] leading-[1.2em] tracking-[-0.02em] will-change-transform transition-transform duration-300 ease-out group-hover:translate-x-1.5 select-none">
+              <h3 className="services-item-title text-[#111111] dark:text-[#FAF7F3] leading-[1.2em] tracking-[-0.02em] will-change-transform transition-transform duration-300 ease-out group-hover:translate-x-1.5 select-none">
                 {service.title}
               </h3>
 
@@ -87,11 +87,11 @@ export function Services() {
               <div className="flex flex-wrap items-center gap-[8px] tablet:gap-[10px] leading-[1.4em] tracking-[-0.03em] select-none">
                 {service.tags.map((tag, tagIdx) => (
                   <React.Fragment key={tag}>
-                    <p className="services-tag text-[#111111]/50 m-0">{tag}</p>
+                    <p className="services-tag text-[#111111]/50 dark:text-[#8F8B84] m-0">{tag}</p>
                     {tagIdx < service.tags.length - 1 && (
                       <span
                         aria-hidden="true"
-                        className="w-[4px] h-[4px] rounded-full bg-[#111111] shrink-0 inline-block"
+                        className="w-[4px] h-[4px] rounded-full bg-[#111111] dark:bg-[#FAF7F3] shrink-0 inline-block"
                       />
                     )}
                   </React.Fragment>

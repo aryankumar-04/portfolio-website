@@ -3,6 +3,17 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { TECH_STACK_CATEGORIES } from '../data/techStackData';
 import { playedOnce } from '../utils/playedOnce';
 
+const INVERT_DARK_LOGOS = new Set([
+  'Next.js',
+  'Shadcn/UI',
+  'Three.js',
+  'OpenAI',
+  'Whisper',
+  'GitHub',
+  'Render',
+  'Gradle',
+]);
+
 export const TechStackSection: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
   const hasPlayed = playedOnce.has('tech-stack');
@@ -20,7 +31,7 @@ export const TechStackSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.22 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="services-heading text-[46px] tablet:text-[62px] desktop:text-[76px] font-semibold text-[#111111] leading-[0.95em] tracking-[-0.03em] uppercase select-none mb-12 tablet:mb-16 desktop:mb-20 m-0"
+          className="services-heading text-[46px] tablet:text-[62px] desktop:text-[76px] font-semibold text-[#111111] dark:text-[#FAF7F3] leading-[0.95em] tracking-[-0.03em] uppercase select-none mb-12 tablet:mb-16 desktop:mb-20 m-0"
           style={{ fontFamily: 'var(--services-font-family, Archivo, sans-serif)' }}
         >
           MY STACK
@@ -45,7 +56,7 @@ export const TechStackSection: React.FC = () => {
               {/* Category Name Column */}
               <div className="w-full tablet:w-[200px] desktop:w-[240px] shrink-0">
                 <h3
-                  className="font-bold uppercase text-[#111111] tracking-[-0.02em] text-[28px] tablet:text-[30px] desktop:text-[32px] leading-none tablet:leading-[28px] desktop:leading-[32px] select-none m-0"
+                  className="font-bold uppercase text-[#111111] dark:text-[#FAF7F3] tracking-[-0.02em] text-[28px] tablet:text-[30px] desktop:text-[32px] leading-none tablet:leading-[28px] desktop:leading-[32px] select-none m-0"
                   style={{ fontFamily: 'var(--services-font-family, Archivo, sans-serif)' }}
                 >
                   {category.title}
@@ -66,9 +77,11 @@ export const TechStackSection: React.FC = () => {
                       height={32}
                       loading="lazy"
                       decoding="async"
-                      className="w-[26px] h-[26px] tablet:w-[28px] tablet:h-[28px] desktop:w-[32px] desktop:h-[32px] shrink-0 object-contain select-none"
+                      className={`w-[26px] h-[26px] tablet:w-[28px] tablet:h-[28px] desktop:w-[32px] desktop:h-[32px] shrink-0 object-contain select-none ${
+                        INVERT_DARK_LOGOS.has(tech.name) ? 'dark:invert dark:brightness-125' : ''
+                      }`}
                     />
-                    <span className="font-sans font-normal text-[#111111] text-[16px] tablet:text-[17px] desktop:text-[18px] leading-none whitespace-nowrap select-none">
+                    <span className="font-sans font-normal text-[#111111] dark:text-[#D4D4D0] text-[16px] tablet:text-[17px] desktop:text-[18px] leading-none whitespace-nowrap select-none">
                       {tech.name}
                     </span>
                   </div>

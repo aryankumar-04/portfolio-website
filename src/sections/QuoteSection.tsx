@@ -23,7 +23,7 @@ const Word: React.FC<WordProps> = ({ children, range, progress, reducedMotion })
 
   if (reducedMotion) {
     return (
-      <span className="inline-block mr-[0.28em] my-[0.05em] text-[#111111]">
+      <span className="inline-block mr-[0.28em] my-[0.05em] text-[#111111] dark:text-[#FAF7F3]">
         {children}
       </span>
     );
@@ -33,7 +33,7 @@ const Word: React.FC<WordProps> = ({ children, range, progress, reducedMotion })
     <span className="inline-block mr-[0.28em] my-[0.05em]">
       <motion.span
         style={{ opacity }}
-        className="inline-block text-[#111111] will-change-[opacity]"
+        className="inline-block text-[#111111] dark:text-[#FAF7F3] will-change-[opacity]"
       >
         {children}
       </motion.span>
@@ -136,7 +136,7 @@ export const QuoteSection: React.FC = () => {
         {/* Centered text container */}
         <div className="relative z-[2] w-full max-w-[440px] tablet:max-w-[850px] desktop:max-w-[1100px] mx-auto px-4 tablet:px-8 desktop:px-0 text-center select-none">
           <p
-            className="font-sans font-medium font-[500] text-[#111111] leading-[1.35em] tablet:leading-[1.3em] desktop:leading-[1.28em] tracking-[-0.02em] tablet:tracking-[-0.025em] desktop:tracking-[-0.03em] text-[24px] tablet:text-[34px] desktop:text-[42px]"
+            className="font-sans font-medium font-[500] text-[#111111] dark:text-[#FAF7F3] leading-[1.35em] tablet:leading-[1.3em] desktop:leading-[1.28em] tracking-[-0.02em] tablet:tracking-[-0.025em] desktop:tracking-[-0.03em] text-[24px] tablet:text-[34px] desktop:text-[42px]"
             style={{ fontWeight: 500 }}
           >
             {CHUNKS.map((chunk, chunkIdx) => (

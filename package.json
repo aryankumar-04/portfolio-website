@@ -1,8 +1,9 @@
 {
-  "name": "templyo-framer-replica",
+  "name": "aryan-gupta-portfolio",
   "private": true,
   "version": "1.0.0",
-  "description": "Responsive developer portfolio and Framer design replica built with React, TypeScript, and Tailwind CSS.",
+  "description": "Portfolio of Aryan Kumar Gupta, a software engineer building modern, scalable web applications with React, Python, and Java.",
+  "author": "Aryan Kumar Gupta",
   "license": "MIT",
   "type": "module",
   "scripts": {

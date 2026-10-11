@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 import { ProjectCard } from '../components/ProjectCard';
 import { BackButton } from '../components/BackButton';
 import { workItems } from '../data/work';
@@ -95,18 +94,15 @@ export const WorkArchive: React.FC = () => {
   }, []);
 
   return (
-    <main className="w-full bg-[#FAF7F3] pt-[var(--work-pt)] pb-[var(--work-pb)]">
+    <main className="w-full bg-[#FAF7F3] dark:bg-[#0D0D0C] pt-[var(--work-pt)] pb-[var(--work-pb)]">
       <div className="w-full max-w-[var(--work-container-max-w)] mx-auto px-[var(--work-container-px)] flex flex-col gap-[var(--work-container-gap)]">
         {/* Back Button & Heading block */}
         <div className="flex flex-col gap-[10px] w-full items-start text-left">
           {/* Back Button */}
           <BackButton />
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-[#111111] text-[var(--work-h1-font-size)] font-[var(--work-h1-font-weight)] leading-[1em] tracking-[-0.02em] max-w-[var(--work-h1-max-w)] m-0"
+          <h1
+            className="text-[#111111] dark:text-[#FAF7F3] text-[var(--work-h1-font-size)] font-[var(--work-h1-font-weight)] leading-[1em] tracking-[-0.02em] max-w-[var(--work-h1-max-w)] m-0"
             style={{
               fontFamily: 'var(--work-font-family)',
               fontStyle: 'var(--work-font-style)',
@@ -115,13 +111,10 @@ export const WorkArchive: React.FC = () => {
             }}
           >
             My Brightest Creations
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-[#111111] text-[var(--work-sub-font-size)] font-[var(--work-sub-font-weight)] leading-[1.4em] tracking-[-0.04em] max-w-[var(--work-sub-max-w)] m-0"
+          <p
+            className="text-[#111111] dark:text-[#B8B4AD] text-[var(--work-sub-font-size)] font-[var(--work-sub-font-weight)] leading-[1.4em] tracking-[-0.04em] max-w-[var(--work-sub-max-w)] m-0"
             style={{
               fontFamily: 'var(--work-font-family)',
               fontStyle: 'var(--work-font-style)',
@@ -130,7 +123,7 @@ export const WorkArchive: React.FC = () => {
             }}
           >
             A showcase of my latest projects, highlighting thoughtful design, clear strategy, and impactful results.
-          </motion.p>
+          </p>
         </div>
 
         {/* 2-Column Desktop & Tablet / 1-Column Mobile Grid */}

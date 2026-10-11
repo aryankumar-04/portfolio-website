@@ -36,19 +36,20 @@ export const AnimatedArrowBox: React.FC<AnimatedArrowBoxProps> = ({
 
   // Box dimensions and border styling
   const boxStyles = isLiveVariant
-    ? `w-[30px] h-[30px] rounded-[7px] border border-[#111111]/30 transition-colors duration-200 group-hover:border-[#111111] group-focus-visible:border-[#111111]`
+    ? `w-[30px] h-[30px] rounded-[7px] border border-[#111111]/30 dark:border-[rgba(250,247,243,0.22)] transition-colors duration-200 group-hover:border-[#111111] dark:group-hover:border-[#FAF7F3] group-focus-visible:border-[#111111] dark:group-focus-visible:border-[#FAF7F3]`
     : isMd
-    ? `w-[28px] h-[28px] rounded-[8px] border ${isDarkVariant ? 'border-[#FAF7F3]' : 'border-[#111111]'}`
-    : `w-[26px] h-[26px] rounded-[6px] border ${isDarkVariant ? 'border-[#FAF7F3]' : 'border-[#111111]'}`;
+    ? `w-[28px] h-[28px] rounded-[8px] border ${isDarkVariant ? 'border-[#FAF7F3]' : 'border-[#111111] dark:border-[#FAF7F3]'}`
+    : `w-[26px] h-[26px] rounded-[6px] border ${isDarkVariant ? 'border-[#FAF7F3]' : 'border-[#111111] dark:border-[#FAF7F3]'}`;
 
   // Fill colors for expanding circle and arrow contrast
-  const circleColor = isDarkVariant ? 'bg-[#FAF7F3]' : 'bg-[#111111]';
-  const primaryArrowColor = isDarkVariant ? 'text-[#FAF7F3]' : 'text-[#111111]';
-  const secondaryArrowColor = isDarkVariant ? 'text-[#111111]' : 'text-[#FAF7F3]';
+  const circleColor = isDarkVariant ? 'bg-[#FAF7F3]' : 'bg-[#111111] dark:bg-[#FAF7F3]';
+  const primaryArrowColor = isDarkVariant ? 'text-[#FAF7F3]' : 'text-[#111111] dark:text-[#FAF7F3]';
+  const secondaryArrowColor = isDarkVariant ? 'text-[#111111] dark:text-[#0D0D0C]' : 'text-[#FAF7F3] dark:text-[#0D0D0C]';
 
   return (
     <span
       aria-hidden="true"
+      data-animated-arrow-box="true"
       className={`${boxStyles} relative overflow-hidden flex items-center justify-center shrink-0 select-none ${className}`}
     >
       {isLiveVariant ? (

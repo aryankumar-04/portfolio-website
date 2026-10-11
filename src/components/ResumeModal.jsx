@@ -94,7 +94,7 @@ export function ResumeModal({ isOpen, onClose }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.24, ease: 'easeOut' }}
             onClick={onClose}
-            className="absolute inset-0 bg-[#111111]/75 backdrop-blur-[4px] cursor-pointer"
+            className="absolute inset-0 bg-[#111111]/75 dark:bg-[rgba(0,0,0,0.82)] backdrop-blur-[4px] cursor-pointer"
           />
 
           {/* Centered Panel */}
@@ -103,12 +103,12 @@ export function ResumeModal({ isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 12 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 w-[94vw] tablet:w-[88vw] desktop:w-full desktop:max-w-[900px] h-[90vh] max-h-[90vh] bg-[#FAF7F3] border border-[#111111]/15 rounded-[20px] tablet:rounded-[24px] shadow-2xl flex flex-col overflow-hidden font-sans"
+            className="relative z-10 w-[94vw] tablet:w-[88vw] desktop:w-full desktop:max-w-[900px] h-[90vh] max-h-[90vh] bg-[#FAF7F3] dark:bg-[#171716] border border-[#111111]/15 dark:border-[rgba(250,247,243,0.12)] rounded-[20px] tablet:rounded-[24px] shadow-2xl flex flex-col overflow-hidden font-sans"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Panel Header */}
-            <div className="shrink-0 px-4 tablet:px-6 py-2.5 tablet:py-3.5 border-b border-[#111111]/10 flex items-center justify-between gap-4 bg-[#FAF7F3]">
-              <h3 className="font-sans font-medium text-[18px] tablet:text-[20px] text-[#111111] leading-tight tracking-[-0.02em] truncate m-0 select-none">
+            <div className="shrink-0 px-4 tablet:px-6 py-2.5 tablet:py-3.5 border-b border-[#111111]/10 dark:border-[rgba(250,247,243,0.12)] flex items-center justify-between gap-4 bg-[#FAF7F3] dark:bg-[#171716]">
+              <h3 className="font-sans font-medium text-[18px] tablet:text-[20px] text-[#111111] dark:text-[#FAF7F3] leading-tight tracking-[-0.02em] truncate m-0 select-none">
                 Resume
               </h3>
 
@@ -119,7 +119,7 @@ export function ResumeModal({ isOpen, onClose }) {
                   href="/resume.pdf"
                   download="Aryan_Resume.pdf"
                   aria-label="Download resume"
-                  className="w-10 h-10 tablet:w-9 tablet:h-9 rounded-[8px] border border-[#111111]/30 hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] bg-[#FAF7F3] flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111]"
+                  className="w-10 h-10 tablet:w-9 tablet:h-9 rounded-[8px] border border-[#111111]/30 dark:border-[rgba(250,247,243,0.22)] hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] dark:text-[#FAF7F3] bg-[#FAF7F3] dark:bg-[#222221] dark:hover:bg-[#2D2D2B] flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3]"
                 >
                   <svg
                     width="15"
@@ -144,7 +144,7 @@ export function ResumeModal({ isOpen, onClose }) {
                   type="button"
                   onClick={onClose}
                   aria-label="Close resume preview"
-                  className="w-10 h-10 tablet:w-9 tablet:h-9 rounded-[8px] border border-[#111111]/30 hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] bg-[#FAF7F3] flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111]"
+                  className="w-10 h-10 tablet:w-9 tablet:h-9 rounded-[8px] border border-[#111111]/30 dark:border-[rgba(250,247,243,0.22)] hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] dark:text-[#FAF7F3] bg-[#FAF7F3] dark:bg-[#222221] dark:hover:bg-[#2D2D2B] flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3]"
                 >
                   <svg
                     width="14"
@@ -165,7 +165,7 @@ export function ResumeModal({ isOpen, onClose }) {
             </div>
 
             {/* Resume Preview Body */}
-            <div className="flex-1 w-full h-full bg-[#FAF7F3] overflow-hidden relative">
+            <div className="flex-1 w-full h-full bg-[#FAF7F3] dark:bg-[#0D0D0C] overflow-hidden relative">
               <object
                 data="/resume.pdf"
                 type="application/pdf"
@@ -177,14 +177,14 @@ export function ResumeModal({ isOpen, onClose }) {
                   title="Resume"
                   className="w-full h-full border-0 block"
                 >
-                  <div className="flex flex-col items-center justify-center h-full p-6 text-center select-none bg-[#FAF7F3]">
-                    <p className="font-sans text-[15px] tablet:text-[16px] text-[#111111]/70 mb-2">
+                  <div className="flex flex-col items-center justify-center h-full p-6 text-center select-none bg-[#FAF7F3] dark:bg-[#0D0D0C]">
+                    <p className="font-sans text-[15px] tablet:text-[16px] text-[#111111]/70 dark:text-[#B8B4AD] mb-2">
                       Preview not available on this device. Use the download button.
                     </p>
                     <a
                       href="/resume.pdf"
                       download="Aryan_Resume.pdf"
-                      className="font-sans font-medium text-[15px] tablet:text-[16px] text-[#111111] underline hover:opacity-75"
+                      className="font-sans font-medium text-[15px] tablet:text-[16px] text-[#111111] dark:text-[#FAF7F3] underline hover:opacity-75"
                     >
                       Download Resume
                     </a>

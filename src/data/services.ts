@@ -14,7 +14,7 @@ export const serviceItems: ServiceItem[] = [
     index: '02',
     title: 'Framer Templates',
     description:
-      'High-impact, conversion-engineered Framer website templates created for fast-moving startups, modern agencies, and SaaS founders who demand standout aesthetics.',
+      'High-impact, performance-engineered modern web applications created for fast-moving startups, modern agencies, and SaaS founders who demand standout aesthetics.',
     tags: ['Startup', 'Agency', 'SaaS'],
   },
   {

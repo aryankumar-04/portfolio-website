@@ -3,8 +3,21 @@
 @tailwind utilities;
 
 /* Base HTML & Body with Noise Overlay */
+html {
+  background-color: var(--color-page-bg, #FAF7F3);
+}
+
+.dark {
+  background-color: #0D0D0C;
+}
+
 body {
-  background-color: #FAF7F3;
+  background-color: var(--color-page-bg, #FAF7F3);
+  color: var(--color-text-heading, #111111);
+}
+
+.dark body {
+  background-color: #0D0D0C;
 }
 
 #root {
@@ -27,6 +40,11 @@ body::before {
   mix-blend-mode: multiply;
 }
 
+.dark body::before {
+  mix-blend-mode: screen;
+  opacity: 0.04;
+}
+
 /* Clash Grotesk Font for Slash Separator */
 @font-face {
   font-family: "Clash Grotesk";
@@ -45,9 +63,28 @@ body::before {
   size-adjust: 96.61%;
 }
 
-/* Global Page Background & Grain Texture */
+/* Global Page Background & Grain Texture Tokens */
 :root {
   --color-page-bg: #FAF7F3;
+  --color-card-bg: #111111;
+  --color-modal-bg: #FAF7F3;
+  --color-media-bg: #E8E4DF;
+  --color-pdf-area-bg: #E8E4DF;
+  --color-surface-2: #FAF7F3;
+  --color-surface-2-hover: #FFFFFF;
+  --color-footer-bg: #111111;
+
+  --color-text-heading: #111111;
+  --color-text-body: rgba(17, 17, 17, 0.8);
+  --color-text-muted: rgba(17, 17, 17, 0.5);
+  --color-text-dim: rgba(17, 17, 17, 0.18);
+  --color-tech-name: #111111;
+
+  --color-border: rgba(17, 17, 17, 0.12);
+  --color-border-strong: rgba(17, 17, 17, 0.3);
+  --color-input-border: #262626;
+  --color-input-border-focus: #555555;
+
   --noise-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)'/%3E%3C/svg%3E");
 
   /* Section Spacing Variables — Mobile default (<810px) */
@@ -187,9 +224,35 @@ body::before {
   --testimonial-card-hover-duration: 350ms;
   --testimonial-card-hover-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --testimonial-card-hover-ease-in: cubic-bezier(0.4, 0, 0.2, 1);
+  --testimonial-card-rest-shadow: 0 0 0 rgba(0, 0, 0, 0);
   --testimonial-card-hover-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.35);
   --testimonial-card-tap-duration: 500ms;
   --testimonial-card-tap-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dark {
+  --color-page-bg: #0D0D0C;
+  --color-card-bg: #171716;
+  --color-modal-bg: #171716;
+  --color-media-bg: #171716;
+  --color-pdf-area-bg: #0D0D0C;
+  --color-surface-2: #222221;
+  --color-surface-2-hover: #2D2D2B;
+  --color-footer-bg: #F1EDE6;
+
+  --color-text-heading: #FAF7F3;
+  --color-text-body: #B8B4AD;
+  --color-text-muted: #8F8B84;
+  --color-text-dim: #3A3835;
+  --color-tech-name: #D4D4D0;
+
+  --color-border: rgba(250, 247, 243, 0.12);
+  --color-border-strong: rgba(250, 247, 243, 0.22);
+  --color-input-border: rgba(250, 247, 243, 0.14);
+  --color-input-border-focus: #8F8B84;
+
+  --testimonial-card-rest-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  --testimonial-card-hover-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.7);
 }
 
 @media (min-width: 810px) {
@@ -514,7 +577,7 @@ body::before {
   position: relative;
   z-index: 1;
   transform: translateY(0);
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: var(--testimonial-card-rest-shadow, 0 0 0 rgba(0, 0, 0, 0));
   will-change: transform, box-shadow;
   transition: transform var(--testimonial-card-hover-duration, 350ms) var(--testimonial-card-hover-ease-in, cubic-bezier(0.4, 0, 0.2, 1)),
               box-shadow var(--testimonial-card-hover-duration, 350ms) var(--testimonial-card-hover-ease-in, cubic-bezier(0.4, 0, 0.2, 1));
@@ -547,7 +610,7 @@ body::before {
   0% {
     z-index: 10;
     transform: translateY(0);
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: var(--testimonial-card-rest-shadow, 0 0 0 rgba(0, 0, 0, 0));
   }
   42% {
     z-index: 10;
@@ -557,7 +620,7 @@ body::before {
   100% {
     z-index: 1;
     transform: translateY(0);
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    box-shadow: var(--testimonial-card-rest-shadow, 0 0 0 rgba(0, 0, 0, 0));
   }
 }
 
@@ -1171,5 +1234,89 @@ body::before {
   display: none;
 }
 
+/* Dark Mode Enhancements for Custom Elements */
+.dark #contact-project {
+  scrollbar-color: #3A3835 transparent;
+}
+.dark #contact-project::-webkit-scrollbar-thumb {
+  background-color: #3A3835;
+}
+.dark #contact-project::-webkit-scrollbar-thumb:hover {
+  background-color: #4A4845;
+}
 
+.dark .cert-btn-base {
+  border-color: rgba(250, 247, 243, 0.22);
+  color: #FAF7F3;
+}
+.dark .cert-btn-base:focus-visible {
+  outline-color: #FAF7F3;
+}
 
+.dark .cert-arrow-box {
+  border-color: rgba(250, 247, 243, 0.22);
+}
+.dark .cert-arrow-box-fill {
+  background-color: #FAF7F3;
+}
+.dark .cert-arrow-icon-primary {
+  color: #FAF7F3;
+}
+.dark .cert-arrow-icon-hover {
+  color: #0D0D0C;
+}
+.dark .cert-btn-preview:hover,
+.dark .cert-btn-preview:focus-visible {
+  background-color: #FAF7F3;
+  border-color: #FAF7F3;
+  color: #111111;
+}
+.dark .cert-btn-preview:hover span,
+.dark .cert-btn-preview:focus-visible span {
+  color: #111111;
+}
+
+.dark .cert-btn-preview:active {
+  background-color: #E6E1D8;
+  border-color: #E6E1D8;
+  color: #111111;
+}
+.dark .cert-btn-preview:active span {
+  color: #111111;
+}
+
+/* View Transitions Scoped Rules for Theme Toggle and Page Transitions */
+html[data-vt="theme"]::view-transition-old(root),
+html[data-vt="theme"]::view-transition-new(root),
+html[data-vt="page"]::view-transition-old(root),
+html[data-vt="page"]::view-transition-new(root),
+html[data-vt="page-pop"]::view-transition-old(root),
+html[data-vt="page-pop"]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-vt="theme"]::view-transition-old(root),
+html[data-vt="page"]::view-transition-old(root),
+html[data-vt="page-pop"]::view-transition-old(root) {
+  z-index: 1;
+}
+
+html[data-vt="theme"]::view-transition-new(root),
+html[data-vt="page"]::view-transition-new(root),
+html[data-vt="page-pop"]::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* Suppress CSS color transitions during theme switch so snapshots capture final state */
+html[data-vt="theme"] *,
+html[data-vt="theme"] *::before,
+html[data-vt="theme"] *::after {
+  transition: none !important;
+}
+
+/* Hide noise overlay blend-mode during theme transition to prevent solid flash */
+html[data-vt="theme"] body::before {
+  mix-blend-mode: normal !important;
+  opacity: 0 !important;
+}

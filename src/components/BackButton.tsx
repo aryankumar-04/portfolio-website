@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { AnimatedArrowBox } from './AnimatedArrowBox';
 
 export interface BackButtonProps {
@@ -47,16 +46,11 @@ export const BackButton: React.FC<BackButtonProps> = ({
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className={className}
-    >
+    <div className={className}>
       <button
         type="button"
         onClick={handleBack}
-        className="work-back-btn group inline-flex items-center gap-2.5 text-[#111111] hover:text-[#111111]/75 transition-colors select-none min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] focus-visible:ring-offset-2 rounded"
+        className="work-back-btn group inline-flex items-center gap-2.5 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/75 dark:hover:text-[#FAF7F3]/75 transition-colors select-none min-h-[44px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 rounded"
         aria-label="Go back to previous page"
       >
         <AnimatedArrowBox variant="light" size="sm" direction="left" />
@@ -72,7 +66,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
           {label}
         </span>
       </button>
-    </motion.div>
+    </div>
   );
 };
 
