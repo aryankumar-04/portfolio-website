@@ -44,7 +44,7 @@ const AppContent: React.FC = () => {
       <ScrollManager />
       <div className="flex flex-col min-h-screen bg-transparent selection:bg-dark selection:text-cream dark:selection:bg-cream dark:selection:text-[#0D0D0C]">
         <Navbar />
-        <div className="flex-1">
+        <div className="flex-1 page-grid-bg">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/work" element={<WorkArchive />} />

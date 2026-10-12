@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { CERTIFICATION_ITEMS, CertificationItem } from '../data/educationData';
 import { playedOnce } from '../utils/playedOnce';
+import { hapticVeryLight } from '../utils/haptics';
 
 function getDownloadFileName(name: string): string {
   // e.g. "SQL (Advanced)" -> "SQL-Advanced-Certificate.pdf"
@@ -17,10 +18,12 @@ export const CertificationsSection: React.FC = () => {
   const [selectedCert, setSelectedCert] = useState<CertificationItem | null>(null);
 
   const openModal = (cert: CertificationItem) => {
+    hapticVeryLight();
     setSelectedCert(cert);
   };
 
   const closeModal = () => {
+    hapticVeryLight();
     setSelectedCert(null);
   };
 
@@ -143,6 +146,7 @@ export const CertificationsSection: React.FC = () => {
                     href={item.verifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => hapticVeryLight()}
                     className="cert-btn-base cert-btn-verify group"
                     aria-label={`Verify ${item.name} certificate on HackerRank`}
                   >
@@ -245,6 +249,7 @@ export const CertificationsSection: React.FC = () => {
                   <a
                     href={selectedCert.pdfPath}
                     download={getDownloadFileName(selectedCert.name)}
+                    onClick={() => hapticVeryLight()}
                     className="modal-download-btn inline-flex items-center justify-center px-4 py-1.5 tablet:px-5 tablet:py-2 rounded-full border border-[#111111]/30 dark:border-[rgba(250,247,243,0.22)] dark:bg-[#222221] dark:hover:bg-[#2D2D2B] dark:text-[#FAF7F3] hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3]"
                   >
                     Download
@@ -295,6 +300,7 @@ export const CertificationsSection: React.FC = () => {
                           href={selectedCert.pdfPath}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => hapticVeryLight()}
                           className="font-sans font-medium text-[16px] text-[#111111] dark:text-[#FAF7F3] underline hover:opacity-75"
                         >
                           Open PDF
@@ -314,6 +320,7 @@ export const CertificationsSection: React.FC = () => {
                       href={selectedCert.verifyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => hapticVeryLight()}
                       className="mt-4 font-sans font-medium text-[14px] text-[#111111] dark:text-[#FAF7F3] underline hover:opacity-75"
                     >
                       Open PDF

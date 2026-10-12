@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { hapticVeryLight } from '../utils/haptics';
 
 export const NotFound: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ export const NotFound: React.FC = () => {
 
         <Link
           to="/"
+          onClick={() => hapticVeryLight()}
           className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-dark text-cream hover:bg-dark/90 dark:bg-[#FAF7F3] dark:text-[#0D0D0C] dark:hover:bg-[#FFFFFF] text-sm font-semibold transition-all shadow-md active:scale-95 mt-4"
         >
           <ArrowLeft className="w-4 h-4" />

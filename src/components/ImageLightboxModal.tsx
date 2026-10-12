@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { hapticVeryLight } from '../utils/haptics';
 
 const prefersReducedMotion =
   typeof window !== 'undefined' &&
@@ -120,6 +121,7 @@ export const ImageLightboxModal: React.FC<ImageLightboxModalProps> = ({
             type="button"
             onClick={(e) => {
               e.stopPropagation();
+              hapticVeryLight();
               onClose();
             }}
             aria-label="Close image"

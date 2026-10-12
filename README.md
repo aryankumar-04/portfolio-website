@@ -140,10 +140,14 @@ Under the hood, this application demonstrates clean frontend architecture and pe
 - 🌓 **Light & Dark Theme**: Sleek dark and warm light modes with a smooth circular reveal toggle.
 - 📱 **Fully Responsive Design**: Hand-tailored experiences across Mobile (`390px`), Tablet (`810px`), and Desktop (`1280px`).
 - ⚡ **Smooth Circular Page Transitions**: Native View Transitions API for seamless, instant route navigation.
+- 🌊 **Ambient Glow & Sea Wave Motion**: Atmospheric red glow around the hero portrait with independent 4-zone sea wave animation and viewport-based pausing.
+- 📳 **Haptic Feedback**: Three-tiered tactile feedback (`veryLight`, `light`, `medium`) via the Vibration API across buttons, links, and modal triggers on touch devices.
+- 📐 **Subtle Square Grid Background**: Pure CSS 35px grid pattern tailored for both light and dark themes.
+- 💫 **Kinetic Hero 3D Card Animation**: Scroll-scrubbed 3D travel flip on Desktop, viewport-triggered 3D flip on Tablet & Mobile, and stick-on-wall "Hey!" typography animation.
 - 📂 **Featured Projects**: Detailed case studies with interactive modals, tech stacks, and live demo links.
 - 🎓 **Education & Certifications**: Academic milestones and verified credentials with modal PDF previews.
 - 💬 **Testimonials**: Peer and client endorsements in responsive cards.
-- ✍️ **Thoughts (Blog)**: Engineering articles covering AI, development, and software architecture.
+- ✍️ **Thoughts (Blog) & First-Read Tracking**: Technical articles with write-once first-read tracking, live 30-second time-ago ladder, and click-to-expand image lightboxes.
 - 📄 **Interactive Resume Modal**: Quick, embedded PDF viewer for resume inspection.
 - 📬 **Live Contact Form**: Client-side validation, rate-limiting, and Web3Forms integration.
 
@@ -187,6 +191,7 @@ portfolio-website/
 ├── src/
 │   ├── assets/                   # Bundled graphics, textures, and illustrations
 │   │   ├── blog/                 # Blog post hero graphics and SVG figures
+│   │   ├── model/                # 3D assets (mini robot model)
 │   │   └── grain.png             # Film-grain noise overlay texture
 │   ├── components/               # Reusable UI components
 │   │   ├── Navbar.jsx            # Floating navigation bar with animated theme toggle
@@ -204,6 +209,7 @@ portfolio-website/
 │   ├── data/                     # Structured content datasets
 │   │   ├── work.ts               # Case studies, project metadata & deliverables
 │   │   ├── articles.js           # Technical blog posts, reading metrics & markdown
+│   │   ├── blog.ts               # Blog listing metadata and categories
 │   │   ├── techStackData.ts      # Categorized skills, tools, and proficiencies
 │   │   ├── educationData.ts      # Academic credentials and coursework
 │   │   ├── testimonials.ts       # Peer & client recommendations
@@ -215,6 +221,7 @@ portfolio-website/
 │   │   ├── WorkDetail.tsx        # In-depth case study breakdown with media galleries
 │   │   ├── BlogArchive.tsx       # Articles catalog with category filtering
 │   │   ├── BlogArticle.jsx       # Dynamic reading layout with lightbox & history
+│   │   ├── BlogDetail.tsx        # Article page wrapper component
 │   │   └── NotFound.tsx          # Custom 404 error page
 │   ├── sections/                 # Modular landing page sections
 │   │   ├── HeroBioSection.tsx    # Narrative bio, portrait & live status indicators
@@ -226,9 +233,12 @@ portfolio-website/
 │   │   ├── BlogSection.tsx       # Recent articles and technical thoughts preview
 │   │   └── ContactSection.tsx    # Live contact form with Web3Forms integration
 │   ├── types/                    # Shared TypeScript interfaces (CMS, Project, Post)
-│   ├── utils/                    # Utility helpers (read history, animation flags)
+│   ├── utils/                    # Utility helpers (haptics, read tracker, animation flags)
+│   │   ├── haptics.js            # 3-tier Vibration API haptic feedback helper
+│   │   ├── playedOnce.js         # Single-session animation execution tracker
+│   │   └── readTracker.js        # Persistent first-read timestamp & time-ago ladder
 │   ├── App.tsx                   # App root, routing hierarchy & Lenis smooth scroll
-│   ├── Hero.jsx                  # Pinned 200vh hero track with kinetic text scrubbing
+│   ├── Hero.jsx                  # Pinned 200vh hero track with ambient glow & wave motion
 │   ├── index.css                 # Global styles, font definitions & CSS variables
 │   └── main.tsx                  # Application bootstrap entry point
 ├── .env.example                  # Environment variable reference template
@@ -238,6 +248,7 @@ portfolio-website/
 ├── package.json                  # Dependencies, build scripts, and metadata
 ├── tailwind.config.js            # Design tokens, custom breakpoints & theme colors
 ├── tsconfig.json                 # TypeScript compiler options
+├── vercel.json                   # Vercel deployment configuration
 └── vite.config.ts                # Vite dev server and build configuration
 ```
 

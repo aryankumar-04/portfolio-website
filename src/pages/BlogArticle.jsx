@@ -6,8 +6,9 @@ import grainImg from '../assets/grain.png';
 import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
 import { ROUTE_TITLES } from '../config/site.js';
 import { AnimatedArrowBox } from '../components/AnimatedArrowBox';
-import { getArticleReadRecord, recordArticleRead, formatReadAgo } from '../utils/readHistory.js';
+import { recordFirstRead, formatReadAgo } from '../utils/readTracker.js';
 import { ImageLightboxModal } from '../components/ImageLightboxModal';
+import { hapticVeryLight, hapticLight } from '../utils/haptics.js';
 
 /* ============================================================
    Reduced-motion detection
@@ -221,6 +222,7 @@ function NewsletterCard({ idPrefix = 'desktop' }) {
             <button
               type="submit"
               disabled={status === 'submitting'}
+              onClick={() => hapticVeryLight()}
               className="w-full h-[46px] rounded-[12px] bg-white text-[#111111] tracking-[-0.01em] hover:bg-white/90 active:scale-[0.98] transition-all duration-200 mt-3 flex items-center justify-center disabled:opacity-60 cursor-pointer"
               style={{
                 fontFamily: 'var(--work-font-family)',
@@ -320,6 +322,7 @@ function BlockRenderer({ blocks }) {
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => hapticVeryLight()}
                           className="underline underline-offset-4 decoration-[#111111]/40 hover:decoration-[#111111] text-[#111111] dark:text-[#FAF7F3] dark:decoration-[rgba(250,247,243,0.4)] dark:hover:decoration-[#FAF7F3] transition-colors"
                           style={{
                             fontFamily: 'var(--work-font-family)',
@@ -424,7 +427,7 @@ function BlockRenderer({ blocks }) {
    ============================================================ */
 export default function BlogArticle() {
   const { slug } = useParams();
-  const [readAgoText, setReadAgoText] = useState(null);
+  const [readAgoText, setReadAgoText] = useState('Read just now');
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [moreArticles, setMoreArticles] = useState([]);
   const imageTriggerRef = useRef(null);
@@ -452,16 +455,37 @@ export default function BlogArticle() {
 
   useDocumentTitle(ROUTE_TITLES.thoughts);
 
-  // Read history tracking: load previous read time and update current visit
+  // Read tracker: record first open once and live-update label
   useEffect(() => {
     if (!article?.slug) return;
-    const prev = getArticleReadRecord(article.slug);
-    if (prev && prev.timestamp) {
-      setReadAgoText(formatReadAgo(prev.timestamp));
-    } else {
-      setReadAgoText(null);
-    }
-    recordArticleRead(article.slug);
+    const firstReadTime = recordFirstRead(article.slug);
+
+    const updateLabel = () => {
+      setReadAgoText(formatReadAgo(firstReadTime));
+    };
+
+    updateLabel();
+
+    // Live update every 30 seconds
+    const intervalId = setInterval(() => {
+      if (!document.hidden) {
+        updateLabel();
+      }
+    }, 30000);
+
+    // Recompute immediately when tab becomes visible again
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        updateLabel();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      clearInterval(intervalId);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, [article?.slug]);
 
   // Update meta description
@@ -475,14 +499,32 @@ export default function BlogArticle() {
   }, [article]);
 
   const navigate = useNavigate();
+  const isUiBackRef = useRef(false);
 
   const handleBack = () => {
+    isUiBackRef.current = true;
+    hapticLight();
     if (window.history.state && typeof window.history.state.idx === 'number' && window.history.state.idx > 0) {
       navigate(-1);
     } else {
       navigate('/blog', { replace: true });
     }
   };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (isUiBackRef.current) {
+        isUiBackRef.current = false;
+        return;
+      }
+      hapticLight();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
 
   // Escape key shortcut to return to previous page (when no menu or input is focused)
   useEffect(() => {

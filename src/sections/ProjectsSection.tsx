@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { playedOnce } from '../utils/playedOnce';
 import { AnimatedArrowBox } from '../components/AnimatedArrowBox';
+import { hapticVeryLight } from '../utils/haptics';
 
 const PROJECTS = [
   {
@@ -73,6 +74,7 @@ export const ProjectsSection: React.FC = () => {
           >
             <Link
               to="/work"
+              onClick={() => hapticVeryLight()}
               className="featured-view-all-btn group inline-flex items-center gap-2 tablet:gap-2.5 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/75 dark:hover:text-[#FAF7F3]/75 transition-colors select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2 rounded"
             >
               <span

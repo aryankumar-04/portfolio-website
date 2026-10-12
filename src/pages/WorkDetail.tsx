@@ -7,6 +7,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { ROUTE_TITLES } from '../config/site';
 import { AnimatedArrowBox } from '../components/AnimatedArrowBox';
 import { ImageLightboxModal } from '../components/ImageLightboxModal';
+import { hapticVeryLight, hapticLight } from '../utils/haptics';
 
 /* ============================================================
    Reduced-motion & hover detection (read once, no re-renders)
@@ -251,14 +252,32 @@ export const WorkDetail: React.FC = () => {
   }, [item]);
 
   const navigate = useNavigate();
+  const isUiBackRef = useRef(false);
 
   const handleBack = () => {
+    isUiBackRef.current = true;
+    hapticLight();
     if (window.history.state && typeof window.history.state.idx === 'number' && window.history.state.idx > 0) {
       navigate(-1);
     } else {
       navigate('/work', { replace: true });
     }
   };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (isUiBackRef.current) {
+        isUiBackRef.current = false;
+        return;
+      }
+      hapticLight();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
 
   // Lightbox state for image preview modal
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
@@ -454,7 +473,10 @@ export const WorkDetail: React.FC = () => {
                 <a
                   ref={liveLinkBtnRef}
                   href={directHref}
-                  onClick={handleLiveLinkBoxClick}
+                  onClick={(e) => {
+                    hapticVeryLight();
+                    handleLiveLinkBoxClick(e);
+                  }}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open live site"
@@ -486,7 +508,10 @@ export const WorkDetail: React.FC = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           role="menuitem"
-                          onClick={() => setIsPopoverOpen(false)}
+                          onClick={() => {
+                            hapticVeryLight();
+                            setIsPopoverOpen(false);
+                          }}
                           className="flex items-center justify-between gap-3 px-3.5 py-2.5 min-h-[44px] rounded-[10px] text-[#111111] dark:text-[#FAF7F3] hover:bg-[#111111]/[0.06] dark:hover:bg-[rgba(250,247,243,0.06)] active:bg-[#111111]/10 dark:active:bg-[rgba(250,247,243,0.1)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] group"
                         >
                           <span className="font-sans font-medium text-[15px] leading-none tracking-[-0.02em]">
@@ -516,7 +541,10 @@ export const WorkDetail: React.FC = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           role="menuitem"
-                          onClick={() => setIsPopoverOpen(false)}
+                          onClick={() => {
+                            hapticVeryLight();
+                            setIsPopoverOpen(false);
+                          }}
                           className="flex items-center justify-between gap-3 px-3.5 py-2.5 min-h-[44px] rounded-[10px] text-[#111111] dark:text-[#FAF7F3] hover:bg-[#111111]/[0.06] dark:hover:bg-[rgba(250,247,243,0.06)] active:bg-[#111111]/10 dark:active:bg-[rgba(250,247,243,0.1)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] group"
                         >
                           <span className="font-sans font-medium text-[15px] leading-none tracking-[-0.02em]">
@@ -563,6 +591,7 @@ export const WorkDetail: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open GitHub repository"
+                  onClick={() => hapticVeryLight()}
                   className="group inline-flex items-center justify-center w-[30px] h-[30px] rounded-[7px] shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3] focus-visible:ring-offset-2"
                 >
                   <AnimatedArrowBox variant="live" size="live" direction="up-right" />

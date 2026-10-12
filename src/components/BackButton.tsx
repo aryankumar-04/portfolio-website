@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatedArrowBox } from './AnimatedArrowBox';
+import { hapticLight } from '../utils/haptics';
 
 export interface BackButtonProps {
   className?: string;
@@ -16,6 +17,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
   const navigate = useNavigate();
 
   const handleBack = () => {
+    hapticLight();
     if (window.history.state && typeof window.history.state.idx === 'number' && window.history.state.idx > 0) {
       navigate(-1);
     } else {

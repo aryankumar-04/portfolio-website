@@ -94,7 +94,7 @@ export const WorkArchive: React.FC = () => {
   }, []);
 
   return (
-    <main className="w-full bg-[#FAF7F3] dark:bg-[#0D0D0C] pt-[var(--work-pt)] pb-[var(--work-pb)]">
+    <main className="w-full bg-transparent pt-[var(--work-pt)] pb-[var(--work-pb)]">
       <div className="w-full max-w-[var(--work-container-max-w)] mx-auto px-[var(--work-container-px)] flex flex-col gap-[var(--work-container-gap)]">
         {/* Back Button & Heading block */}
         <div className="flex flex-col gap-[10px] w-full items-start text-left">

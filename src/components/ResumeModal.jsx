@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { hapticVeryLight } from '../utils/haptics';
 
 export function ResumeModal({ isOpen, onClose }) {
   const closeButtonRef = useRef(null);
@@ -119,6 +120,7 @@ export function ResumeModal({ isOpen, onClose }) {
                   href="/resume.pdf"
                   download="Aryan_Resume.pdf"
                   aria-label="Download resume"
+                  onClick={() => hapticVeryLight()}
                   className="w-10 h-10 tablet:w-9 tablet:h-9 rounded-[8px] border border-[#111111]/30 dark:border-[rgba(250,247,243,0.22)] hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] dark:text-[#FAF7F3] bg-[#FAF7F3] dark:bg-[#222221] dark:hover:bg-[#2D2D2B] flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3]"
                 >
                   <svg
@@ -142,7 +144,10 @@ export function ResumeModal({ isOpen, onClose }) {
                 <button
                   ref={closeButtonRef}
                   type="button"
-                  onClick={onClose}
+                  onClick={() => {
+                    hapticVeryLight();
+                    onClose();
+                  }}
                   aria-label="Close resume preview"
                   className="w-10 h-10 tablet:w-9 tablet:h-9 rounded-[8px] border border-[#111111]/30 dark:border-[rgba(250,247,243,0.22)] hover:border-[#111111] hover:bg-[#111111] hover:text-[#FAF7F3] text-[#111111] dark:text-[#FAF7F3] bg-[#FAF7F3] dark:bg-[#222221] dark:hover:bg-[#2D2D2B] flex items-center justify-center transition-all duration-200 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#111111] dark:focus-visible:ring-[#FAF7F3]"
                 >
@@ -184,6 +189,7 @@ export function ResumeModal({ isOpen, onClose }) {
                     <a
                       href="/resume.pdf"
                       download="Aryan_Resume.pdf"
+                      onClick={() => hapticVeryLight()}
                       className="font-sans font-medium text-[15px] tablet:text-[16px] text-[#111111] dark:text-[#FAF7F3] underline hover:opacity-75"
                     >
                       Download Resume

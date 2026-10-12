@@ -11,6 +11,7 @@ import grainImg from './assets/grain.png';
 import { AnimatedArrowBox } from './components/AnimatedArrowBox';
 import { ResumeModal } from './components/ResumeModal';
 import { useTheme } from './context/ThemeContext';
+import { hapticVeryLight } from './utils/haptics';
 
 // Preload both dark and light variants to prevent blank frame on theme switch
 if (typeof window !== 'undefined') {
@@ -204,11 +205,63 @@ function useBreakpoint() {
 }
 
 /* ==========================================================================
+   Hero Ambient Glow Sea Wave Zone Layers
+   ========================================================================== */
+const GLOW_MASKS = {
+  top: 'radial-gradient(ellipse 130% 70% at 50% 0%, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 75%)',
+  right: 'radial-gradient(ellipse 70% 130% at 100% 50%, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 75%)',
+  bottom: 'radial-gradient(ellipse 130% 70% at 50% 100%, rgba(0, 0, 0, 0.4) 30%, rgba(0, 0, 0, 0) 75%)',
+  left: 'radial-gradient(ellipse 70% 130% at 0% 50%, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 75%)',
+};
+
+function HeroGlowZones({ isPaused, isGentle = false, roundedClass = 'rounded-[20px]' }) {
+  const suffix = isGentle ? '-gentle' : '';
+  const zones = [
+    { key: 'top', mask: GLOW_MASKS.top, zoneClass: `hero-glow-zone-top${suffix}` },
+    { key: 'right', mask: GLOW_MASKS.right, zoneClass: `hero-glow-zone-right${suffix}` },
+    { key: 'bottom', mask: GLOW_MASKS.bottom, zoneClass: `hero-glow-zone-bottom${suffix}` },
+    { key: 'left', mask: GLOW_MASKS.left, zoneClass: `hero-glow-zone-left${suffix}` },
+  ];
+
+  return (
+    <>
+      {zones.map(({ key, mask, zoneClass }) => (
+        <div
+          key={key}
+          className={`absolute inset-0 hero-glow-zone ${zoneClass} ${isPaused ? 'hero-glow-paused' : ''}`}
+          style={{
+            maskImage: mask,
+            WebkitMaskImage: mask,
+          }}
+        >
+          <img
+            src={avatarColorImg}
+            alt=""
+            loading="eager"
+            decoding="async"
+            className={`w-full h-full object-cover ${roundedClass}`}
+          />
+        </div>
+      ))}
+    </>
+  );
+}
+
+/* ==========================================================================
    1. DESKTOP HERO (Scroll-scrubbed sticky viewport, 3D travel flip)
    ========================================================================== */
 function DesktopHero({ onOpenResume }) {
   const { starSrc, boltSrc, starScale, boltScale } = useHeroThemeImages();
   const animationTrackRef = useRef(null);
+  const stickyRef = useRef(null);
+  const isHeroInView = useInView(stickyRef, { margin: '150px 0px 150px 0px' });
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  const isGlowPaused = hasMounted && !isHeroInView;
 
   const { scrollYProgress } = useScroll({
     target: animationTrackRef,
@@ -235,6 +288,9 @@ function DesktopHero({ onOpenResume }) {
       }
     });
   }, [smooth]);
+
+  // Ambient glow opacity driven in lockstep with the card landing
+  const glowOpacity = useTransform(smooth, [0.82, 1], [0, 0.5]);
 
   // STAGE 1 — Hero heading + credits (fade out)
   const heroOpacity = useTransform(smooth, [0, 0.16, 0.32], [1, 1, 0]);
@@ -269,12 +325,36 @@ function DesktopHero({ onOpenResume }) {
         className="absolute inset-x-0 top-0 h-[250vh] pointer-events-none"
       />
       <div
+        ref={stickyRef}
         className="sticky top-0 w-full h-screen"
         style={{
           overflow: 'clip',
           transform: 'translateZ(0)',
         }}
       >
+
+        {/* Ambient Glow behind the end-state card (Desktop only) */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-[5]"
+        >
+          <div className="relative w-[400px]">
+            <div style={{ paddingBottom: `${(1 / 0.877) * 100}%` }} />
+            <motion.div
+              style={{
+                opacity: glowOpacity,
+                willChange: 'opacity, transform',
+                transform: 'translateY(-10px) scale(1.25)',
+                transformOrigin: 'center center',
+                filter: 'blur(75px) saturate(1.5)',
+                WebkitFilter: 'blur(75px) saturate(1.5)',
+              }}
+              className="absolute inset-0"
+            >
+              <HeroGlowZones isPaused={isGlowPaused} isGentle={false} roundedClass="rounded-[20px]" />
+            </motion.div>
+          </div>
+        </div>
 
         {/* 3D Rotating Avatar Card */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[15]">
@@ -425,7 +505,7 @@ function DesktopHero({ onOpenResume }) {
             transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
             className="font-semibold text-[#111111] dark:text-[#8F8B84] text-[68px] leading-none tracking-[-0.02em] inline-block"
           >
-            ©2026
+            ©{new Date().getFullYear()}
           </motion.span>
           {/* 4e. "/CREATING SINCE 2023" */}
           <motion.span
@@ -475,6 +555,7 @@ function DesktopHero({ onOpenResume }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub profile"
+                  onClick={() => hapticVeryLight()}
                   className="group inline-flex items-center gap-3 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 cursor-pointer select-none"
                   whileTap={{ scale: 0.98 }}
                 >
@@ -523,7 +604,16 @@ function TabletHero({ onOpenResume }) {
   const rotateY = useMotionValue(
     prefersReducedMotion || tabletFlipPlayed ? -180 : 0
   );
+  const glowOpacity = useTransform(rotateY, [0, -180], [0, 0.5]);
   const cardRef = useRef(null);
+  const isHeroInView = useInView(cardRef, { margin: '150px 0px 150px 0px' });
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  const isGlowPaused = hasMounted && !isHeroInView;
   const hasTriggeredRef = useRef(prefersReducedMotion || tabletFlipPlayed);
 
   useEffect(() => {
@@ -643,6 +733,26 @@ function TabletHero({ onOpenResume }) {
             className="relative mt-8 mb-4 flex justify-center items-center select-none"
             style={{ perspective: 1000 }}
           >
+            {/* Ambient Glow behind the card (Tablet) */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
+            >
+              <motion.div
+                style={{
+                  opacity: glowOpacity,
+                  transform: 'translateY(-6px) scale(1.2)',
+                  transformOrigin: 'center center',
+                  filter: 'blur(45px) saturate(1.5)',
+                  WebkitFilter: 'blur(45px) saturate(1.5)',
+                  willChange: 'opacity, transform',
+                }}
+                className="w-[220px] h-[251px] relative"
+              >
+                <HeroGlowZones isPaused={isGlowPaused} isGentle={true} roundedClass="rounded-[24px]" />
+              </motion.div>
+            </div>
+
             {/* 3. Portrait Photo Card */}
             <motion.div
               initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
@@ -706,7 +816,7 @@ function TabletHero({ onOpenResume }) {
             transition={{ ...HERO_LOAD_IN.remaining, ease: HERO_LOAD_IN.ease }}
             className="font-semibold text-[#111111] dark:text-[#8F8B84] text-[48px] min-[900px]:text-[56px] leading-none tracking-[-0.02em] inline-block"
           >
-            ©2026
+            ©{new Date().getFullYear()}
           </motion.span>
           {/* 4e. "/CREATING SINCE 2023" */}
           <motion.span
@@ -745,6 +855,7 @@ function TabletHero({ onOpenResume }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub profile"
+                onClick={() => hapticVeryLight()}
                 className="group inline-flex items-center gap-3 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 cursor-pointer select-none"
                 whileTap={{ scale: 0.98 }}
               >
@@ -792,7 +903,16 @@ function MobileHero({ onOpenResume }) {
   const rotateY = useMotionValue(
     prefersReducedMotion || mobileFlipPlayed ? -180 : 0
   );
+  const glowOpacity = useTransform(rotateY, [0, -180], [0, 0.5]);
   const cardRef = useRef(null);
+  const isHeroInView = useInView(cardRef, { margin: '150px 0px 150px 0px' });
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  const isGlowPaused = hasMounted && !isHeroInView;
   const hasTriggeredRef = useRef(prefersReducedMotion || mobileFlipPlayed);
 
   useEffect(() => {
@@ -917,6 +1037,27 @@ function MobileHero({ onOpenResume }) {
             className="relative mt-8 mb-2 flex flex-col items-center justify-center select-none"
             style={{ perspective: 1000 }}
           >
+            {/* Ambient Glow behind the card (Mobile) */}
+            <div
+              aria-hidden="true"
+              className="absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-0"
+              style={{ width: 180, height: 206.5 }}
+            >
+              <motion.div
+                style={{
+                  opacity: glowOpacity,
+                  transform: 'translateY(-5px) scale(1.2)',
+                  transformOrigin: 'center center',
+                  filter: 'blur(35px) saturate(1.5)',
+                  WebkitFilter: 'blur(35px) saturate(1.5)',
+                  willChange: 'opacity, transform',
+                }}
+                className="w-[180px] h-[206.5px] relative"
+              >
+                <HeroGlowZones isPaused={isGlowPaused} isGentle={true} roundedClass="rounded-[32px]" />
+              </motion.div>
+            </div>
+
             {/* 3. Portrait Photo Card */}
             <motion.div
               initial={prefersReducedMotion ? false : { opacity: 0, filter: 'blur(4px)' }}
@@ -1027,6 +1168,7 @@ function MobileHero({ onOpenResume }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub profile"
+              onClick={() => hapticVeryLight()}
               className="group inline-flex items-center gap-2.5 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 select-none w-fit cursor-pointer"
               whileTap={{ scale: 0.98 }}
             >
@@ -1069,6 +1211,7 @@ export function Hero() {
   const savedScrollYRef = useRef(0);
 
   const handleOpenResume = (triggerEl) => {
+    hapticVeryLight();
     savedScrollYRef.current = typeof window !== 'undefined'
       ? (window.__lenis?.scroll ?? window.scrollY)
       : 0;

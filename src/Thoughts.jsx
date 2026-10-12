@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { playedOnce } from './utils/playedOnce';
 import { AnimatedArrowBox } from './components/AnimatedArrowBox';
+import { hapticVeryLight } from './utils/haptics';
 
 import blog1Img from './assets/blog/images/1-card.webp';
 import blog2Img from './assets/blog/images/2-card.webp';
@@ -161,6 +162,7 @@ export function Thoughts() {
                 <Link
                   to="/blog"
                   state={{ fromInternal: true }}
+                  onClick={() => hapticVeryLight()}
                   className="group inline-flex flex-row items-center gap-[10px] text-[#FAF7F3] select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FAF7F3]"
                 >
                   <span className="font-sans font-normal font-[400] text-[18px] leading-[1.4em] tracking-[-0.04em] whitespace-pre text-[#FAF7F3]">

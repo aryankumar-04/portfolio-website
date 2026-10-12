@@ -73,6 +73,7 @@ body::before {
   --color-surface-2: #FAF7F3;
   --color-surface-2-hover: #FFFFFF;
   --color-footer-bg: #111111;
+  --grid-line: rgba(0, 0, 0, 0.06);
 
   --color-text-heading: #111111;
   --color-text-body: rgba(17, 17, 17, 0.8);
@@ -239,6 +240,7 @@ body::before {
   --color-surface-2: #222221;
   --color-surface-2-hover: #2D2D2B;
   --color-footer-bg: #F1EDE6;
+  --grid-line: rgba(255, 255, 255, 0.045);
 
   --color-text-heading: #FAF7F3;
   --color-text-body: #B8B4AD;
@@ -253,6 +255,16 @@ body::before {
 
   --testimonial-card-rest-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
   --testimonial-card-hover-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.7);
+}
+
+/* Subtle Page Grid Background */
+.page-grid-bg {
+  background-color: var(--color-page-bg, #FAF7F3);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 35px 35px;
+  background-attachment: scroll;
 }
 
 @media (min-width: 810px) {
@@ -1320,3 +1332,147 @@ html[data-vt="theme"] body::before {
   mix-blend-mode: normal !important;
   opacity: 0 !important;
 }
+
+/* ==========================================================================
+   Hero Ambient Glow Sea Wave Keyframes & Classes
+   ========================================================================== */
+.hero-glow-zone {
+  will-change: opacity, transform;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Desktop Keyframes */
+@keyframes hero-glow-top {
+  0% {
+    opacity: 0.55;
+    transform: translateY(0px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.06);
+  }
+}
+
+@keyframes hero-glow-right {
+  0% {
+    opacity: 0.55;
+    transform: translateX(0px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(10px) scale(1.06);
+  }
+}
+
+@keyframes hero-glow-bottom {
+  0% {
+    opacity: 0.55;
+    transform: translateY(0px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(4px) scale(1.025);
+  }
+}
+
+@keyframes hero-glow-left {
+  0% {
+    opacity: 0.55;
+    transform: translateX(0px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-10px) scale(1.06);
+  }
+}
+
+/* Tablet & Mobile Keyframes (gentler movement) */
+@keyframes hero-glow-top-gentle {
+  0% {
+    opacity: 0.55;
+    transform: translateY(0px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.04);
+  }
+}
+
+@keyframes hero-glow-right-gentle {
+  0% {
+    opacity: 0.55;
+    transform: translateX(0px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(5px) scale(1.04);
+  }
+}
+
+@keyframes hero-glow-bottom-gentle {
+  0% {
+    opacity: 0.55;
+    transform: translateY(0px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(2px) scale(1.015);
+  }
+}
+
+@keyframes hero-glow-left-gentle {
+  0% {
+    opacity: 0.55;
+    transform: translateX(0px) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-5px) scale(1.04);
+  }
+}
+
+/* Desktop Zone Animation Bindings */
+.hero-glow-zone-top {
+  animation: hero-glow-top 9s ease-in-out infinite alternate -2.5s;
+}
+.hero-glow-zone-right {
+  animation: hero-glow-right 11s ease-in-out infinite alternate -6.2s;
+}
+.hero-glow-zone-bottom {
+  animation: hero-glow-bottom 13s ease-in-out infinite alternate -9.8s;
+}
+.hero-glow-zone-left {
+  animation: hero-glow-left 10s ease-in-out infinite alternate -4.1s;
+}
+
+/* Tablet & Mobile Zone Animation Bindings (~1.3x longer durations) */
+.hero-glow-zone-top-gentle {
+  animation: hero-glow-top-gentle 11.7s ease-in-out infinite alternate -3.2s;
+}
+.hero-glow-zone-right-gentle {
+  animation: hero-glow-right-gentle 14.3s ease-in-out infinite alternate -8.1s;
+}
+.hero-glow-zone-bottom-gentle {
+  animation: hero-glow-bottom-gentle 16.9s ease-in-out infinite alternate -12.7s;
+}
+.hero-glow-zone-left-gentle {
+  animation: hero-glow-left-gentle 13s ease-in-out infinite alternate -5.3s;
+}
+
+/* Pause wave when off-screen to preserve battery */
+.hero-glow-paused,
+.hero-glow-paused .hero-glow-zone,
+.hero-glow-zone.hero-glow-paused {
+  animation-play-state: paused !important;
+}
+
+/* Accessibility: turn wave off and show normal static glow under prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow-zone {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+

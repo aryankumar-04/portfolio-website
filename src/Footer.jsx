@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { hapticVeryLight } from './utils/haptics';
 
 /**
  * Footer Pill Link with Framer vertical text-roll hover animation.
@@ -58,6 +59,7 @@ export function Footer() {
   const location = useLocation();
 
   const handleNavClick = (e, targetId) => {
+    hapticVeryLight();
     e.preventDefault();
 
     const isHome = location.pathname === '/';
@@ -167,7 +169,10 @@ export function Footer() {
 
               <a
                 href="mailto:contact.aryankgupta@gmail.com"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  hapticVeryLight();
+                  e.stopPropagation();
+                }}
                 className="inline-block font-sans font-normal text-[#FAF7F3] dark:text-[#111111] text-[18px] tablet:text-[18px] desktop:text-[18px] leading-normal tracking-[-0.03em] hover:underline underline-offset-4 hover:opacity-80 dark:hover:text-[#4A4742] dark:hover:opacity-100 transition-colors transition-opacity"
               >
                 contact.aryankgupta@gmail.com

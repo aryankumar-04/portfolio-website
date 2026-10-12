@@ -7,6 +7,7 @@ import {
   HERO_LOAD_IN,
   HERO_REMAINING_TRANSITION,
 } from '../Hero';
+import { hapticVeryLight, hapticLight, hapticStrong } from '../utils/haptics';
 
 /**
  * Navbar component for Aryan Gupta's portfolio.
@@ -222,6 +223,7 @@ export default function Navbar() {
   const usesHeroIntro = isHome && !prefersReducedMotion;
 
   const handleToggleTheme = () => {
+    hapticStrong();
     if (
       typeof document === 'undefined' ||
       !document.startViewTransition ||
@@ -311,6 +313,7 @@ export default function Navbar() {
 
   // Smooth scroll handler for anchor links — works cross-route
   const handleNavClick = (e, href) => {
+    hapticVeryLight();
     e.preventDefault();
     setIsOpen(false);
 
@@ -426,7 +429,10 @@ export default function Navbar() {
             {/* Menu Button with Vertical Slide-Swap Icon Animation */}
             <motion.button
               type="button"
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => {
+                hapticLight();
+                setIsOpen(!isOpen);
+              }}
               whileHover={prefersReducedMotion ? undefined : { scale: 1.04 }}
               whileTap={prefersReducedMotion ? undefined : { scale: 0.94 }}
               transition={{ type: 'spring', duration: 0.3, bounce: 0 }}

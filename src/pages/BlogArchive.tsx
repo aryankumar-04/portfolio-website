@@ -19,7 +19,7 @@ export const BlogArchive: React.FC = () => {
   }, []);
 
   return (
-    <main className="w-full bg-[#FAF7F3] dark:bg-[#0D0D0C] pt-[var(--blog-list-pt)] pb-[var(--blog-list-pb)]">
+    <main className="w-full bg-transparent pt-[var(--blog-list-pt)] pb-[var(--blog-list-pb)]">
       <div className="w-full max-w-[var(--blog-list-container-max-w)] mx-auto px-[var(--blog-list-container-px)] flex flex-col gap-[var(--blog-list-container-gap)]">
         {/* Heading Block */}
         <div className="flex flex-col gap-[10px] w-full items-start text-left">

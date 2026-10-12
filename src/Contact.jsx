@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 import grainImg from './assets/grain.png';
+import { hapticVeryLight, hapticStrong } from './utils/haptics';
 
 // ============================================================================
 // CLIENT-SIDE RATE LIMITING (Max 2 submissions per visitor)
@@ -318,6 +319,7 @@ function SocialIconsList() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={social.name}
+              onClick={() => hapticVeryLight()}
               className="w-[40px] h-[40px] rounded-[8px] bg-[rgba(0,0,0,0.1)] hover:bg-[rgba(0,0,0,0.18)] active:bg-[rgba(0,0,0,0.22)] text-[#111111] dark:bg-[rgba(250,247,243,0.10)] dark:hover:bg-[rgba(250,247,243,0.16)] dark:active:bg-[rgba(250,247,243,0.22)] dark:text-[#FAF7F3] flex items-center justify-center transition-colors duration-200 select-none shrink-0"
             >
               {social.icon}
@@ -408,9 +410,11 @@ export function Contact() {
         formTarget.reset();
       } else {
         setResult('Error');
+        hapticStrong();
       }
     } catch (err) {
       setResult('Error');
+      hapticStrong();
     } finally {
       setIsSubmitting(false);
     }
@@ -502,7 +506,10 @@ export function Contact() {
                       <div className="w-full mt-4">
                         <button
                           type="button"
-                          onClick={handleResetForm}
+                          onClick={(e) => {
+                            hapticVeryLight();
+                            handleResetForm(e);
+                          }}
                           className="w-full h-[44px] rounded-[8px] bg-[#FAF7F3] hover:bg-white active:scale-[0.99] text-[#111111] dark:bg-[#FAF7F3] dark:hover:bg-[#FFFFFF] dark:text-[#0D0D0C] font-sans font-medium text-[16px] tracking-[-0.02em] flex items-center justify-center transition-colors duration-200 cursor-pointer select-none"
                         >
                           Send another message
@@ -631,6 +638,7 @@ export function Contact() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
+                      onClick={() => hapticStrong()}
                       className="w-full h-[44px] rounded-[8px] bg-[#FAF7F3] hover:bg-white active:scale-[0.99] text-[#111111] dark:bg-[#FAF7F3] dark:hover:bg-[#FFFFFF] dark:text-[#0D0D0C] font-sans font-medium text-[16px] tracking-[-0.02em] flex items-center justify-center transition-colors duration-200 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed select-none"
                     >
                       {isSubmitting ? (
