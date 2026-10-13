@@ -312,6 +312,20 @@ function DesktopHero({ onOpenResume }) {
   const bioROp = useTransform(smooth, [0.70, 0.95], [0, 1]);
   const bioRY = useTransform(smooth, [0.70, 0.95], [40, 0]);
 
+  // Bio right column & buttons reveal threshold (~0.05 after bioROp begins at 0.70)
+  const BUTTONS_REVEAL_THRESHOLD = 0.75;
+  const bioRPointerEvents = useTransform(smooth, (v) => (v >= BUTTONS_REVEAL_THRESHOLD ? 'auto' : 'none'));
+  const bioRVisibility = useTransform(smooth, (v) => (v >= BUTTONS_REVEAL_THRESHOLD ? 'visible' : 'hidden'));
+  const [isButtonsRevealed, setIsButtonsRevealed] = useState(() => smooth.get() >= BUTTONS_REVEAL_THRESHOLD);
+
+  useEffect(() => {
+    setIsButtonsRevealed(smooth.get() >= BUTTONS_REVEAL_THRESHOLD);
+    return smooth.on('change', (latest) => {
+      const revealed = latest >= BUTTONS_REVEAL_THRESHOLD;
+      setIsButtonsRevealed((prev) => (prev !== revealed ? revealed : prev));
+    });
+  }, [smooth]);
+
   return (
     <div
       className="relative w-full bg-transparent"
@@ -539,8 +553,14 @@ function DesktopHero({ onOpenResume }) {
             <div className="w-[400px] shrink-0" />
 
             <motion.div
-              style={{ opacity: bioROp, y: bioRY, willChange: 'transform, opacity' }}
-              className="w-[360px] max-w-[360px] flex flex-col gap-5 justify-end pointer-events-auto"
+              style={{
+                opacity: bioROp,
+                y: bioRY,
+                pointerEvents: bioRPointerEvents,
+                visibility: bioRVisibility,
+                willChange: 'transform, opacity',
+              }}
+              className="w-[360px] max-w-[360px] flex flex-col gap-5 justify-end"
             >
               <p className="font-sans not-italic font-[400] font-normal text-[#111111]/80 dark:text-[#B8B4AD] text-[18px] leading-[1.4em] tracking-[-0.04em]">
                 I love turning ideas into thoughtful digital products: clean interfaces, smooth interactions, and the details that feel effortless.
@@ -549,12 +569,21 @@ function DesktopHero({ onOpenResume }) {
                 My goal is to keep learning, build meaningful things, and turn every single project into a real chance to grow as a much better developer.
               </p>
 
-              <div className="flex flex-wrap items-center gap-3 tablet:gap-6 desktop:gap-8 py-1">
+              <motion.div
+                style={{
+                  pointerEvents: bioRPointerEvents,
+                  visibility: bioRVisibility,
+                }}
+                aria-hidden={!isButtonsRevealed}
+                inert={!isButtonsRevealed ? true : undefined}
+                className="flex flex-wrap items-center gap-3 tablet:gap-6 desktop:gap-8 py-1"
+              >
                 <motion.a
                   href="https://github.com/aryankumar-04"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub profile"
+                  tabIndex={isButtonsRevealed ? 0 : -1}
                   onClick={() => hapticVeryLight()}
                   className="group inline-flex items-center gap-3 text-[#111111] dark:text-[#FAF7F3] hover:text-[#111111]/70 dark:hover:text-[#FAF7F3]/70 transition-colors py-1 cursor-pointer select-none"
                   whileTap={{ scale: 0.98 }}
@@ -567,6 +596,7 @@ function DesktopHero({ onOpenResume }) {
 
                 <motion.button
                   type="button"
+                  tabIndex={isButtonsRevealed ? 0 : -1}
                   onClick={(e) => {
                     e.preventDefault();
                     onOpenResume(e.currentTarget);
@@ -581,7 +611,7 @@ function DesktopHero({ onOpenResume }) {
                   </span>
                   <AnimatedArrowBox variant="light" size="sm" direction="up-right" />
                 </motion.button>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>

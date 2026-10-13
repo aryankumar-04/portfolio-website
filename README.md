@@ -139,6 +139,12 @@ Under the hood, this application demonstrates clean frontend architecture and pe
 
 - 🌓 **Light & Dark Theme**: Sleek dark and warm light modes with a smooth circular reveal toggle.
 - 📱 **Fully Responsive Design**: Hand-tailored experiences across Mobile (`390px`), Tablet (`810px`), and Desktop (`1280px`).
+- 🤖 **Interactive 3D Mini Robot Companion**: Built with React Three Fiber and drei, featuring animated eye expressions driven by morph targets (blinks, winks, looking around, shocked, heart eyes, sleepy, thinking, and error).
+- 🧠 **Autonomous Robot Brain**: State machine that organically pairs body motions with synced eye expressions so idle behavior never feels repetitive.
+- 🎭 **Adaptive Visitor Personalities**: Dynamic personality engine that adapts to visitor state (new vs. returning, device type, time of day, and scroll/click activity).
+- ⚡ **Interactive Reactions & Easter Egg**: Click, double-click, hover, and long-press micro-reactions, along with a hidden glitch/error easter egg triggered by rapid clicking.
+- 💬 **Theme-Aware Speech Bubble**: Contextual speech bubble that appears on click, automatically adapting to light and dark themes.
+- 🙏 **One-Time Namaste Greeting**: Gentle traditional greeting animation with 3D hands and bow that plays once per browser session.
 - ⚡ **Smooth Circular Page Transitions**: Native View Transitions API for seamless, instant route navigation.
 - 🌊 **Ambient Glow & Sea Wave Motion**: Atmospheric red glow around the hero portrait with independent 4-zone sea wave animation and viewport-based pausing.
 - 📳 **Haptic Feedback**: Three-tiered tactile feedback (`veryLight`, `light`, `medium`) via the Vibration API across buttons, links, and modal triggers on touch devices.
@@ -191,9 +197,14 @@ portfolio-website/
 ├── src/
 │   ├── assets/                   # Bundled graphics, textures, and illustrations
 │   │   ├── blog/                 # Blog post hero graphics and SVG figures
-│   │   ├── model/                # 3D assets (mini robot model)
+│   │   ├── model/                # 3D assets (mini_robot_eyes_v6.glb companion model)
 │   │   └── grain.png             # Film-grain noise overlay texture
 │   ├── components/               # Reusable UI components
+│   │   ├── robot/                # 3D robot brain, personality engine & speech bubble
+│   │   │   ├── personalitySystem.js # Visitor adaptation & interaction tracker
+│   │   │   ├── RobotSpeechBubble.jsx # Theme-aware contextual speech bubble
+│   │   │   └── useRobotBrain.js  # Synced motions, morph expressions & idle brain
+│   │   ├── MiniRobot.jsx         # 3D interactive mini robot canvas companion (R3F + drei)
 │   │   ├── Navbar.jsx            # Floating navigation bar with animated theme toggle
 │   │   ├── ViewTransitionsRouter.tsx # Circular reveal page transitions handler
 │   │   ├── BackButton.tsx        # Micro-interactive return navigation button

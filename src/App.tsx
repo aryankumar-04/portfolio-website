@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
@@ -14,6 +14,8 @@ import BlogArticle from './pages/BlogArticle';
 import { NotFound } from './pages/NotFound';
 import { useThemeFavicon } from './hooks/useThemeFavicon';
 import { ScrollManager } from './components/ScrollManager';
+
+const MiniRobot = lazy(() => import('./components/MiniRobot'));
 
 const AppContent: React.FC = () => {
   useThemeFavicon();
@@ -55,6 +57,9 @@ const AppContent: React.FC = () => {
           </Routes>
         </div>
         <Footer />
+        <Suspense fallback={null}>
+          <MiniRobot />
+        </Suspense>
       </div>
     </ViewTransitionsRouter>
   );
